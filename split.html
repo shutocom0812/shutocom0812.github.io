@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>割り勘計算 | だむめも</title>
+		<title>立替精算機 | だむめも</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="color-scheme" content="dark light">
 		<style>
@@ -91,6 +91,12 @@
 				background-color: var(--color2);
 				border-color: var(--color2);
 				caret-color: var(--color1);
+			}
+			input[type="text"]:invalid:hover, input[type="number"]:invalid:hover,
+			input[type="text"]:invalid:focus, input[type="number"]:invalid:focus{
+				background-color: var(--color1);
+				border-color: var(--color2);
+				caret-color: var(--color3);
 			}
 			input[type="radio"], input[type="checkbox"]{
 				width: 0;
