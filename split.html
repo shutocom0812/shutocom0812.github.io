@@ -430,6 +430,7 @@
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
 			MemberName.id = `member${num1}Name`;
+			MemberName.classList.add("member-name");
 			MemberName.classList.add("name");
 			MemberName.placeholder = "名前";
 
@@ -449,11 +450,13 @@
 
 		function editMember(){	//メンバーを編集する
 			members = [];	//配列初期化
-			for (let i=0; i<num1; i++) {
-				if (document.getElementById(`member${i}Name`).value != "") {
+			const MemberNames = document.getElementsByClassName("member-name");
+
+			for (let i=0; i<MemberNames.length; i++) {
+				if (MemberNames[i].value != "") {
 					members.push({
-						"number": `member${i}`,
-						"name": document.getElementById(`member${i}Name`).value || `メンバー${i}`
+						"number": MemberNames[i].id.replace("Name", ""),
+						"name": MemberNames[i].value
 					});
 				}
 			}
