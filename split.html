@@ -3,10 +3,6 @@
 		<title>割り勘計算 | だむめも</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="color-scheme" content="dark light">
-		<meta name="twitter:card" content="summary">
-		<meta name="twitter:site" content="@shutocom0812">
-		<meta name="twitter:domain" content="shutocom0812.github.io">
-		<meta name="twitter:title" content="立替精算機">
 		<style>
 			/*display, postion → width, height → margin, padding → background-color → font, color, text-align, vertical-align → border → other*/
 			/*RESET*/
@@ -72,7 +68,7 @@
 				color: var(--color1);
 				border: 3px solid var(--color1);
 				border-radius: var(--radius);
-				caret-color: var(--color1);
+				caret-color: var(--color3);
 				appearance: none;
 				outline: none;
 			}
@@ -93,6 +89,7 @@
 			input[type="text"]:invalid, input[type="number"]:invalid, select:invalid{
 				background-color: var(--color2);
 				border-color: var(--color2);
+				caret-color: var(--color1);
 			}
 			input[type="radio"], input[type="checkbox"]{
 				width: 0;
