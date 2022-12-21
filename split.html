@@ -3,116 +3,180 @@
 		<title>割り勘計算 | だむめも</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="color-scheme" content="dark light">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:site" content="@shutocom0812">
+		<meta name="twitter:domain" content="shutocom0812.github.io">
+		<meta name="twitter:title" content="立替精算機">
 		<style>
+			/*display, postion → width, height → margin, padding → background-color → font, color, text-align, vertical-align → border → other*/
+			/*RESET*/
 			fieldset{
 				all: unset;
-				display: block;
-				box-sizing: border-box;
 			}
 			*, ::before, ::after{
 				margin: 0;
 				padding: 0;
 				box-sizing: border-box;
 			}
+
+			/*ROOT*/
 			:root{
 				--white: #E4DAD9;
 				--black: #021e1e;
 				--color1: #E5996D;
 				--color2: #AD4133;
 				--color3: #642327;
+
+				--gap: 4px;
+				--radius: 4px;
+				--height: 40px;
 			}
-			@media (prefers-color-scheme: dark) {
-				:root{
-					--back: var(--black);
-				}
-			}
-			@media (prefers-color-scheme: light) {
-				:root{
-					--back: var(--color1);
-				}
-			}
+
+			/*MAIN*/
 			html{
+				font: bold 16px/2 sans;
 				color: var(--color1);
-				font: 16px/2 sans;
-				font-weight: bold;
 			}
 			body{
-				background-color: var(--back);
 				min-height: 100vh;
+				background-color: var(--color1);
 			}
-			/*form*/
-			/*fieldset*/
+			::selection{
+				color: var(--color3);
+				background-color: var(--color1);
+			}
+
+			/*COMPONENTS*/
+			/*FORM*/
+			/*FIELDSET*/
 			fieldset{
+				display: block;
+				box-sizing: border-box;
+				margin: var(--gap);
+				padding: 0 8px 8px 8px;
 				background-color: var(--color3);
-				margin: 4px;
-				padding: 8px;
-				padding-top: 0;
 				border: none;
-				border-radius: 4px;
+				border-radius: var(--radius);
 			}
 			legend{
+				padding: var(--gap) 8px;
 				background-color: var(--color3);
-				color: var(--color1);
-				padding: 4px 8px;
-				border-radius: 4px;
 				font-size: 1.2em;
-			}
-			/*input*/
-			input[type="number"], input[type="text"]{
-				background-color: transparent;
-				outline: none;
 				color: var(--color1);
-				padding: 4px;
-				border: 3px solid var(--color1);
-				border-radius: 4px;
-				appearance: none;
-				font: 16px/2 sans;
+				border-radius: var(--radius);
 			}
-			input::placeholder{
+			/*INPUT*/
+			input[type="text"], input[type="number"]{
+				padding: 4px;
+				background-color: transparent;
+				color: var(--color1);
+				border: 3px solid var(--color1);
+				border-radius: var(--radius);
+				caret-color: var(--color1);
+				appearance: none;
+				outline: none;
+			}
+			input[type="text"]::placeholder, input[type="number"]::placeholder{
 				color: var(--color1);
 				opacity: 0.8;
 			}
 			input[type="text"]:hover, input[type="number"]:hover, 
 			input[type="text"]:focus, input[type="number"]:focus{
-				background-color: var(--color2);
-				border-color: var(--color2);
-				color: var(--color1);
+				background-color: var(--color1);
+				color: var(--color3);
+				border-color: var(--color1);
 			}
 			input[type="text"]:hover::placeholder, input[type="number"]:hover::placeholder, 
 			input[type="text"]:focus::placeholder, input[type="number"]:focus::placeholder{
 				color: var(--color1);
 			}
 			input[type="text"]:invalid, input[type="number"]:invalid, select:invalid{
+				background-color: var(--color2);
 				border-color: var(--color2);
 			}
-			::selection{
+			input[type="radio"], input[type="checkbox"]{
+				width: 0;
+				height: 0;
+				opacity: 0;
+			}
+			input[type="radio"] + label{
+				display: inline-block;
+				padding: 0 3px;
+				color: var(--color1);
+				border: 3px double var(--color1);
+				border-radius: var(--radius);
+			}
+			input[type="radio"]:hover + label, 
+			input[type="radio"]:focus + label{
+				color: var(--color2);
+				border-color: var(--color2);
+			}
+			input[type="radio"]:checked + label{
 				background-color: var(--color1);
 				color: var(--color3);
-			}
-			/*button*/
-			button{
-				background-color: transparent;
-				padding: 4px;
 				border: 3px solid var(--color1);
-				border-radius: 4px;
+			}
+			input[type="checkbox"] + label{
+				position: relative;
+				display: block;
+				width: 30px;
+				height: 30px;
+				background-color: var(--color2);
+				border-radius: var(--radius);
+			}
+			input[type="checkbox"]:checked + label{
+				background-color: var(--color1);
+			}
+			input[type="checkbox"]:checked + label::before {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 40%;
+				height: 4px;
+				background-color: var(--color3);
+				border-radius: var(--radius);
+				transform: translate(-6px, 5px) rotateZ(-135deg);
+				transform-origin: 2px 2px;
+			}
+			input[type="checkbox"]:checked + .check-label::after {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 76%;
+				height: 4px;
+				background-color: var(--color3);
+				border-radius: var(--radius);
+				transform: translate(-6px, 5px) rotateZ(-45deg);
+				transform-origin: 2px 2px;
+			}
+			/*BUTTON*/
+			button{
+				padding: var(--gap);
+				background-color: transparent;
+				font: bold 16px/2 sans;
+				border: 3px solid var(--color1);
+				border-radius: var(--radius);
 				outline: none;
-				font-weight: bold;
 				transition-duration: 0.1s;
 			}
 			button:hover, button:focus{
 				background-color: var(--color1);
 				transform: scale(0.9);
 			}
-			/*select*/
+			/*SELECT*/
 			select{
+				max-width: 6em;
+				padding: var(--gap);
 				background-color: transparent;
 				color: var(--color1);
-				border: 3px solid var(--color1);
-				border-radius: 4px;
-				padding: 4px;
-				outline: none;
-				max-width: 6em;
 				text-overflow: ellipsis;
+				border: 3px solid var(--color1);
+				border-radius: var(--radius);
+				outline: none;
 			}
 			select:hover, select:focus{
 				background-color: var(--color2);
@@ -120,34 +184,34 @@
 				border-color: var(--color2);
 			}
 
-			/*header*/
+			/*LAYOUT*/
+			/*HEADER*/
 			.header{
-				background-color: var(--color3);
 				padding: 30px 0;
+				background-color: var(--color3);
 				text-align: center;
 			}
-
-			/*article*/
+			/*ARTICLE*/
 			.main{
-				padding: 8px;
+				padding: calc(var(--gap) * 2);
 			}
 			.main-title{
-				text-align: center;
 				color: var(--color3);
+				text-align: center;
 			}
-
-			/*row*/
+			/*CALCULATOR*/
+			/*MEMBER, ITEM*/
 			.row{
 				display: flex;
-				padding: 4px;
+				padding: var(--gap);
 				align-items: center;
 				justify-content: space-between;
 			}
 			.row *:not(:first-child){
-				margin-left: 4px;
+				margin-left: var(--gap);
 			}
 			.row input, .row select{
-				height: 40px;
+				height: var(--height);
 			}
 			.row input[type="text"]{
 				flex-grow: 3;
@@ -155,26 +219,26 @@
 			.row input[type="number"], .row select{
 				flex-grow: 1;
 			}
-
-			/*name*/
+			/*INPUT DESIGN*/
 			.name{
 				min-width: 5em;
 			}
-
-			/*buttons*/
+			.price{
+				min-width: 4em;
+			}
+			/*BUTTONS WRAPPER*/
 			.buttons{
 				display: flex;
+				padding: var(--gap);
 				align-items: center;
 				justify-content: space-between;
-				padding: 4px;
 			}
-
-			/*button-design*/
+			/*BUTTON DESIGN*/
 			.rmv, .add{
 				display: block;
-				width: 40px;
-				height: 40px;
 				position: relative;
+				width: var(--height);
+				height: var(--height);
 				flex-grow: 0;
 				flex-shrink: 0;
 			}
@@ -182,7 +246,8 @@
 				background-color: var(--color2);
 				border-color: var(--color2);
 			}
-			.rmv::before, .add::before, .rmv::after, .add::after{
+			.rmv::before, .add::before, 
+			.rmv::after, .add::after{
 				content: "";
 				position: absolute;
 				top: 50%;
@@ -190,7 +255,7 @@
 				width: 3px;
 				height: 80%;
 				background-color: var(--color1);
-				border-radius: 4px;
+				border-radius: var(--radius);
 			}
 			.rmv::before{
 				transform:  translate(-50%,-50%) rotate(45deg);
@@ -211,142 +276,67 @@
 				background-color: var(--color3);
 			}
 			.submit{
+				height: var(--height);
+				padding: 0 8px;
 				background-color: var(--color1);
 				color: var(--color3);
-				height: 40px;
-				padding: 2px 8px;
+				font: bold 16px/2 sans;
 				text-align: center;
-				font-size:16px;
 			}
 			.submit:hover, .submit:focus{
 				background-color: var(--color2);
 				color: var(--color1);
 				border-color: var(--color2);
 			}
-
-			/*input-design*/
-			.price{
-				width: 4em;
-				}
-
-			/*radio*/
-			input[type="radio"]{
-				width: 0;
-				height: 0;
-				opacity: 0;
-			}
-			input[type="radio"] + .radio-label{
-				display: inline-block;
-				padding: 0 3px;
-				border: 3px double var(--color1);
-				border-radius: 4px;
-				color: var(--color1);
-			}
-			input[type="radio"]:hover + .radio-label, 
-			input[type="radio"]:focus + .radio-label{
-				border-color: var(--color2);
-				color: var(--color2);
-			}
-			input[type="radio"]:checked + .radio-label{
-				background-color: var(--color1);
-				border-color: var(--color1);
-				border-style: solid;
-				color: var(--color3);
-			}
-			/*payer*/
+			/*PAYER*/
 			.payer-field p{
-				padding: 0 4px;
+				padding: 0 var(--gap);
 			}
 			.payer-div{
 				width: 100%;
+				padding: var(--gap);
+				border-radius: var(--radius);
 				overflow: hidden;
-				padding: 4px;
-				border-radius: 4px;
 			}
-			#payerTable{
+			.payer-table{
 				display: block;
 				min-width: 100%;
-				padding: 0;
 				overflow-x: auto;
 			}
-			#payerTable th{
-				padding: 4px;
-				background-color: var(--color1);
-				color: var(--color3);
+			.payer-table th{
 				min-width:5em;
 				max-width:8em;
+				padding: var(--gap);
+				background-color: var(--color1);
+				color: var(--color3);
 				word-break: break-all;
 			}
-			#payerTable th:first-child{
+			.payer-table th:first-child{
 				position: sticky;
 				left: 0;
 				top: 0;
 				width: 7em;
 				z-index: 10;
-				border-left: 1px solid var(--color3);
 				border-right: 1px solid var(--color3);
-				border-spacing: 0;
 			}
-			#payeTable th, #payerTable td{
-				padding: 8px;
-			}
-			input[type="checkbox"]{
-				width:0;
-				height:0;
-				opacity:0;
+			.payer-table th, .payer-table td{
+				padding: 4px;
 			}
 			.payer-box{
-				width: 100%;
 				display: flex;
+				width: 100%;
 				justify-content: center;
-			}
-			input[type="checkbox"] + .check-label{
-				position:relative;
-				display: block;
-				width: 30px;
-				height: 30px;
-				background-color: var(--color2);
-				border-radius: 4px
-			}
-			input[type="checkbox"]:checked + .check-label{
-				background-color: var(--color1);
-			}
-			input[type="checkbox"]:checked + .check-label::before {
-				content: "";
-				display: block;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 40%;
-				height: 4px;
-				border-radius: 4px;
-				transform: translate(-6px, 5px) rotateZ(-135deg);
-				transform-origin: 2px 2px;
-				background-color: var(--color3);
-			}
-			input[type="checkbox"]:checked + .check-label::after {
-				content: "";
-				display: block;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 76%;
-				height: 4px;
-				border-radius: 4px;
-				transform: translate(-6px, 5px) rotateZ(-45deg);
-				transform-origin: 2px 2px;
-				background-color: var(--color3);
 			}
 
 			/*result*/
-			#resultMath{
+			.result-math{
 				border-bottom: 3px dotted var(--color1);
 				border-radius: 0;
 			}
-			#resultList{
-				padding: 4px;
+			.result-list{
+				padding: var(--gap);
 			}
-			#resultList, #resultList ul{
+			.result-list, .result-list ul{
 				padding-left: 12px;
 				list-style-type: none;
 			}
@@ -354,20 +344,20 @@
 	</head>
 	<body>
 		<header class="header">
-			<h2>だむめも</h2>
+			<h2 class="blog-title">だむめも</h2>
 		</header>
 		<article class="main">
-			<h1 class="main-title">立替計算機</h1>
-			<form name="spilit" onsubmit="event.preventDefault();">
-				<fieldset name="member">
+			<h1 class="main-title">立替精算機</h1>
+			<form id="splitForm" class="split-form" name="splitForm" onsubmit="event.preventDefault();">
+				<fieldset class="member-field" name="memberField">
 					<legend>メンバー</legend>
-					<div id="memberForm"></div>
+					<div id="memberForm" class="member-form"></div>
 					<div class="buttons">
 						<button type="button" class="add" name="memberAdd" onclick="addMember();"></button>
 						<button type="button" class="submit" name="memberSubmit" onclick="editMember();">決定</button>
 					</div>
 				</fieldset>
-				<fieldset name="item">
+				<fieldset class="item-field" name="itemField">
 					<legend>立替費目</legend>
 					<div id="itemForm"></div>
 					<div class="buttons">
@@ -375,16 +365,16 @@
 						<button type="button" class="submit" name="itemSubmit" onclick="editItem();">決定</button>
 					</div>
 				</fieldset>
-				<fieldset class="payer-field" name="payer" onchange="editPayer();">
+				<fieldset class="payer-field" name="payerField" onchange="editPayer();">
 					<legend>支払者</legend>
 					<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
-					<div class="payer-div">
-						<table id="payerTable"></table>
+					<div id="payerDiv" class="payer-div">
+						<table id="payerTable" class="payer-table"></table>
 					</div>
 				</fieldset>
-				<fieldset name="result">
+				<fieldset id="resultField" class="result-field" name="resultField">
 					<legend>結果</legend>
-					<fieldset id="resultMath" onchange="editPayer();">
+					<fieldset id="resultMath" class="result-math" onchange="editPayer();">
 						<span>小数点以下</span>
 						<input type="radio" id="mathCeil" name="math" value="ceil" checked>
 						<label for="mathCeil" class="radio-label">切上げ</label>
@@ -393,13 +383,10 @@
 						<input type="radio" id="mathFloor" name="math" value="floor">
 						<label for="mathFloor" class="radio-label">切捨て</label>
 					</fieldset>
-					<ul id="resultList"></ul>
+					<ul id="resultList" class="result-list"></ul>
 				</fieldset>
 			</form>
-			
 		</article>
-		<footer class="footer">
-		</footer>
 	</body>
 	<script>
 		// HTMLElement, HTMLCollection: UpperCamelCase
@@ -416,7 +403,7 @@
 		}
 
 		function calc(target){	//端数処理
-			const method = document.forms.spilit.math.value;
+			const method = document.forms.splitForm.math.value;
 			switch (method) {
 				case "floor":
 					return Math.floor(target);
