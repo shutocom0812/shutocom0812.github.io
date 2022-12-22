@@ -1,10 +1,8 @@
 /*LAYOUT*/
 body{
 	display: flex;
-	min-height: 100%;
-	flex-flow: row wrap;
-	justify-content: space-between;
-	align-content: space-between;
+	min-height: 100vh;
+	flex-direction: column;
 }
 @media screen and (min-width: 768px){
 	body{
@@ -18,6 +16,7 @@ body{
 	padding: 30px 0;
 	background: var(--color2);
 	text-align: center;
+	
 }
 .blog-title{
 	
@@ -26,6 +25,7 @@ body{
 .main{
 	width: 100%;
 	padding: calc(var(--gap) * 2);
+	flex-grow: 1;
 }
 .main-title{
 	color: var(--color2);
