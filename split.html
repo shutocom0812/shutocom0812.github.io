@@ -1,207 +1,13 @@
-<html>
+<html lang="ja">
 	<head>
 		<title>立替精算機 | だむめも</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="color-scheme" content="dark light">
+		<link rel="stylesheet" href="/resource/main.css?202212221700" />
+		<link rel="stylesheet" href="/resource/layout.css?202212221700" />
 		<style>
-			/*display, postion → width, height → margin, padding → background-color → font, color, text-align, vertical-align → border → other*/
-			/*RESET*/
-			fieldset{
-				all: unset;
-			}
-			*, ::before, ::after{
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-
-			/*ROOT*/
-			:root{
-				--white: #E4DAD9;
-				--black: #021e1e;
-				--color1: #E5996D;
-				--color2: #AD4133;
-				--color3: #642327;
-
-				--gap: 4px;
-				--radius: 4px;
-				--height: 40px;
-			}
-
-			/*MAIN*/
 			html{
-				font: bold 16px/2 sans;
 				color: var(--color1);
-			}
-			body{
-				min-height: 100vh;
-				background-color: var(--color1);
-			}
-			::selection{
-				color: var(--color3);
-				background-color: var(--color1);
-			}
-
-			/*COMPONENTS*/
-			/*FORM*/
-			/*FIELDSET*/
-			fieldset{
-				display: block;
-				box-sizing: border-box;
-				margin: var(--gap);
-				padding: 0 8px 8px 8px;
-				background-color: var(--color3);
-				border: none;
-				border-radius: var(--radius);
-			}
-			legend{
-				padding: var(--gap) 8px;
-				background-color: var(--color3);
-				font-size: 1.2em;
-				color: var(--color1);
-				border-radius: var(--radius);
-			}
-			/*INPUT*/
-			input[type="text"], input[type="number"]{
-				padding: 4px;
-				background-color: transparent;
-				font: bold 16px/2 sans;
-				color: var(--color1);
-				border: 3px solid var(--color1);
-				border-radius: var(--radius);
-				caret-color: var(--color3);
-				appearance: none;
-				outline: none;
-			}
-			input[type="text"]::placeholder, input[type="number"]::placeholder{
-				color: var(--color1);
-				opacity: 0.8;
-			}
-			input[type="text"]:hover, input[type="number"]:hover, 
-			input[type="text"]:focus, input[type="number"]:focus{
-				background-color: var(--color1);
-				color: var(--color3);
-				border-color: var(--color1);
-			}
-			input[type="text"]:hover::placeholder, input[type="number"]:hover::placeholder, 
-			input[type="text"]:focus::placeholder, input[type="number"]:focus::placeholder{
-				color: var(--color1);
-			}
-			input[type="text"]:invalid, input[type="number"]:invalid, select:invalid{
-				background-color: var(--color2);
-				border-color: var(--color2);
-				caret-color: var(--color1);
-			}
-			input[type="text"]:invalid:hover, input[type="number"]:invalid:hover,
-			input[type="text"]:invalid:focus, input[type="number"]:invalid:focus{
-				background-color: var(--color1);
-				border-color: var(--color2);
-				caret-color: var(--color3);
-			}
-			input[type="radio"], input[type="checkbox"]{
-				width: 0;
-				height: 0;
-				opacity: 0;
-			}
-			input[type="radio"] + label{
-				display: inline-block;
-				padding: 0 3px;
-				color: var(--color1);
-				border: 3px double var(--color1);
-				border-radius: var(--radius);
-			}
-			input[type="radio"]:hover + label, 
-			input[type="radio"]:focus + label{
-				color: var(--color2);
-				border-color: var(--color2);
-			}
-			input[type="radio"]:checked + label{
-				background-color: var(--color1);
-				color: var(--color3);
-				border: 3px solid var(--color1);
-			}
-			input[type="checkbox"] + label{
-				position: relative;
-				display: block;
-				width: 30px;
-				height: 30px;
-				background-color: var(--color2);
-				border-radius: var(--radius);
-			}
-			input[type="checkbox"]:checked + label{
-				background-color: var(--color1);
-			}
-			input[type="checkbox"]:checked + label::before {
-				content: "";
-				display: block;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 40%;
-				height: 4px;
-				background-color: var(--color3);
-				border-radius: var(--radius);
-				transform: translate(-6px, 5px) rotateZ(-135deg);
-				transform-origin: 2px 2px;
-			}
-			input[type="checkbox"]:checked + .check-label::after {
-				content: "";
-				display: block;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 76%;
-				height: 4px;
-				background-color: var(--color3);
-				border-radius: var(--radius);
-				transform: translate(-6px, 5px) rotateZ(-45deg);
-				transform-origin: 2px 2px;
-			}
-			/*BUTTON*/
-			button{
-				padding: var(--gap);
-				background-color: transparent;
-				font: bold 16px/2 sans;
-				border: 3px solid var(--color1);
-				border-radius: var(--radius);
-				outline: none;
-				transition-duration: 0.1s;
-			}
-			button:hover, button:focus{
-				background-color: var(--color1);
-				transform: scale(0.9);
-			}
-			/*SELECT*/
-			select{
-				padding: var(--gap);
-				background-color: transparent;
-				font: bold 16px/2 sans;
-				color: var(--color1);
-				text-overflow: ellipsis;
-				border: 3px solid var(--color1);
-				border-radius: var(--radius);
-				outline: none;
-			}
-			select:hover, select:focus{
-				background-color: var(--color2);
-				color: var(--color1);
-				border-color: var(--color2);
-			}
-
-			/*LAYOUT*/
-			/*HEADER*/
-			.header{
-				padding: 30px 0;
-				background-color: var(--color3);
-				text-align: center;
-			}
-			/*ARTICLE*/
-			.main{
-				padding: calc(var(--gap) * 2);
-			}
-			.main-title{
-				color: var(--color3);
-				text-align: center;
 			}
 			/*CALCULATOR*/
 			/*MEMBER, ITEM*/
@@ -251,8 +57,8 @@
 				flex-shrink: 0;
 			}
 			.rmv:hover,.add:hover{
-				background-color: var(--color2);
-				border-color: var(--color2);
+				background: var(--color3);
+				border-color: var(--color3);
 			}
 			.rmv::before, .add::before, 
 			.rmv::after, .add::after{
@@ -262,7 +68,7 @@
 				left: 50%;
 				width: 3px;
 				height: 80%;
-				background-color: var(--color1);
+				background: var(--color1);
 				border-radius: var(--radius);
 			}
 			.rmv::before{
@@ -281,20 +87,20 @@
 			.rmv:hover::after, .add:hover::after, 
 			.rmv:focus::before, .add:focus::before, 
 			.rmv:focus::after, .add:focus::after{
-				background-color: var(--color3);
+				background: var(--color2);
 			}
 			.submit{
 				height: var(--height);
 				padding: 0 8px;
-				background-color: var(--color1);
-				color: var(--color3);
-				font: bold 16px/2 sans;
+				background: var(--color1);
+				color: var(--color2);
+				font: var(--font);
 				text-align: center;
 			}
 			.submit:hover, .submit:focus{
-				background-color: var(--color2);
+				background: var(--color3);
 				color: var(--color1);
-				border-color: var(--color2);
+				border-color: var(--color3);
 			}
 			/*PAYER*/
 			.payer-field p{
@@ -314,14 +120,14 @@
 			}
 			.payer-table th, .payer-table td{
 				padding: 4px;
-				border-right: 2px solid var(--color3);
+				border-right: 2px solid var(--color2);
 			}
 			.payer-table th{
 				min-width:5em;
 				max-width:8em;
 				padding: var(--gap);
-				background-color: var(--color1);
-				color: var(--color3);
+				background: var(--color1);
+				color: var(--color2);
 				word-break: break-all;
 			}
 			.payer-table th:first-child{
@@ -350,10 +156,12 @@
 				list-style-type: none;
 			}
 		</style>
+		<script src="/resource/theme.js?202212221700" defer></script>
 	</head>
 	<body>
 		<header class="header">
 			<h2 class="blog-title">だむめも</h2>
+			<nav id="headerNav" class="header-nav"></nav>
 		</header>
 		<article class="main">
 			<h1 class="main-title">立替精算機</h1>
@@ -396,6 +204,9 @@
 				</fieldset>
 			</form>
 		</article>
+		<footer class="footer">
+			<nav id="footerNav" class="footer-nav"></nav>
+		</footer>
 	</body>
 	<script>
 		// HTMLElement, HTMLCollection: UpperCamelCase
@@ -403,9 +214,10 @@
 
 		let num1 = 0;	//メンバー管理番号用変数
 		let num2 = 0;	//費目管理番号用変数
-		let members = new Array();	//メンバー管理用配列
-		let items = new Array();	//費目管理用配列
-		let payers = new Object();	//支払関係管理用連想配列
+		let members = [];	//メンバー
+		let items = [];	//費目
+		let choices = {};	//支払者
+		let results = {};	//結果
 
 		function delRow(target) {	//列の削除
 			document.getElementById(`${target.id}Row`).remove();
@@ -459,7 +271,6 @@
 		function editMember(){	//メンバーを編集する
 			members = [];	//配列初期化
 			const MemberNames = document.getElementsByClassName("member-name");
-
 			for (let i=0; i<MemberNames.length; i++) {
 				if (MemberNames[i].value != "") {
 					members.push({
@@ -468,7 +279,6 @@
 					});
 				}
 			}
-			members = members.filter(Boolean);	//空白を詰める
 
 			const MemberLists = document.getElementsByClassName("members-list");	//メンバー選択肢欄を更新
 			for (let i=0; i<MemberLists.length; i++){
@@ -476,11 +286,11 @@
 				while (MemberLists[i].hasChildNodes()) {
 					MemberLists[i].firstChild.remove();
 				}
-				MemberLists[i][0] = new Option("立替者", "");
+				MemberLists[i][0] = new Option("立替者", "", true, true);
 				MemberLists[i][0].disabled = true;
 				MemberLists[i][0].hidden = true;
-				members.forEach((member, index) => {
-					MemberLists[i][index + 1] = new Option(member.name, member.number);
+				members.forEach(member => {
+					MemberLists[i].appendChild(new Option(member.name, member.number));
 					if (member.number == nowValue) {
 						MemberLists[i].value = member.number;
 					}
@@ -519,11 +329,11 @@
 			const PrePayer = document.createElement("select");	//立替者欄
 			PrePayer.id = `item${num2}PrePayer`;
 			PrePayer.classList.add("members-list");
-			PrePayer[0] = new Option("立替者", "");	//立替者のデフォルト設定
+			PrePayer.required = true;
+			PrePayer[0] = new Option("立替者", "", true. true);	//立替者のデフォルト設定
 			PrePayer[0].disabled = true;
 			PrePayer[0].hidden = true;
-			members.forEach((member, index) => PrePayer[index + 1] = new Option(member.name, member.number));
-			PrePayer.required = true;
+			members.forEach(member => PrePayer.appendChild(new Option(member.name, member.number)));
 
 			const ItemRmv = document.createElement("button");	//削除ボタンを作成
 			ItemRmv.type = "button";
@@ -549,7 +359,7 @@
 				if (document.getElementById(`item${i}Row`) != null){
 					items.push({
 						"number": `item${i}`,
-						"name": document.getElementById(`item${i}Name`).value || `費目${i}`,
+						"name": document.getElementById(`item${i}Name`).value || `費目${i + 1}`,
 						"price": document.getElementById(`item${i}Price`).value || 0,
 						"prePayer": document.getElementById(`item${i}PrePayer`).value
 					});
@@ -582,8 +392,6 @@
 				PayerRow.appendChild(PayerItem);
 				members.forEach(member => {
 					let PayerCell = PayerRow.insertCell();
-					let PayerBox = document.createElement("div");
-					PayerBox.classList.add("payer-box");
 					let PayerCheck = document.createElement("input");
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.number}_${member.number}`;
@@ -593,9 +401,8 @@
 					PayerLabel.htmlFor = PayerCheck.id;
 					PayerLabel.classList.add("check-label");
 
-					PayerBox.appendChild(PayerCheck);
-					PayerBox.appendChild(PayerLabel);
-					PayerCell.appendChild(PayerBox);
+					PayerCell.appendChild(PayerCheck);
+					PayerCell.appendChild(PayerLabel);
 				});
 			});
 
@@ -605,16 +412,16 @@
 		function editPayer() {
 			const PayerTable = document.getElementById("payerTable");
 
-			payers = {};	//配列初期化
+			results = {};	//配列初期化
 			members.forEach(postPayer => {
 				let prePayers = {};
 				members.forEach(prePayer => {
 					prePayers[prePayer.number] = 0;
-					payers[postPayer.number] = prePayers;
+					results[postPayer.number] = prePayers;
 				});
 			});
 
-			const choices = {};
+			choices = {};	//配列初期化
 			items.forEach(item => {
 				let choice = {};
 				members.forEach(member => {
@@ -622,10 +429,9 @@
 					choices[item.number] = choice;
 				});
 				let headCount = Object.values(choices[item.number]).reduce((sum, i) => sum + i, 0);	//頭数
-				let price = item.price;	//金額
-				let bite = price / headCount;	//一口あたり
+				let bite = item.price / headCount;	//一口あたり
 				members.forEach(postPayer => {
-					payers[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] === 1) ? bite: 0;
+					results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] === 1) ? bite : 0;
 				});
 			});
 
@@ -638,9 +444,9 @@
 				ResultLi.innerText = `${postPayer.name}さんは`;
 				let ResultUl = document.createElement("ul");
 				members.forEach(prePayer => {
-					if (prePayer != postPayer && payers[postPayer.number][prePayer.number] != 0) {
+					if (prePayer != postPayer && results[postPayer.number][prePayer.number] != 0) {
 						let ResultLi2 = document.createElement("li");
-						ResultLi2.innerText = `${prePayer.name}さんに${calc(payers[postPayer.number][prePayer.number])}円支払ってください。`
+						ResultLi2.innerText = `${prePayer.name}さんに${calc(results[postPayer.number][prePayer.number])}円支払ってください。`
 						ResultUl.appendChild(ResultLi2);
 					}
 				});
