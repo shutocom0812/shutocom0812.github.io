@@ -4,11 +4,6 @@ body{
 	min-height: 100vh;
 	flex-direction: column;
 }
-@media screen and (min-width: 768px){
-	body{
-		
-	}
-}
 
 /*HEADER*/
 .header{
@@ -21,11 +16,29 @@ body{
 .blog-title{
 	
 }
+
+.theme-button{
+	display: block;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	width: 30px;
+	height: 30px;
+	background: linear-gradient(var(--color2) 0%, var(--color3) 100%);
+	border: 3px solid var(--color1);
+	border-radius: 50%;
+	z-index: 20;
+}
 /*ARTICLE*/
 .main{
 	width: 100%;
 	padding: calc(var(--gap) * 2);
 	flex-grow: 1;
+}
+@media screen and (min-width: 768px){
+	.main{
+		width: 60%;
+	}
 }
 .main-title{
 	color: var(--color2);
