@@ -103,8 +103,9 @@
 				border-color: var(--color3);
 			}
 			/*PAYER*/
-			.payer-field span{
+			.payer-field p{
 				padding: 0 var(--gap);
+				text-indent: 0;
 			}
 			.payer-div{
 				width: 100%;
@@ -114,7 +115,6 @@
 			}
 			.payer-table{
 				display: block;
-				min-width: 100%;
 				border-spacing: 0 2px;
 				overflow-x: auto;
 			}
@@ -185,7 +185,7 @@
 				</fieldset>
 				<fieldset class="payer-field" name="payerField" onchange="editPayer();">
 					<legend>支払者</legend>
-					<span>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</span>
+					<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
 					<div id="payerDiv" class="payer-div">
 						<table id="payerTable" class="payer-table"></table>
 					</div>
@@ -206,7 +206,9 @@
 			</form>
 		</article>
 		<footer class="footer">
-			<nav id="footerNav" class="footer-nav"></nav>
+			<nav id="footerNav" class="footer-nav">
+				<span>by <a href="https://twitter.com/shutocom0812">@shutocom0812</a></span>
+			</nav>
 		</footer>
 	</body>
 	<script>
