@@ -1,5 +1,20 @@
+/*LAYOUT*/
+body{
+	display: flex;
+	min-height: 100%;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-content: space-between;
+}
+@media screen and (min-width: 768px){
+	body{
+		
+	}
+}
+
 /*HEADER*/
 .header{
+	width: 100%;
 	padding: 30px 0;
 	background: var(--color2);
 	text-align: center;
@@ -9,6 +24,7 @@
 }
 /*ARTICLE*/
 .main{
+	width: 100%;
 	padding: calc(var(--gap) * 2);
 }
 .main-title{
@@ -18,7 +34,8 @@
 
 /*FOOTER*/
 .footer{
+	width: 100%;
 	padding: 30px 0;
-	background: #000000;
+	background: var(--color2);
 	text-align: center;
 }
