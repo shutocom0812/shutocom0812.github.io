@@ -1,0 +1,24 @@
+/*HEADER*/
+.header{
+	padding: 30px 0;
+	background: var(--color2);
+	text-align: center;
+}
+.blog-title{
+	
+}
+/*ARTICLE*/
+.main{
+	padding: calc(var(--gap) * 2);
+}
+.main-title{
+	color: var(--color2);
+	text-align: center;
+}
+
+/*FOOTER*/
+.footer{
+	padding: 30px 0;
+	background: #000000;
+	text-align: center;
+}
