@@ -466,7 +466,7 @@
 			}
 			members.forEach(postPayer => {
 				let ResultLi = document.createElement("li");
-				ResultLi.innerText = `${postPayer.name}さんは`;
+				ResultLi.innerHTML = `<strong>${postPayer.name}</strong>さんは`;
 				let ResultUl = document.createElement("ul");
 				members.forEach(prePayer => {
 					if (prePayer != postPayer && results[postPayer.number][prePayer.number] != 0) {
