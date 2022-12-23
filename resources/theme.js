@@ -4,8 +4,8 @@ let themes = [
   ["#e4dad9", "#021e1e", "#e1a600"],	//Tokyo-Dark
   ["#473857", "#e8c9c7", "#149684"],	//Kure-Light
   ["#e8c9c7", "#473857", "#149684"],	//Kure-Dark
-  ["#005051", "#fffafc", "#95bf43"],	//Uji-Light
-  ["#fffafc", "#005051", "#95bf43"],	//Uji-Dark
+  ["#00695b", "#fffafc", "#71aca6"],	//Uji-Light
+  ["#fffafc", "#00695b", "#71aca6"],	//Uji-Dark
   ["#1086e3", "#edfafd", "#3ddad7"],	//Amami-Light
   ["#edfafd", "#1086e3", "#3ddad7"]	//Amami-Dark
 ];
