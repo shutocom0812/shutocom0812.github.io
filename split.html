@@ -3,8 +3,8 @@
 		<title>立替精算機 | だむめも</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="color-scheme" content="dark light">
-		<link rel="stylesheet" href="/resources/main.css?202212231425" />
-		<link rel="stylesheet" href="/resources/layout.css?202212231425" />
+		<link rel="stylesheet" href="/resources/main.css?202212240200" />
+		<link rel="stylesheet" href="/resources/layout.css?202212240200" />
 		<style>
 			html{
 				color: var(--color1);
@@ -145,9 +145,20 @@
 			}
 
 			/*result*/
+			.result-digit{
+				height: var(--height);
+			}
 			.result-math{
+				display: flex;
 				border-bottom: 3px dotted var(--color1);
 				border-radius: 0;
+				justify-content: space-around;
+				align-items: bseline;
+			}
+			@media screen and (min-width: 750px){
+				.result-math{
+					display: block;
+				}
 			}
 			.result-list{
 				padding: var(--gap);
@@ -157,54 +168,66 @@
 				list-style-type: none;
 			}
 		</style>
-		<script src="/resources/theme.js?202212231425" defer></script>
+		<script src="/resources/theme.js?202212240200" defer></script>
 	</head>
 	<body>
 		<header class="header">
 			<h2 class="blog-title">だむめも</h2>
 			<nav id="headerNav" class="header-nav"></nav>
 		</header>
-		<article class="main">
-			<h1 class="main-title">立替精算機</h1>
-			<form id="splitForm" class="split-form" name="splitForm" onsubmit="event.preventDefault();">
-				<fieldset class="member-field" name="memberField">
-					<legend>メンバー</legend>
-					<div id="memberForm" class="member-form"></div>
-					<div class="buttons">
-						<button type="button" class="add" name="memberAdd" onclick="addMember();"></button>
-						<button type="button" class="submit" name="memberSubmit" onclick="editMember();">決定</button>
-					</div>
-				</fieldset>
-				<fieldset class="item-field" name="itemField">
-					<legend>立替費目</legend>
-					<div id="itemForm"></div>
-					<div class="buttons">
-						<button type="button" class="add" name="itemAdd" onclick="addItem();"></button>
-						<button type="button" class="submit" name="itemSubmit" onclick="editItem();">決定</button>
-					</div>
-				</fieldset>
-				<fieldset class="payer-field" name="payerField" onchange="editPayer();">
-					<legend>支払者</legend>
-					<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
-					<div id="payerDiv" class="payer-div">
-						<table id="payerTable" class="payer-table"></table>
-					</div>
-				</fieldset>
-				<fieldset id="resultField" class="result-field" name="resultField">
-					<legend>結果</legend>
-					<fieldset id="resultMath" class="result-math" onchange="editPayer();">
-						<span>小数点以下</span>
-						<input type="radio" id="mathCeil" name="math" value="ceil" checked>
-						<label for="mathCeil" class="radio-label">切上げ</label>
-						<input type="radio" id="mathRound" name="math" value="round">
-						<label for="mathRound" class="radio-label">四捨五入</label>
-						<input type="radio" id="mathFloor" name="math" value="floor">
-						<label for="mathFloor" class="radio-label">切捨て</label>
+		<div class="main">
+			<article class="article">
+			
+					
+				<h1 class="main-title">立替精算機</h1>
+				<form id="splitForm" class="split-form" name="splitForm" onsubmit="event.preventDefault();">
+					<fieldset class="member-field" name="memberField">
+						<legend>メンバー</legend>
+						<div id="memberForm" class="member-form"></div>
+						<div class="buttons">
+							<button type="button" class="add" name="memberAdd" onclick="addMember();"></button>
+							<button type="button" class="submit" name="memberSubmit" onclick="editMember();">決定</button>
+						</div>
 					</fieldset>
-					<ul id="resultList" class="result-list"></ul>
-				</fieldset>
-			</form>
-		</article>
+					<fieldset class="item-field" name="itemField">
+						<legend>立替費目</legend>
+						<div id="itemForm"></div>
+						<div class="buttons">
+							<button type="button" class="add" name="itemAdd" onclick="addItem();"></button>
+							<button type="button" class="submit" name="itemSubmit" onclick="editItem();">決定</button>
+						</div>
+					</fieldset>
+					<fieldset class="payer-field" name="payerField" onchange="editPayer();">
+						<legend>支払者</legend>
+						<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
+						<div id="payerDiv" class="payer-div">
+							<table id="payerTable" class="payer-table"></table>
+						</div>
+					</fieldset>
+					<fieldset id="resultField" class="result-field" name="resultField">
+						<legend>結果</legend>
+						<fieldset id="resultMath" class="result-math" onchange="editPayer();">
+							<select id="resultDigit" name="digit" class="result-digit">
+								<option value="1">1円</option>
+								<option value="10">10円</option>
+								<option value="100">100円</option>
+								<option value="1000">1000円</option>
+							</select>
+							<span>以下</span>
+							<input type="radio" id="mathCeil" name="math" value="ceil" checked>
+							<label for="mathCeil" class="radio-label">切上げ</label>
+							<input type="radio" id="mathRound" name="math" value="round">
+							<label for="mathRound" class="radio-label">四捨五入</label>
+							<input type="radio" id="mathFloor" name="math" value="floor">
+							<label for="mathFloor" class="radio-label">切捨て</label>
+						</fieldset>
+						<ul id="resultList" class="result-list"></ul>
+					</fieldset>
+				</form>
+			</article>
+			<aside class="sidebar">
+			</aside>
+		</div>
 		<footer class="footer">
 			<nav id="footerNav" class="footer-nav">
 				<span>by <a href="https://twitter.com/shutocom0812">@shutocom0812</a></span>
@@ -228,18 +251,21 @@
 
 		function calc(target){	//端数処理
 			const method = document.forms.splitForm.math.value;
+			const digit = document.forms.splitForm.digit.value;
+			let result = 0;
 			switch (method) {
 				case "floor":
-					return Math.floor(target);
+					result = Math.floor(target / digit);
 					break;
 				case "round":
-					return Math.round(target);
+					result = Math.round(target / digit);
 					break;
 				case "ceil":
 				default:
-					return Math.ceil(target);
+					result = Math.ceil(target / digit);
 					break;
 			}
+			return result * digit;
 		}
 
 		function addMember() {	//メンバー追加の関数
