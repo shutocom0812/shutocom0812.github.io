@@ -199,3 +199,21 @@ select:hover, select:focus{
 option{
 	font: var(--font);
 }
+
+/*THEME*/
+.theme-button{
+	display: flex;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	width: 30px;
+	height: 30px;
+	line-height: 1;
+	background: linear-gradient(var(--color2) 0%, var(--color3) 100%);
+	color: var(--color1);
+	border: 3px solid var(--color1);
+	border-radius: 50%;
+	z-index: 20;
+	align-items: center;
+	justify-content: center;
+}
