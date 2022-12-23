@@ -152,13 +152,17 @@
 				display: flex;
 				border-bottom: 3px dotted var(--color1);
 				border-radius: 0;
+				flex-flow: row nowrap;
 				justify-content: space-around;
-				align-items: bseline;
+				align-items: baseline;
 			}
 			@media screen and (min-width: 750px){
 				.result-math{
 					display: block;
 				}
+			}
+			.radio-label{
+				height: var(--height);
 			}
 			.result-list{
 				padding: var(--gap);
@@ -168,7 +172,7 @@
 				list-style-type: none;
 			}
 		</style>
-		<script src="/resources/theme.js?202212240200" defer></script>
+		<script src="/resources/theme.js?202212240300" defer></script>
 	</head>
 	<body>
 		<header class="header">
