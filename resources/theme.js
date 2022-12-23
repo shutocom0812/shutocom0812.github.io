@@ -28,7 +28,6 @@ function themeButton() {
   Button.name = "theme";
   Button.classList.add("theme-button");
   Button.tabIndex = -1;
-  Button.innerText = themeIndex;
   Button.addEventListener("click", function () { themeChange(); }, false);
   document.querySelector("body").appendChild(Button);
 }
