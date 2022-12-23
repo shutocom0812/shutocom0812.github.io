@@ -56,7 +56,7 @@ a{
 fieldset{
 	display: block;
 	box-sizing: border-box;
-	margin: var(--gap);
+	margin: calc(var(--gap) * 2) var(--gap);
 	padding: calc(var(--gap) * 2);
 	padding-top: 0;
 	background-color: var(--color2);
@@ -64,7 +64,7 @@ fieldset{
 	border-radius: var(--radius);
 }
 legend{
-	padding: var(--gap) calc(var(--gap) * 2);
+	padding: var(--gap);
 	background-color: var(--color2);
 	font-size: 1.2em;
 	color: var(--color1);
@@ -216,4 +216,10 @@ option{
 	z-index: 20;
 	align-items: center;
 	justify-content: center;
+}
+
+
+/*ORIDINAL*/
+strong{
+	font-size: 1.1em;
 }
