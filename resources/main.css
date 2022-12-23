@@ -15,15 +15,16 @@ fieldset{
 	--color2: #642327;
 	--color3: #AD4133;
 
-	--height: 40px;
-	--font: bold 16px/2 sans;
-	--gap: 4px;
+	--height: 8vw;
+	--font: bold 3vw/2 sans;
+	--gap: 0.5vw;
 	--radius: 4px;
 }
-@media screen and (max-width: 380px) {
+@media screen and (min-width: 700px) {
 	:root{
 		--height: 30px;
 		--font: bold 14px/2 sans;
+		--gap: 0.5vw;
 	}
 }
 
@@ -50,22 +51,20 @@ p{
 a{
 	color: var(--color3);
 }
-a:hover, a:focus, a:visited{
-	color: var(--)
-}
 /*FORM*/
 /*FIELDSET*/
 fieldset{
 	display: block;
 	box-sizing: border-box;
 	margin: var(--gap);
-	padding: 0 8px 8px 8px;
+	padding: calc(var(--gap) * 2);
+	padding-top: 0;
 	background-color: var(--color2);
 	border: none;
 	border-radius: var(--radius);
 }
 legend{
-	padding: var(--gap) 8px;
+	padding: var(--gap) calc(var(--gap) * 2);
 	background-color: var(--color2);
 	font-size: 1.2em;
 	color: var(--color1);
