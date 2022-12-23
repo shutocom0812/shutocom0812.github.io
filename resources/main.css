@@ -116,6 +116,7 @@ input[type="radio"] + label{
 	display: inline-block;
 	padding: 0 3px;
 	color: var(--color1);
+	vertical-align: middle;
 	border: 3px double var(--color1);
 	border-radius: var(--radius);
 }
