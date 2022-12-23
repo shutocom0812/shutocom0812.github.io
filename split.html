@@ -471,7 +471,7 @@
 				members.forEach(prePayer => {
 					if (prePayer != postPayer && results[postPayer.number][prePayer.number] != 0) {
 						let ResultLi2 = document.createElement("li");
-						ResultLi2.innerHTML = `<strong>${prePayer.name}</strong>さんに<strong>${calc(results[postPayer.number][prePayer.number])}</strong>円支払ってください。`
+						ResultLi2.innerHTML = `<strong>${prePayer.name}</strong>さんに<strong>${calc(results[postPayer.number][prePayer.number])}円</strong>支払ってください。`
 						ResultUl.appendChild(ResultLi2);
 					}
 				});
