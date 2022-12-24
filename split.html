@@ -164,7 +164,7 @@
 				list-style-type: none;
 			}
 		</style>
-		<script src="/resources/theme.js?202212240300" defer></script>
+		<script src="/resources/theme.js?202212240330" defer></script>
 	</head>
 	<body>
 		<header class="header">
@@ -203,7 +203,7 @@
 					<fieldset id="resultField" class="result-field" name="resultField">
 						<legend>結果</legend>
 						<fieldset id="resultMath" class="result-math" onchange="editPayer();">
-							<select id="resultDigit" name="digit" class="result-digit">
+							<select name="digit" class="result-digit">
 								<option value="1" selected>1円</option>
 								<option value="10">10円</option>
 								<option value="100">100円</option>
@@ -305,19 +305,19 @@
 				}
 			}
 
-			const MemberLists = document.getElementsByClassName("members-list");	//メンバー選択肢欄を更新
-			for (let i=0; i<MemberLists.length; i++){
-				const nowValue = MemberLists[i].value;
-				while (MemberLists[i].hasChildNodes()) {
-					MemberLists[i].firstChild.remove();
+			const MembersLists = document.getElementsByClassName("members-list");	//メンバー選択肢欄を更新
+			for (let i=0; i<MembersLists.length; i++) {
+				const nowValue = MembersLists[i].value;
+				while (MembersLists[i].hasChildNodes()) {
+					MembersLists[i].firstChild.remove();
 				}
-				MemberLists[i][0] = new Option("立替者", "", true, true);
-				MemberLists[i][0].disabled = true;
-				MemberLists[i][0].hidden = true;
+				MembersLists[i][0] = new Option("立替者", "", true, true);
+				MembersLists[i][0].disabled = true;
+				MembersLists[i][0].hidden = true;
 				members.forEach(member => {
-					MemberLists[i].appendChild(new Option(member.name, member.number));
+					MembersLists[i].appendChild(new Option(member.name, member.number));
 					if (member.number == nowValue) {
-						MemberLists[i].value = member.number;
+						MembersLists[i].value = member.number;
 					}
 				});
 			}
@@ -379,9 +379,8 @@
 
 		function editItem() {	//立替費目を編集する
 			items = [];	//配列初期化
-
 			for (let i=0; i<num2; i++){
-				if (document.getElementById(`item${i}Row`) != null){
+				if (document.getElementById(`item${i}Row`) != null) {
 					items.push({
 						"number": `item${i}`,
 						"name": document.getElementById(`item${i}Name`).value || `費目${i + 1}`,
@@ -417,11 +416,13 @@
 				PayerRow.appendChild(PayerItem);
 				members.forEach(member => {
 					let PayerCell = PayerRow.insertCell();
+
 					let PayerCheck = document.createElement("input");
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.number}_${member.number}`;
 					PayerCheck.classList.add("payer-check");
 					PayerCheck.checked = (nowValues[PayerCheck.id] === false) ? false : true;
+
 					let PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
 					PayerLabel.classList.add("check-label");
