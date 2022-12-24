@@ -84,7 +84,7 @@ input[type="text"], input[type="number"]{
 	outline: none;
 }
 input[type="text"]::placeholder, input[type="number"]::placeholder{
-	color: var(--color3);
+	color: var(--color1);
 	opacity: 0.8;
 }
 input[type="text"]:hover, input[type="number"]:hover, 
@@ -95,7 +95,7 @@ input[type="text"]:focus, input[type="number"]:focus{
 }
 input[type="text"]:hover::placeholder, input[type="number"]:hover::placeholder, 
 input[type="text"]:focus::placeholder, input[type="number"]:focus::placeholder{
-	color: var(--color1);
+	color: var(--color3);
 }
 input[type="text"]:invalid, input[type="number"]:invalid, select:invalid{
 	background-color: var(--color3);
