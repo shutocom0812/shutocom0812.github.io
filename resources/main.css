@@ -84,7 +84,7 @@ input[type="text"], input[type="number"]{
 	outline: none;
 }
 input[type="text"]::placeholder, input[type="number"]::placeholder{
-	color: var(--color1);
+	color: var(--color3);
 	opacity: 0.8;
 }
 input[type="text"]:hover, input[type="number"]:hover, 
