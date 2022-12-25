@@ -297,7 +297,9 @@
 				element[0].hidden = true;
 				members.forEach(member => {
 					element.appendChild(new Option(member.name, member.number));
-					element.value = (member.number === nowValue) ? nowValue : "";
+					if (member.number == nowValue) {
+						element.value = member.number;
+					}
 				});
 			});
 			editItem();
