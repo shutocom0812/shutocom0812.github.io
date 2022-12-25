@@ -14,28 +14,25 @@
 				align-items: center;
 				justify-content: space-between;
 			}
-			.row *:not(:first-child){
-				margin-left: var(--gap);
-			}
-			.row input, .row select{
-				height: var(--height);
-			}
-			.row input[type="text"]{
-				flex-grow: 3;
-			}
-			.row input[type="number"], .row select{
-				flex-grow: 1;
+			.row *:not(:last-child){
+				margin-right: var(--gap);
 			}
 			/*INPUT DESIGN*/
 			.name{
 				min-width: 5em;
+				height: var(--height);
+				flex-grow: 3;
 			}
 			.price{
 				min-width: 4em;
 				max-width: 6em;
+				height: var(--height);
+				flex-grow: 1;
 			}
 			.members-list{
 				width: 8em;
+				height: var(--height);
+				flex-grow: 1;
 			}
 			/*BUTTONS WRAPPER*/
 			.buttons{
@@ -124,7 +121,6 @@
 			.payer-table th{
 				min-width:5em;
 				max-width:8em;
-				padding: var(--gap);
 				background: var(--color1);
 				color: var(--color2);
 				word-break: break-all;
@@ -136,26 +132,16 @@
 				width: 7em;
 				z-index: 10;
 			}
-			.payer-box{
-				display: flex;
-				width: 100%;
-				justify-content: center;
-			}
-
-			/*result*/
+			/*RESULT*/
 			.result-math{
 				border-bottom: 3px dotted var(--color1);
 				border-radius: 0;
 			}
-			.result-digit{
-				height: var(--height);
-			}
-			.radio-label{
+			.result-digit, .radio-label{
 				height: var(--height);
 			}
 			.result-list{
 				padding: var(--gap);
-				font-size: 1.1em;
 			}
 			.result-list, .result-list ul{
 				padding-left: 12px;
