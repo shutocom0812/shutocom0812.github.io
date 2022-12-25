@@ -11,6 +11,7 @@ body{
 	width: 100%;
 	padding: 30px 0;
 	background: var(--color2);
+	justify-content: center;
 	align-items: center;
 	
 }
