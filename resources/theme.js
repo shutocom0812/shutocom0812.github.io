@@ -13,7 +13,7 @@ const Root = document.querySelector(":root");
 
 function themeFirst() {
 	const nowValue = Number(localStorage.getItem("theme"));
-	if (nowValue != null && nowValue >= themes.length) {
+	if (nowValue != null && nowValue < themes.length) {
 		themes[nowValue].forEach((color, index) => Root.style.setProperty(`--color${index + 1}`, color));
 		themeIndex = nowValue;
 	} else {
