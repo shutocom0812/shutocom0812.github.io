@@ -439,19 +439,15 @@
 			results = {};	//配列初期化
 			members.forEach(postPayer => {
 				let prePayers = {};
-				members.forEach(prePayer => {
-					prePayers[prePayer.number] = 0;
-					results[postPayer.number] = prePayers;
-				});
+				members.forEach(prePayer => prePayers[prePayer.number] = 0);
+				results[postPayer.number] = prePayers;
 			});
 
 			choices = {};	//配列初期化
 			items.forEach(item => {
 				let choice = {};
-				members.forEach(member => {
-					choice[member.number] = document.getElementById(`${item.number}_${member.number}`).checked ? 1 : 0;
-					choices[item.number] = choice;
-				});
+				members.forEach(member => choice[member.number] = document.getElementById(`${item.number}_${member.number}`).checked ? 1 : 0);
+				choices[item.number] = choice;
 				let headCount = Object.values(choices[item.number]).reduce((sum, i) => sum + i, 0);	//頭数
 				let bite = item.price / headCount;	//一口あたり
 				members.forEach(postPayer => {
@@ -477,7 +473,7 @@
 				ResultLi.appendChild(ResultUl);
 				ResultList.appendChild(ResultLi);
 
-				!ResultUl.hasChildNodes() && ResultLi.remove();
+				ResultUl.hasChildNodes() || ResultLi.remove();
 			});
 		}
 		addMember();
