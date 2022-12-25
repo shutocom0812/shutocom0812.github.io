@@ -16,14 +16,15 @@ body{
 	
 }
 .blog-title{
+	display: block;
 	width: 100%;
 	height: 100%;
+	font-size: 1.8rem;
 }
 .blog-title a{
 	display: block;
 	width: 100%;
 	height: 100%;
-	font-size: 1.8rem;
 	color: var(--color1);
 	text-decoration: none;
 }
@@ -36,11 +37,7 @@ body{
 	flex-flow: row wrap;
 	flex-grow: 1;
 }
-.article{
-	width: 100%;
-	padding: calc(var(--gap) * 2);
-}
-.sidebar{
+.article, .sidebar{
 	width: 100%;
 	padding: calc(var(--gap) * 2);
 }
@@ -54,7 +51,7 @@ body{
 	}
 }
 .main-title{
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	color: var(--color2);
 	text-align: center;
 }
