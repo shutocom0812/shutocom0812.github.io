@@ -29,7 +29,7 @@
 				height: var(--height);
 				flex-grow: 1;
 			}
-			.members-list{
+			.select-list{
 				width: 8em;
 				height: var(--height);
 				flex-grow: 1;
@@ -246,7 +246,7 @@
 			return result * digit;
 		}
 
-		function addMember() {	//メンバー追加の関数
+		function addMember() {	//メンバー欄の追加
 			const MemberForm = document.getElementById("memberForm");
 
 			const MemberRow = document.createElement("div");	//行
@@ -256,7 +256,7 @@
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
 			MemberName.id = `member${num1}Name`;
-			MemberName.classList.add("member-name");
+			MemberName.name = "memberName";
 			MemberName.classList.add("name");
 			MemberName.placeholder = "名前";
 			MemberName.required = true;
@@ -275,39 +275,36 @@
 			num1++;
 		}
 
-		function editMember(){	//メンバーを編集する
+		function editMember(){	//メンバー欄の編集
 			members = [];	//配列初期化
-			const MemberNames = document.getElementsByClassName("member-name");
-			for (let i=0; i<MemberNames.length; i++) {
-				if (MemberNames[i].value != "") {
+			for (let i=0; i<num1; i++) {
+				if (document.getElementsById(`member${i}Name`)?.value) {
 					members.push({
-						"number": MemberNames[i].id.replace("Name", ""),
-						"name": MemberNames[i].value
+						"number": `member${i}`,
+						"name": document.getElementsById(`member${i}Name`).value
 					});
 				}
 			}
 
-			const MembersLists = document.getElementsByClassName("members-list");	//メンバー選択肢欄を更新
-			for (let i=0; i<MembersLists.length; i++) {
-				const nowValue = MembersLists[i].value;
-				while (MembersLists[i].hasChildNodes()) {
-					MembersLists[i].firstChild.remove();
+			const MemberLists = document.getElementsByName("memberList");	//メンバー選択肢欄を更新
+			MemberLists.forEach(element => {
+				const nowValue = element.value;
+				while (element.firstChild) {
+					element.firstChild.remove();
 				}
-				MembersLists[i][0] = new Option("立替者", "", true, true);
-				MembersLists[i][0].disabled = true;
-				MembersLists[i][0].hidden = true;
+				element[0] = new Option("立替者", "");
+				element[0].disabled = true;
+				element[0].hidden = true;
 				members.forEach(member => {
-					MembersLists[i].appendChild(new Option(member.name, member.number));
-					if (member.number == nowValue) {
-						MembersLists[i].value = member.number;
-					}
+					element.appendChild(new Option(member.name, member.number));
+					element.value = (member.number == nowValue) ? member.number : "";
 				});
-			}
+			});
 			editItem();
 			editPayer();
 		}
 
-		function addItem() {	//費目を追加する
+		function addItem() {	//費目欄の追加
 			const ItemForm = document.getElementById("itemForm");
 
 			const ItemRow = document.createElement("div");	//行
@@ -317,6 +314,7 @@
 			const ItemName = document.createElement("input");	//名前欄
 			ItemName.type = "text";
 			ItemName.id = `item${num2}Name`;
+			ItemName.name = "itemName";
 			ItemName.classList.add("name");
 			ItemName.placeholder = "費目名";
 			ItemName.required = true;
@@ -324,6 +322,7 @@
 			const ItemPrice = document.createElement("input");	//価格欄
 			ItemPrice.type = "number";
 			ItemPrice.id = `item${num2}Price`;
+			ItemPrice.name = "itemPrice";
 			ItemPrice.classList.add("price");
 			ItemPrice.step = 1;
 			ItemPrice.min = 0;
@@ -333,14 +332,15 @@
 			const ItemPriceLabel = document.createElement("span");
 			ItemPriceLabel.innerText = "円";
 
-			const PrePayer = document.createElement("select");	//立替者欄
-			PrePayer.id = `item${num2}PrePayer`;
-			PrePayer.classList.add("members-list");
-			PrePayer.required = true;
-			PrePayer[0] = new Option("立替者", "", true. true);	//立替者のデフォルト設定
-			PrePayer[0].disabled = true;
-			PrePayer[0].hidden = true;
-			members.forEach(member => PrePayer.appendChild(new Option(member.name, member.number)));
+			const ItemPrePayer = document.createElement("select");	//立替者欄
+			ItemPrePayer.id = `item${num2}PrePayer`;
+			ItemPrePayer.name = "memberList";
+			ItemPrePayer.classList.add("select-list");
+			ItemPrePayer.required = true;
+			ItemPrePayer[0] = new Option("立替者", "", true, true);	//立替者のデフォルト設定
+			ItemPrePayer[0].disabled = true;
+			ItemPrePayer[0].hidden = true;
+			members.forEach(member => ItemPrePayer.appendChild(new Option(member.name, member.number)));
 
 			const ItemRmv = document.createElement("button");	//削除ボタンを作成
 			ItemRmv.type = "button";
@@ -352,17 +352,17 @@
 			ItemRow.appendChild(ItemName);
 			ItemRow.appendChild(ItemPrice);
 			ItemRow.appendChild(ItemPriceLabel);
-			ItemRow.appendChild(PrePayer);
+			ItemRow.appendChild(ItemPrePayer);
 			ItemRow.appendChild(ItemRmv);
 			ItemForm.appendChild(ItemRow);
 
 			num2++;
 		}
 
-		function editItem() {	//立替費目を編集する
+		function editItem() {	//費目欄の編集・支払者欄の追加
 			items = [];	//配列初期化
 			for (let i=0; i<num2; i++){
-				if (document.getElementById(`item${i}Row`) != null) {
+				if (document.getElementById(`item${i}Row`)) {
 					items.push({
 						"number": `item${i}`,
 						"name": document.getElementById(`item${i}Name`).value || `費目${i + 1}`,
@@ -373,39 +373,37 @@
 			}
 
 			const PayerTable = document.getElementById("payerTable");	//支払者編集用のテーブルを取得
-			const CheckBoxes = document.getElementsByClassName("payer-check");
-			const nowValues = {};
-			for (let i=0; i<CheckBoxes.length; i++) {
-				nowValues[CheckBoxes[i].id] = CheckBoxes[i].checked;	//「itemN_memberN: boolean」
-			}
+			const CheckBoxes = document.getElementsByName("payerCheck");
+			let nowValues = {};
+			CheckBoxes.forEach(element => nowValues[element.id] = element.checked);
 
-			while (PayerTable.hasChildNodes()) {
+			while (PayerTable.firstChild) {
 				PayerTable.firstChild.remove();
 			}
 			const PayerRow1 = PayerTable.insertRow();	//タイトル行
-			const PayerTitle = document.createElement("th");
-			PayerRow1.appendChild(PayerTitle);
+			PayerRow1.appendChild(document.createElement("th"));
 			members.forEach(member => {
-				let PayerName = document.createElement("th");
+				const PayerName = document.createElement("th");
 				PayerName.innerText = member.name;
 				PayerRow1.appendChild(PayerName);
 			});
 
 			items.forEach(item => {	//テーブルの中身を作成
-				let PayerRow = PayerTable.insertRow();
-				let PayerItem = document.createElement("th");
+				const PayerRow = PayerTable.insertRow();
+				const PayerItem = document.createElement("th");
 				PayerItem.innerText = item.name;
 				PayerRow.appendChild(PayerItem);
 				members.forEach(member => {
-					let PayerCell = PayerRow.insertCell();
+					const PayerCell = PayerRow.insertCell();
 
-					let PayerCheck = document.createElement("input");
+					const PayerCheck = document.createElement("input");
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.number}_${member.number}`;
-					PayerCheck.classList.add("payer-check");
+					PayerCheck.name = "payerCheck";
+					PayerCheck.classList.add("check-box");
 					PayerCheck.checked = (nowValues[PayerCheck.id] === false) ? false : true;
 
-					let PayerLabel = document.createElement("label");
+					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
 					PayerLabel.classList.add("check-label");
 
@@ -417,7 +415,7 @@
 			editPayer();
 		}
 
-		function editPayer() {
+		function editPayer() {	//支払者欄の編集
 			const PayerTable = document.getElementById("payerTable");
 
 			results = {};	//配列初期化
@@ -434,12 +432,10 @@
 				choices[item.number] = choice;
 				let headCount = Object.values(choices[item.number]).reduce((sum, i) => sum + i, 0);	//頭数
 				let bite = item.price / headCount;	//一口あたり
-				members.forEach(postPayer => {
-					results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] === 1) ? bite : 0;
-				});
+				members.forEach(postPayer => results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] === 1) ? bite : 0);
 			});
 
-			const ResultList = document.getElementById("resultList");	//結果欄
+			const ResultList = document.getElementById("resultList");	//結果欄の追加
 			while (ResultList.firstChild) {
 				ResultList.firstChild.remove();
 			}
