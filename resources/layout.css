@@ -13,8 +13,9 @@ body{
 	text-align: center;
 	
 }
-.blog-title{
+.blog-title, .blog-title a{
 	font-size: 1.8em;
+	color: var(--color1);
 }
 
 /*ARTICLE*/
