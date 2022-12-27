@@ -3,8 +3,8 @@
 	<title>Flex Box 検証機 | だむめも</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta name="color-scheme" content="dark light">
-	<link rel="stylesheet" href="/resources/main.css?202212251000" />
-	<link rel="stylesheet" href="/resources/layout.css?202212241530" />
+	<link rel="stylesheet" href="/resources/main.css" />
+	<link rel="stylesheet" href="/resources/layout.css" />
 	<style>
 		.application{
 			position: sticky;
@@ -12,7 +12,7 @@
 			top: 50px;
 			padding: var(--gap);
 			background: var(--color2);
-			border-radius var(--radius);
+			border-radius: var(--radius);
 		}
 		.flex-container{
 			display: flex;
@@ -31,6 +31,7 @@
 			font-size: 1.5rem;
 			line-height: 1;
 			border-radius: var(--radius);
+			text-shadow: 0 0 1px var(--color2);
 		}
 		.start{
 			align-items: flex-start;
@@ -57,6 +58,7 @@
 			margin-bottom: var(--gap);
 		}
 		.copy-button{
+			display: block;
 			border: none;
 			background: var(--color2);
 			color: var(--color1);
@@ -67,7 +69,7 @@
 			margin: 0 auto;
 		}
 	</style>
-	<script src="/resources/theme.js?202212240330" defer></script>
+	<script src="/resources/theme.js" defer></script>
 </head>
 <body>
 	<header class="header">
@@ -82,9 +84,9 @@
 					<div id="flexItem1" class="flex-item start">1</div>
 					<div id="flexItem2" class="flex-item end">2</div>
 					<div id="flexItem3" class="flex-item center">3</div>
-					<div id="flexItem4" class="flex-item end">4</div>
+					<div id="flexItem4" class="flex-item start">4</div>
 					<div id="flexItem5" class="flex-item center">5</div>
-					<div id="flexItem6" class="flex-item start">6</div>
+					<div id="flexItem6" class="flex-item end">6</div>
 				</div>
 			</div>
 			<form id="flexForm" class="flex-form" name="flexForm" onsubmit="event.preventDefault();" onchange="flexChange();">
