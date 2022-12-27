@@ -27,19 +27,21 @@
 			padding: 4px;
 			min-width: 20%;
 			min-height: 20%;
-			justify-content: center;
 			color: var(--color1);
 		}
-		.flex-item-s{
+		.start{
 			align-items: flex-start;
-			background: repeating-linear-gradient(-45deg, var(--color3), var(--color3) 3px, transparent 0, transparent 6px) var(--color2);
+			justify-content: flex-start;
+			background: repeating-linear-gradient(-45deg, var(--color3), var(--color3) 2px, transparent 0, transparent 4px) var(--color2);
 		}
-		.flex-item-e{
+		.end{
 			align-items: flex-end;
+			justify-content: flex-end;
 			background: 0 0 / 10px 10px radial-gradient(var(--color3) 20%, transparent 20%) var(--color2);
 		}
-		.flex-item-c{
+		.center{
 			align-items: center;
+			justify-content: center;
 			background: var(--color2);
 		}
 		fieldset p{
@@ -64,12 +66,12 @@
 			<h1 class="main-title">Flex Box 検証機</h1>
 			<div id="application" class="application">
 				<div id="flexContainer" class="flex-container">
-					<div id="flexItem1" class="flex-item flex-item-s">1</div>
-					<div id="flexItem2" class="flex-item flex-item-e">2</div>
-					<div id="flexItem3" class="flex-item flex-item-c">3</div>
-					<div id="flexItem4" class="flex-item flex-item-s">4</div>
-					<div id="flexItem5" class="flex-item flex-item-e">5</div>
-					<div id="flexItem6" class="flex-item flex-item-c">6</div>
+					<div id="flexItem1" class="flex-item start">1</div>
+					<div id="flexItem2" class="flex-item end">2</div>
+					<div id="flexItem3" class="flex-item center">3</div>
+					<div id="flexItem4" class="flex-item start">4</div>
+					<div id="flexItem5" class="flex-item end">5</div>
+					<div id="flexItem6" class="flex-item center">6</div>
 				</div>
 			</div>
 			<form id="flexForm" class="flex-form" name="flexForm" onsubmit="event.preventDefault();" onchange="flexChange();">
