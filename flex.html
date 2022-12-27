@@ -11,8 +11,7 @@
 			left: 0;
 			top: 50px;
 			padding: var(--gap);
-			background: var(--color1);
-			border: 3px solid var(--color2);
+			background: var(--color2);
 		}
 		.flex-container{
 			display: flex;
@@ -27,24 +26,25 @@
 			padding: 1rem;
 			min-width: 20%;
 			min-height: 20%;
-			color: var(--color2);
+			color: var(--color1);
 			font-size: 2rem;
 			line-height: 1;
+			text-shadow: var(--color2);
 		}
 		.start{
 			align-items: flex-start;
 			justify-content: flex-start;
-			background: repeating-linear-gradient(-45deg, var(--color1), var(--color1) 2px, transparent 2px, transparent 6px) var(--color3);
+			background: repeating-linear-gradient(-45deg, var(--color2), var(--color2) 2px, transparent 2px, transparent 6px) var(--color3);
 		}
 		.end{
 			align-items: flex-end;
 			justify-content: flex-end;
-			background: 0 0 / 5px 5px radial-gradient(var(--color1) 30%, transparent 30%) var(--color3);
+			background: 0 0 / 5px 5px radial-gradient(var(--color2) 30%, transparent 30%) var(--color3);
 		}
 		.center{
 			align-items: center;
 			justify-content: center;
-			background: var(--color3);
+			background: var(--color2);
 		}
 		fieldset p{
 			text-indent: 0;
@@ -71,9 +71,9 @@
 					<div id="flexItem1" class="flex-item start">1</div>
 					<div id="flexItem2" class="flex-item end">2</div>
 					<div id="flexItem3" class="flex-item center">3</div>
-					<div id="flexItem4" class="flex-item start">4</div>
-					<div id="flexItem5" class="flex-item end">5</div>
-					<div id="flexItem6" class="flex-item center">6</div>
+					<div id="flexItem4" class="flex-item end">4</div>
+					<div id="flexItem5" class="flex-item center">5</div>
+					<div id="flexItem6" class="flex-item start">6</div>
 				</div>
 			</div>
 			<form id="flexForm" class="flex-form" name="flexForm" onsubmit="event.preventDefault();" onchange="flexChange();">
@@ -142,6 +142,10 @@
 					<label for="alignContentSpaceAround">space-around: 等間隔に配置</label>
 					<input type="radio" id="alignContentSpaceBetween" name="alignContent" class="radio" value="space-between">
 					<label for="alignContentSpaceBetween">space-between: 交差軸方向の両端と、残りは等間隔に配置</label>
+				</fieldset>
+				<fieldset>
+					<button type="button">現在の値をコピーする</button>
+					
 				</fieldset>
 			</form>
 		</article>
