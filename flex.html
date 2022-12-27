@@ -20,16 +20,17 @@
 			height: 200px;
 			overflow: hidden;
 			gap: var(--gap);
+			border-radius var(--radius);
 		}
 		.flex-item{
 			display: flex;
-			padding: 1rem;
+			padding: 6px;
 			min-width: 15%;
 			min-height: 15%;
 			color: var(--color1);
-			font-size: 2rem;
+			font-size: 1.5rem;
 			line-height: 1;
-			text-shadow: 0 0 1px var(--color3);
+			border-radius: var(--radius);
 		}
 		.start{
 			align-items: flex-start;
@@ -54,6 +55,15 @@
 		}
 		label:not(last-child){
 			margin-bottom: var(--gap);
+		}
+		.copy-button{
+			border: none;
+			background: var(--color2);
+			color: var(--color1);
+		}
+		.copy-button:hover, .copy-button:focus{
+			background: var(--color3);
+			color: var(--color2);
 		}
 	</style>
 	<script src="/resources/theme.js?202212240330" defer></script>
@@ -143,10 +153,7 @@
 					<input type="radio" id="alignContentSpaceBetween" name="alignContent" class="radio" value="space-between">
 					<label for="alignContentSpaceBetween">space-between: 交差軸方向の両端と、残りは等間隔に配置</label>
 				</fieldset>
-				<fieldset>
-					<button type="button">現在の値をコピーする</button>
-					
-				</fieldset>
+				<button type="button" id="copyButton" class="copy-button">現在の値をコピーする</button>
 			</form>
 		</article>
 		<aside class="sidebar">
