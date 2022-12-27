@@ -20,7 +20,7 @@
 			width: 100%;
 			height: 200px;
 			overflow: hidden;
-			gap: 4px;
+			gap: var(--gap);
 		}
 		.flex-item{
 			display: flex;
@@ -32,15 +32,15 @@
 		}
 		.flex-item-s{
 			align-items: flex-start;
-			background: repeating-linear-gradient(-45deg, var(--color3), var(--color3) 7px, transparent 0, transparent 14px) var(--color2);
+			background: repeating-linear-gradient(-45deg, var(--color3), var(--color3) 3px, transparent 0, transparent 6px) var(--color2);
 		}
 		.flex-item-e{
 			align-items: flex-end;
-			background: 0 0/40px radial-gradient(var(--color3) 20%, transparent 20%) var(--color2);
+			background: 10px 10px radial-gradient(var(--color3) 20%, transparent 20%) var(--color2);
 		}
 		.flex-item-c{
 			align-items: center;
-			background: linear-gradient(var(--color3) 0%, var(--color2) 50%, var(--color3) 100%);
+			background: var(--color2);
 		}
 		fieldset p{
 			text-indent: 0;
