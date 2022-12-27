@@ -30,27 +30,15 @@
 			justify-content: center;
 			color: var(--color1);
 		}
-		#flexItem1{
+		.flex-item-s{
 			align-items: flex-start;
-			background: linear-gradient(var(--color2) 0%, var(--color3) 100%);
+			background: repeating-linear-gradient(-45deg, var(--color3), var(--color3) 7px, transparent 0, transparent 14px) var(--color2);
 		}
-		#flexItem2{
+		.flex-item-e{
 			align-items: flex-end;
-			background: linear-gradient(var(--color3) 0%, var(--color2) 100%);
+			background: 0 0/40px radial-gradient(var(--color3) 20%, transparent 20%) var(--color2);
 		}
-		#flexItem3{
-			align-items: center;
-			background: linear-gradient(var(--color3) 0%, var(--color2) 50%, var(--color3) 100%);
-		}
-		#flexItem4{
-			align-items: flex-start;
-			background: linear-gradient(var(--color2) 0%, var(--color3) 100%);
-		}
-		#flexItem5{
-			align-items: flex-end;
-			background: linear-gradient(var(--color3) 0%, var(--color2) 100%);
-		}
-		#flexItem6{
+		.flex-item-c{
 			align-items: center;
 			background: linear-gradient(var(--color3) 0%, var(--color2) 50%, var(--color3) 100%);
 		}
@@ -76,12 +64,12 @@
 			<h1 class="main-title">Flex Box 検証機</h1>
 			<div id="application" class="application">
 				<div id="flexContainer" class="flex-container">
-					<div id="flexItem1" class="flex-item">1</div>
-					<div id="flexItem2" class="flex-item">2</div>
-					<div id="flexItem3" class="flex-item">3</div>
-					<div id="flexItem4" class="flex-item">4</div>
-					<div id="flexItem5" class="flex-item">5</div>
-					<div id="flexItem6" class="flex-item">6</div>
+					<div id="flexItem1" class="flex-item flex-item-s">1</div>
+					<div id="flexItem2" class="flex-item flex-item-e">2</div>
+					<div id="flexItem3" class="flex-item flex-item-c">3</div>
+					<div id="flexItem4" class="flex-item flex-item-s">4</div>
+					<div id="flexItem5" class="flex-item flex-item-e">5</div>
+					<div id="flexItem6" class="flex-item flex-item-c">6</div>
 				</div>
 			</div>
 			<form id="flexForm" class="flex-form" name="flexForm" onsubmit="event.preventDefault();" onchange="flexChange();">
