@@ -1,24 +1,25 @@
 <html lang="ja">
 <head>
-	<title>Flex Box 検証機 | だむめも</title>
+	<title>Flex Box | だむめも</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta name="color-scheme" content="dark light">
-	<link rel="stylesheet" href="/resources/main.css" />
-	<link rel="stylesheet" href="/resources/layout.css" />
+	<link rel="stylesheet" href="https://shutocom0812.github.io/resources/main.css" />
+	<link rel="stylesheet" href="https://shutocom0812.github.io/resources/layout.css" />
 	<style>
 		.application{
 			position: sticky;
 			left: 0;
 			top: 50px;
 			padding: var(--gap);
-			background: var(--color2);
+			background: var(--color1);
+			border: 3px solid var(--color2);
 			border-radius: var(--radius);
 		}
 		.flex-container{
 			display: flex;
 			position: relative;
 			width: 100%;
-			height: 200px;
+			height: 150px;
 			overflow: hidden;
 			gap: var(--gap);
 		}
@@ -31,45 +32,86 @@
 			font-size: 1.5rem;
 			line-height: 1;
 			border-radius: var(--radius);
-			text-shadow: 0 0 1px var(--color2);
+			text-shadow: 0 0 5px var(--color2);
 		}
-		.start{
+		#flexItem1{
+			background-image: repeating-linear-gradient(-45deg, var(--color2), var(--color2) 4px, var(--color3) 4px, var(--color3) 8px);
 			align-items: flex-start;
 			justify-content: flex-start;
-			background: repeating-linear-gradient(-45deg, var(--color2), var(--color2) 2px, transparent 2px, transparent 6px) var(--color3);
 		}
-		.end{
-			align-items: flex-end;
-			justify-content: flex-end;
-			background: 0 0 / 5px 5px radial-gradient(var(--color2) 30%, transparent 30%) var(--color3);
-		}
-		.center{
+		#flexItem2{
+			background-image: radial-gradient(var(--color2) 30%, transparent 30%), radial-gradient(var(--color2) 30%, transparent 30%);
+			background-position: 1px 1px, 6px 6px;
+			background-size: 10px 10px;
+			background-color: var(--color3);
 			align-items: center;
 			justify-content: center;
+		}
+		#flexItem3{
+			background-image: linear-gradient(45deg, var(--color2) 25%, transparent 25%, transparent 75%, var(--color2) 75%), linear-gradient(45deg, var(--color2) 25%, transparent 25%, transparent 75%, var(--color2) 75%);
+			background-position: 1px 1px, 11px 11px;
+			background-size: 20px 20px;
+			background-color: var(--color3);
+			align-items: flex-end;
+			justify-content: flex-end;
+		}
+		#flexItem4{
+			background-image: linear-gradient(var(--color2) 25%, transparent 25%), linear-gradient(90deg, var(--color2) 25%, transparent 25%);
+			background-position: 1px 1px;
+			background-size: 10px 10px;
+			background-color: var(--color3);
+			align-items: flex-start;
+			justify-content: flex-end;
+		}
+		#flexItem5{
+			background: repeating-linear-gradient(90deg, var(--color2), var(--color2) 2px, transparent 2px, transparent 8px), repeating-linear-gradient(90deg, var(--color2), var(--color2) 4px, transparent 4px, transparent 6px);
+			background-position: 0 0, 4px 4px;
+			background-color: var(--color3);
+			align-items: center;
+			justify-content: flex-start;
+		}
+		#flexItem6{
+			background-image: linear-gradient(135deg, var(--color2) 25%, transparent 25%), linear-gradient(225deg, var(--color2) 25%, transparent 25%), linear-gradient(45deg, var(--color2) 25%, transparent 25%), linear-gradient(315deg, var(--color2) 25%, transparent 25%);
+			background-position: 5px 0, 5px 0, 0 0, 0 0;
+			background-size: 10px 10px;
+			background-color: var(--color3);
+			align-items: flex-end;
+			justify-content: center;
+		}
+		#flexItem7{
 			background: var(--color3);
+			align-items: flex-start;
+			justify-content: center;
+		}
+		#flexItem8{
+			background-image: linear-gradient(var(--color3) 25%, transparent 25%), linear-gradient(90deg, var(--color3) 25%, transparent 25%);
+			background-position: 1px 1px;
+			background-size: 4px 4px;
+			background-color: var(--color2);
+			align-items: center;
+			justify-content: flex-end;
+		}
+		#flexItem9{
+			background-image: radial-gradient(var(--color2) 40%, transparent 40%), radial-gradient(var(--color2) 20%, transparent 20%);
+			background-position: 0 0, 5px 5px;
+			background-size : 10px 10px;
+			background-color: var(--color3);
+			align-items: flex-end;
+			justify-content: flex-start;
 		}
 		fieldset p{
 			text-indent: 0;
+			text-align: center;
 		}
-		label{
+		.wrapper-label{
+			display: block;
 			width: 100%;
 		}
-		label:not(last-child){
+		.wrapper-label:not(last-child){
 			margin-bottom: var(--gap);
 		}
-		.copy-button{
-			display: block;
-			border: none;
-			background: var(--color2);
-			margin: 0 auto;
-			color: var(--color1);
-		}
-		.copy-button:hover, .copy-button:focus{
-			background: var(--color3);
-			color: var(--color2);
-		}
 	</style>
-	<script src="/resources/theme.js" defer></script>
+	<script src="https://shutocom0812.github.io/resources/theme.js" defer></script>
 </head>
 <body>
 	<header class="header">
@@ -78,85 +120,166 @@
 	</header>
 	<main class="main">
 		<article class="article">
-			<h1 class="main-title">Flex Box 検証機</h1>
+			<h1 class="main-title">Flex Box</h1>
 			<div id="application" class="application">
 				<div id="flexContainer" class="flex-container">
-					<div id="flexItem1" class="flex-item start">1</div>
-					<div id="flexItem2" class="flex-item end">2</div>
-					<div id="flexItem3" class="flex-item center">3</div>
-					<div id="flexItem4" class="flex-item start">4</div>
-					<div id="flexItem5" class="flex-item center">5</div>
-					<div id="flexItem6" class="flex-item end">6</div>
+					<div id="flexItem1" class="flex-item">1</div>
+					<div id="flexItem2" class="flex-item">2</div>
+					<div id="flexItem3" class="flex-item">3</div>
+					<div id="flexItem4" class="flex-item">4</div>
+					<div id="flexItem5" class="flex-item">5</div>
+					<div id="flexItem6" class="flex-item">6</div>
+					<div id="flexItem7" class="flex-item">7</div>
+					<div id="flexItem8" class="flex-item">8</div>
+					<div id="flexItem9" class="flex-item">9</div>
 				</div>
 			</div>
 			<form id="flexForm" class="flex-form" name="flexForm" onsubmit="event.preventDefault();" onchange="flexChange();">
 				<fieldset id="directionForm" name="directionForm">
 					<legend>flex-direction</legend>
-					<p>子要素の並ぶ方向(主軸)を指定</p>
-					<input type="radio" id="directionRow" name="direction" class="radio" value="row" checked>
-					<label for="directionRow">row: 横向き(LtRのときは左から右)</label>
-					<input type="radio" id="directionRowReverse" name="direction" class="radio" value="row-reverse">
-					<label for="directionRowReverse">row-reverse: 横向き(LtRのときは右から左)</label>
-					<input type="radio" id="directionColumn" name="direction" class="radio" value="column">
-					<label for="directionColumn">column: 縦向き(上から下)</label>
-					<input type="radio" id="directionColumnReverse" name="direction" class="radio" value="column-reverse">
-					<label for="directionColumnReverse">column-reverse: 縦向き(下から上)</label>
+					<p>親要素: 子要素の並ぶ方向(行)を指定</p>
+					<label class="wrapper-label">
+						<input type="radio" id="directionRow" name="direction" class="radio" value="row" checked>
+						<label for="directionRow">row</label>
+						横向き(通常、左から右)
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="directionRowReverse" name="direction" class="radio" value="row-reverse">
+						<label for="directionRowReverse">row-reverse</label>
+						横向き(通常、右から左)
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="directionColumn" name="direction" class="radio" value="column">
+						<label for="directionColumn">column</label>
+						縦向き(通常、上から下)
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="directionColumnReverse" name="direction" class="radio" value="column-reverse">
+						<label for="directionColumnReverse">column-reverse</label>
+						縦向き(通常、下から上)
+					</label>
 				</fieldset>
 				<fieldset id="wrapForm" name="wrapForm">
 					<legend>flex-wrap</legend>
-					<p>子要素の折り返しを指定</p>
-					<input type="radio" id="wrapNowrap" name="wrap" class="radio" value="nowrap" checked>
-					<label for="wrapNowrap">nowrap: 折り返ししない</label>
-					<input type="radio" id="wrapWrap" name="wrap" class="radio" value="wrap">
-					<label for="wrapWrap">wrap: 主軸方向に折り返しする</label>
-					<input type="radio" id="wrapReverse" name="wrap" class="radio" value="wrap-reverse">
-					<label for="wrapReverse">wrap-reverse: 主軸とは逆方向に折り返しする</label>
+					<p>親要素: 子要素の折り返しを指定</p>
+					<label class="wrapper-label">
+						<input type="radio" id="wrapNowrap" name="wrap" class="radio" value="nowrap" checked>
+						<label for="wrapNowrap">nowrap</label>
+						折り返さない
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="wrapWrap" name="wrap" class="radio" value="wrap">
+						<label for="wrapWrap">wrap</label>
+						行方向に折り返す
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="wrapReverse" name="wrap" class="radio" value="wrap-reverse">
+						<label for="wrapReverse">wrap-reverse</label>
+						行の逆方向に折り返す
+					</label>
 				</fieldset>
 				<fieldset id="justifyContentForm" name="justifyContentForm">
 					<legend>justify-content</legend>
-					<p>子要素の主軸方向の行内の配置を指定</p>
-					<input type="radio" id="justifyContentFlexStart" name="justifyContent" class="radio" value="flex-start" checked>
-					<label for="justifyContentFlexStart">flex-start: 主軸方向の先頭に配置</label>
-					<input type="radio" id="justifyContentFlexEnd" name="justifyContent" class="radio" value="flex-end">
-					<label for="justifyContentFlexEnd">flex-end: 主軸方向の末尾に配置</label>
-					<input type="radio" id="justifyContentCenter" name="justifyContent" class="radio" value="center">
-					<label for="justifyContentCenter">center: 主軸方向の中央に配置</label>
-					<input type="radio" id="justifyContentSpaceAround" name="justifyContent" class="radio" value="space-around">
-					<label for="justifyContentSpaceAround">space-around: 等間隔に配置</label>
-					<input type="radio" id="justifyContentSpaceBetween" name="justifyContent" class="radio" value="space-between">
-					<label for="justifyContentSpaceBetween">space-between: 主軸方向の両端と、残りは等間隔に配置</label>
+					<p>親要素: 子要素の行内での配置を指定</p>
+					<label class="wrapper-label">
+						<input type="radio" id="justifyContentFlexStart" name="justifyContent" class="radio" value="flex-start" checked>
+						<label for="justifyContentFlexStart">flex-start</label>
+						行の先頭に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="justifyContentFlexEnd" name="justifyContent" class="radio" value="flex-end">
+						<label for="justifyContentFlexEnd">flex-end</label>
+						行の末尾に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="justifyContentCenter" name="justifyContent" class="radio" value="center">
+						<label for="justifyContentCenter">center</label>
+						行の中央に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="justifyContentSpaceEvenly" name="justifyContent" class="radio" value="space-evenly">
+						<label for="justifyContentSpaceEvenly">space-evenly</label>
+						等間隔に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="justifyContentSpaceAround" name="justifyContent" class="radio" value="space-around">
+						<label for="justifyContentSpaceAround">space-around</label>
+						等間隔に配置(両端の余白のみ半分)
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="justifyContentSpaceBetween" name="justifyContent" class="radio" value="space-between">
+						<label for="justifyContentSpaceBetween">space-between</label>
+						最初と最後は両端、他は等間隔に配置
+					</label>
 				</fieldset>
 				<fieldset id="alignItemsForm" name="alignItemsForm">
 					<legend>align-items</legend>
-					<p>子要素の交差軸方向の行内の配置を指定</p>
-					<input type="radio" id="alignItemsStretch" name="alignItems" class="radio" value="stretch" checked>
-					<label for="alignItemsStretch">stretch: 交差軸方向いっぱいに引き伸ばす</label>
-					<input type="radio" id="alignItemsFlexStart" name="alignItems" class="radio" value="flex-start">
-					<label for="alignItemsFlexStart">flex-start: 交差軸方向の行の先頭に配置</label>
-					<input type="radio" id="alignItemsFlexEnd" name="alignItems" class="radio" value="flex-end">
-					<label for="alignItemsFlexEnd">flex-end: 交差軸方向の行の末尾に配置</label>
-					<input type="radio" id="alignItemsCenter" name="alignItems" class="radio" value="center">
-					<label for="alignItemsCenter">center: 交差軸方向の行の中央に配置</label>
-					<input type="radio" id="alignItemsBaseline" name="alignItems" class="radio" value="baseline">
-					<label for="alignItemsBaseline">baseline: 文のbaselineに合わせて配置</label>
+					<p>親要素: 子要素の列内での配置を指定</p>
+					<label class="wrapper-label">
+						<input type="radio" id="alignItemsStretch" name="alignItems" class="radio" value="stretch" checked>
+						<label for="alignItemsStretch">stretch</label>
+						高さ(幅)いっぱいに引き伸ばす
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignItemsFlexStart" name="alignItems" class="radio" value="flex-start">
+						<label for="alignItemsFlexStart">flex-start</label>
+						列の先頭に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignItemsFlexEnd" name="alignItems" class="radio" value="flex-end">
+						<label for="alignItemsFlexEnd">flex-end</label>
+						列の末尾に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignItemsCenter" name="alignItems" class="radio" value="center">
+						<label for="alignItemsCenter">center</label>
+						列の中央に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignItemsBaseline" name="alignItems" class="radio" value="baseline">
+						<label for="alignItemsBaseline">baseline</label>
+						ベースラインに合わせて配置
+					</label>
 				</fieldset>
 				<fieldset id="alignContentForm" name="alignContentForm">
 					<legend>align-content</legend>
-					<p>折り返すとき、行の配置を指定</p>
-					<input type="radio" id="alignContentStretch" name="alignContent" class="radio" value="stretch" checked>
-					<label for="alignContentStretch">stretch: 交差軸方向いっぱいに引き伸ばす</label>
-					<input type="radio" id="alignContentFlexStart" name="alignContent" class="radio" value="flex-start">
-					<label for="alignContentFlexStart">flex-start: 交差軸方向の先頭に配置</label>
-					<input type="radio" id="alignContentFlexEnd" name="alignContent" class="radio" value="flex-end">
-					<label for="alignContentFlexEnd">flex-end: 交差軸方向の末尾に配置</label>
-					<input type="radio" id="alignContentCenter" name="alignContent" class="radio" value="center">
-					<label for="alignContentCenter">center: 交差軸方向の中央に配置</label>
-					<input type="radio" id="alignContentSpaceAround" name="alignContent" class="radio" value="space-around">
-					<label for="alignContentSpaceAround">space-around: 等間隔に配置</label>
-					<input type="radio" id="alignContentSpaceBetween" name="alignContent" class="radio" value="space-between">
-					<label for="alignContentSpaceBetween">space-between: 交差軸方向の両端と、残りは等間隔に配置</label>
+					<p>親要素: 行の配置を指定(flex-wrap: nowrapのとき無効)</p>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentStretch" name="alignContent" class="radio" value="stretch" checked>
+						<label for="alignContentStretch">stretch</label>
+						交差軸方向いっぱいに引き伸ばす
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentFlexStart" name="alignContent" class="radio" value="flex-start">
+						<label for="alignContentFlexStart">flex-start</label>
+						交差軸方向の先頭に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentFlexEnd" name="alignContent" class="radio" value="flex-end">
+						<label for="alignContentFlexEnd">flex-end</label>
+						交差軸方向の末尾に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentCenter" name="alignContent" class="radio" value="center">
+						<label for="alignContentCenter">center</label>
+						交差軸方向の中央に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentSpaceEvenly" name="alignContent" class="radio" value="space-evenly">
+						<label for="alignContentSpaceEvenly">space-evenly</label>
+						等間隔に配置
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentSpaceAround" name="alignContent" class="radio" value="space-around">
+						<label for="alignContentSpaceAround">space-around</label>
+						等間隔に配置(両端の余白のみ半分)
+					</label>
+					<label class="wrapper-label">
+						<input type="radio" id="alignContentSpaceBetween" name="alignContent" class="radio" value="space-between">
+						<label for="alignContentSpaceBetween">space-between</label>
+						最初と最後は両端、他は等間隔に配置
+					</label>
 				</fieldset>
-				<button type="button" id="copyButton" class="copy-button">現在の値をコピーする</button>
 			</form>
 		</article>
 		<aside class="sidebar">
@@ -168,21 +291,26 @@
 		</nav>
 	</footer>
 	<script>
-
 		function flexChange() {
 			const Form = document.forms.flexForm;
 			const Container = document.getElementById("flexContainer");
+
 			const directionValue = Form.direction.value;
 			const wrapValue = Form.wrap.value;
 			const justifyContentValue = Form.justifyContent.value;
 			const alignItemsValue = Form.alignItems.value;
 			const alignContentValue = Form.alignContent.value;
+
 			Container.style.flexDirection = directionValue;
 			Container.style.flexWrap = wrapValue;
 			Container.style.justifyContent = justifyContentValue;
 			Container.style.alignItems = alignItemsValue;
 			Container.style.alignContent = alignContentValue;
+
+			document.flexForm.alignContentForm.disabled = (wrapValue === "nowrap") ? true : false;
+
 		}
+		flexChange();
 	</script>
 </body>
 </html>
