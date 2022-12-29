@@ -52,6 +52,22 @@ body{
 	color: var(--color2);
 	text-align: center;
 }
+.article a{
+	display: block;
+	width: 90%;
+	margin: var(--gap) auto;
+}
+.article-item{
+	width: 100%;
+	padding: var(--gap);
+	border: solid 3px var(--color2);
+	color: var(--color2);
+	text-decoration: none;
+	border-radius: var(--radius);
+}
+.article-title{
+	font-size: 1.2rem;
+}
 
 /*FOOTER*/
 .footer{
