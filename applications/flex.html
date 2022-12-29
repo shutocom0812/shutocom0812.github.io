@@ -19,7 +19,7 @@
 			display: flex;
 			position: relative;
 			width: 100%;
-			height: 150px;
+			height: 240px;
 			overflow: hidden;
 			gap: var(--gap);
 		}
@@ -30,7 +30,6 @@
 			color: var(--color1);
 			line-height: 1;
 			border-radius: var(--radius);
-			text-shadow: 1px 1px 0 var(--color2), -1px 1px 0 var(--color2), 1px -1px 0 var(--color2), -1px -1px 0 var(--color2);
 		}
 		#flexItem1{
 			background-image: repeating-linear-gradient(-45deg, var(--color2), var(--color2) 4px, var(--color3) 4px, var(--color3) 8px);
@@ -62,9 +61,7 @@
 			justify-content: flex-end;
 		}
 		#flexItem5{
-			background: repeating-linear-gradient(90deg, var(--color2), var(--color2) 2px, transparent 2px, transparent 8px), repeating-linear-gradient(90deg, var(--color2), var(--color2) 4px, transparent 4px, transparent 6px);
-			background-position: 0 0, 4px 4px;
-			background-color: var(--color3);
+			background: repeating-linear-gradient(90deg, var(--color3) 0px, var(--color3) 5px, var(--color2) 5px, var(--color2) 15px, var(--color3) 15px, var(--color3) 25px, var(--color2) 25px, var(--color2) 35px);
 			align-items: center;
 			justify-content: flex-start;
 		}
