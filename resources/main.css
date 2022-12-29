@@ -7,7 +7,7 @@ fieldset{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-size: inherit;
+	font: inherit;
 }
 /*ROOT*/
 :root{
@@ -19,7 +19,6 @@ fieldset{
 	--color3: #AD4133;
 
 	--height: 2.5rem;
-	--font: bold 3vw/2 sans;
 	--gap: 1vw;
 	--radius: 4px;
 }
@@ -33,7 +32,7 @@ fieldset{
 
 /*MAIN*/
 html{
-	font: var(--font);
+	font: bold 3vw/2 sans;
 	color: var(--color1);
 }
 body{
@@ -77,7 +76,6 @@ legend{
 input[type="text"], input[type="number"]{
 	padding: 4px;
 	background: transparent;
-	font: var(--font);
 	color: var(--color1);
 	border: 3px solid var(--color1);
 	border-radius: var(--radius);
@@ -192,7 +190,6 @@ input[type="checkbox"]:checked + label::after {
 button{
 	padding: var(--gap);
 	background: transparent;
-	font: var(--font);
 	border: 3px solid var(--color1);
 	border-radius: var(--radius);
 	outline: none;
@@ -211,7 +208,6 @@ button:disabled{
 /*SELECT*/
 select{
 	background-color: transparent;
-	font: var(--font);
 	color: var(--color1);
 	text-overflow: ellipsis;
 	border: 3px solid var(--color1);
@@ -227,9 +223,6 @@ select:disabled{
 	border-color: var(--gray);
 	color: var(--gray);
 	opacity: 0.9;
-}
-option{
-	font: var(--font);
 }
 
 /*THEME*/
