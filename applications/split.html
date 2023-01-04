@@ -1,9 +1,11 @@
+
 <html lang="ja">
 	<head>
 		<title>立替精算機 | だむめも</title>
+		<meta name="discription" content="立替えた料金を精算しよう">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<meta name="color-scheme" content="dark light">
-		<link rel="stylesheet" href="/resources/main.css?" />
+		<meta name="color-scheme" content="light dark">
+		<link rel="stylesheet" href="/resources/main.css" />
 		<link rel="stylesheet" href="/resources/layout.css" />
 		<style>
 			/*CALCULATOR*/
@@ -146,6 +148,17 @@
 				padding-left: 12px;
 				list-style-type: none;
 			}
+			/*SHARE*/
+			.share{
+				display: block;
+				margin: 0 auto;
+				padding: var(--gap) calc(var(--gap) * 3);
+				background: var(--color2);
+				color: var(--color1);
+			}
+			.share:hover, .share:focus{
+				background: var(--color3);
+			}
 		</style>
 		<script src="/resources/theme.js" defer></script>
 	</head>
@@ -201,6 +214,7 @@
 						<ul id="resultList" class="result-list"></ul>
 					</fieldset>
 				</form>
+				<button id="share" name="share" class="share" onclick="shareResult();">結果を共有する</button>
 			</article>
 			<aside class="sidebar">
 			</aside>
@@ -220,7 +234,7 @@
 		let members = [];	//メンバー
 		let items = [];	//費目
 		let choices = {};	//支払者
-		let results = {};	//結果
+		let results = {}; //結果
 
 		function delRow(target) {	//列の削除
 			document.getElementById(`${target.id}Row`).remove();
@@ -245,24 +259,25 @@
 			return result * digit;
 		}
 
-		function addMember() {	//メンバー欄の追加
+		function addMember(nowNumber, nowName) {	//メンバー欄の追加
 			const MemberForm = document.getElementById("memberForm");
 
 			const MemberRow = document.createElement("div");	//行
-			MemberRow.id = `member${num1}Row`;
+			MemberRow.id = nowNumber ? `${nowNumber}Row` : `member${num1}Row`;
 			MemberRow.classList.add("row");
 
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
-			MemberName.id = `member${num1}Name`;
+			MemberName.id = nowNumber ? `${nowNumber}Name` : `member${num1}Name`;
 			MemberName.name = "memberName";
 			MemberName.classList.add("name");
 			MemberName.placeholder = "名前";
 			MemberName.required = true;
+			MemberName.value = (nowName) ? nowName : "";
 
 			const MemberRmv = document.createElement("button");	//削除ボタン
 			MemberRmv.type = "button";
-			MemberRmv.id = `member${num1}`; //メンバー管理番号の実体
+			MemberRmv.id = nowNumber ? `${nowNumber}` : `member${num1}`; //メンバー管理番号の実体
 			MemberRmv.classList.add("rmv");
 			MemberRmv.tabIndex = -1;
 			MemberRmv.addEventListener("click", function(){delRow(this);}, false);
@@ -289,7 +304,6 @@
 			MemberLists.forEach(element => {
 				const nowValue = element.value;
 				while (element.firstChild) element.firstChild.remove();
-
 				element[0] = new Option("立替者", "", true, true);
 				element[0].disabled = true;
 				element[0].hidden = true;
@@ -302,36 +316,38 @@
 			editPayer();
 		}
 
-		function addItem() {	//費目欄の追加
+		function addItem(nowNumber, nowName, nowPrice, nowPrePayer) {	//費目欄の追加
 			const ItemForm = document.getElementById("itemForm");
 
 			const ItemRow = document.createElement("div");	//行
-			ItemRow.id = `item${num2}Row`;
+			ItemRow.id = nowNumber ? `${nowNumber}Row` : `item${num2}Row`;
 			ItemRow.classList.add("row");
 
 			const ItemName = document.createElement("input");	//名前欄
 			ItemName.type = "text";
-			ItemName.id = `item${num2}Name`;
+			ItemName.id = nowNumber ? `${nowNumber}Name` : `item${num2}Name`;
 			ItemName.name = "itemName";
 			ItemName.classList.add("name");
 			ItemName.placeholder = "費目名";
 			ItemName.required = true;
+			ItemName.value = nowName ? nowName : "";
 
 			const ItemPrice = document.createElement("input");	//価格欄
 			ItemPrice.type = "number";
-			ItemPrice.id = `item${num2}Price`;
+			ItemPrice.id = nowNumber ? `${nowNumber}Price` : `item${num2}Price`;
 			ItemPrice.name = "itemPrice";
 			ItemPrice.classList.add("price");
 			ItemPrice.step = 1;
 			ItemPrice.min = 0;
 			ItemPrice.placeholder = "金額";
 			ItemPrice.required = true;
+			ItemPrice.value = nowPrice ? nowPrice : "";
 
 			const ItemPriceLabel = document.createElement("span");
 			ItemPriceLabel.innerText = "円";
 
 			const ItemPrePayer = document.createElement("select");	//立替者欄
-			ItemPrePayer.id = `item${num2}PrePayer`;
+			ItemPrePayer.id = nowNumber ? `${nowNumber}PrePayer` : `item${num2}PrePayer`;
 			ItemPrePayer.name = "memberList";
 			ItemPrePayer.classList.add("select-list");
 			ItemPrePayer.required = true;
@@ -339,10 +355,11 @@
 			ItemPrePayer[0].disabled = true;
 			ItemPrePayer[0].hidden = true;
 			members.forEach(member => ItemPrePayer.appendChild(new Option(member.name, member.number)));
+			ItemPrePayer.value = (nowPrePayer) ? nowPrePayer : "";
 
 			const ItemRmv = document.createElement("button");	//削除ボタンを作成
 			ItemRmv.type = "button";
-			ItemRmv.id = `item${num2}`;	//費目管理番号の実体
+			ItemRmv.id = nowNumber ? `${nowNumber}` : `item${num2}`;	//費目管理番号の実体
 			ItemRmv.classList.add("rmv");
 			ItemRmv.tabIndex = -1;
 			ItemRmv.addEventListener("click", function(){delRow(this);}, false);
@@ -357,7 +374,7 @@
 			num2++;
 		}
 
-		function editItem() {	//費目欄の編集・支払者欄の追加
+		function editItem(target) {	//費目欄の編集・支払者欄の追加
 			items = [];	//配列初期化
 			for (let i=0; i<num2; i++){
 				if (document.getElementById(`item${i}Row`)) {
@@ -365,7 +382,7 @@
 						"number": `item${i}`,
 						"name": document.getElementById(`item${i}Name`).value || `費目${i + 1}`,
 						"price": document.getElementById(`item${i}Price`).value || 0,
-						"prePayer": document.getElementById(`item${i}PrePayer`).value
+						"prePayer": document.getElementById(`item${i}PrePayer`).value || ""
 					});
 				}
 			}
@@ -399,7 +416,7 @@
 					PayerCheck.id = `${item.number}_${member.number}`;
 					PayerCheck.name = "payerCheck";
 					PayerCheck.classList.add("payer-check");
-					PayerCheck.checked = (nowValues[PayerCheck.id] === false) ? false : true;
+					PayerCheck.checked = (nowValues[PayerCheck.id] == false || target[PayerCheck.id] == 0) ? false : true;
 
 					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
@@ -416,7 +433,7 @@
 		function editPayer() {	//支払者欄の編集
 			const PayerTable = document.getElementById("payerTable");
 
-			results = {};	//配列初期化
+			results = {};
 			members.forEach(postPayer => {
 				let prePayers = {};
 				members.forEach(prePayer => prePayers[prePayer.number] = 0);
@@ -430,7 +447,7 @@
 				choices[item.number] = choice;
 				let headCount = Object.values(choices[item.number]).reduce((sum, i) => sum + i, 0);	//頭数
 				let bite = item.price / headCount;	//一口あたり
-				members.forEach(postPayer => results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] === 1) ? bite : 0);
+				members.forEach(postPayer => results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] == 1) ? bite : 0);
 			});
 
 			const ResultList = document.getElementById("resultList");	//結果欄の初期化・追加
@@ -454,7 +471,86 @@
 				}
 			});
 		}
-		addMember();
-		addItem();
+
+		function shareResult() {
+			const params = new URLSearchParams();
+			params.append("num1", num1);
+			params.append("num2", num2);
+			params.append("digit", document.forms.splitForm.digit.value);
+			params.append("math", document.forms.splitForm.math.value);
+
+			params.append("members", members.map(member => `${member.number}+${member.name}`).join(","));
+			params.append("items", items.map(item => `${item.number}+${item.name}+${item.price}+${item.prePayer}`).join(","));
+
+			let choiceParam = new String();
+			for (item of Object.keys(choices)) {
+				for (member of Object.keys(choices[item])) {
+						choiceParam += `${item}_${member}+${choices[item][member]},`;
+				}
+			}
+			params.append("choices", choiceParam);
+
+			let sendURL = `${window.location.protocol}//${window.location.hostname}${window.location.pathname}?${params}`;
+
+			let resultText = new String();
+			members.forEach(postPayer => {
+				resultText += `${postPayer.name}さんは`
+				members.forEach(prePayer => {
+					if (prePayer != postPayer) resultText += `、${prePayer.name}さんに${calc(results[postPayer.number][prePayer.number])}円`;
+				});
+				resultText += "支払ってください。\n";
+			});
+
+			const shareData = {
+				title: "立替精算機",
+				url: sendURL,
+				text: resultText
+			}
+
+			if (navigator.share) {
+				navigator.share(shareData);
+			} else if (navigator.clipboard) {
+				navigator.clipboard.writeText(`${resultText}\n${sendURL}`);
+				alert("テキストをコピーしました。");
+			} else {
+				alert("共有できませんでした。");
+			}
+		}
+
+		if (window.location.search) {
+			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+			let paramMembers = [];
+			let paramItems = [];
+			let paramChoices = {};
+			params.members.split(",").forEach(key => {
+				paramMembers.push({
+					"number": key.split("+")[0],
+					"name": key.split("+")[1]
+				});
+			});
+			params.items.split(",").forEach(key => {
+				paramItems.push({
+					"number": key.split("+")[0],
+					"name": key.split("+")[1],
+					"price": key.split("+")[2],
+					"prePayer": key.split("+")[3],
+				});
+			});
+			params.choices.split(",").forEach(key => {
+				paramChoices[key.split("+")[0]] = Number(key.split("+")[1]);
+			});
+
+			document.forms.splitForm.digit.value = params.digit;
+			document.forms.splitForm.math.value = params.math;
+			paramMembers.forEach(member => addMember(member.number, member.name));
+			num1 = params.num1;
+			editMember();
+			paramItems.forEach(item => addItem(item.number, item.name, item.price, item.prePayer));
+			num2 = params.num2;
+			editItem(paramChoices);
+		} else {
+			addMember();
+			addItem();
+		}
 	</script>
 </html>
