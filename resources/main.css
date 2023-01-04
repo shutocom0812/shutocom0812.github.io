@@ -14,9 +14,9 @@ fieldset{
 	--white: #E4DAD9;
 	--black: #021e1e;
 	--gray: #808080;
-	--color1: #E5996D;
-	--color2: #642327;
-	--color3: #AD4133;
+	--color1: #021e1e;
+	--color2: #e4dad9;
+	--color3: #e1a600;
 
 	--height: 2.5rem;
 	--gap: 1vw;
@@ -31,7 +31,7 @@ fieldset{
 
 /*MAIN*/
 html{
-	font: bold min(3vw, 16px) / 2 sans;
+	font: bold min(3vw, 14px) / 2 sans;
 	color: var(--color1);
 }
 body{
