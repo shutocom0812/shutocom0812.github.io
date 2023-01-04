@@ -291,7 +291,7 @@
 				while (element.firstChild) {
 					element.firstChild.remove();
 				}
-				element[0] = new Option("立替者", "");
+				element[0] = new Option("立替者", "", true, true);
 				element[0].disabled = true;
 				element[0].hidden = true;
 				members.forEach(member => {
@@ -374,13 +374,13 @@
 			}
 
 			const PayerTable = document.getElementById("payerTable");	//支払者編集用のテーブルを取得
-			const CheckBoxes = document.getElementsByName("payerCheck");
+
 			let nowValues = {};
+			const CheckBoxes = document.getElementsByName("payerCheck");
 			CheckBoxes.forEach(element => nowValues[element.id] = element.checked);
 
-			while (PayerTable.firstChild) {
-				PayerTable.firstChild.remove();
-			}
+			while (PayerTable.firstChild) PayerTable.firstChild.remove();
+
 			const PayerRow1 = PayerTable.insertRow();	//タイトル行
 			PayerRow1.appendChild(document.createElement("th"));
 			members.forEach(member => {
@@ -437,9 +437,8 @@
 			});
 
 			const ResultList = document.getElementById("resultList");	//結果欄の追加
-			while (ResultList.firstChild) {
-				ResultList.firstChild.remove();
-			}
+			while (ResultList.firstChild) ResultList.firstChild.remove();
+
 			members.forEach(postPayer => {
 				let ResultLi = document.createElement("li");
 				ResultLi.innerHTML = `<strong>${postPayer.name}</strong>さんは`;
