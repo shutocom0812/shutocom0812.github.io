@@ -1,8 +1,6 @@
-
 <html lang="ja">
 	<head>
 		<title>立替精算機 | だむめも</title>
-		<meta name="discription" content="立替えた料金を精算しよう">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="color-scheme" content="light dark">
 		<link rel="stylesheet" href="/resources/main.css" />
@@ -416,7 +414,7 @@
 					PayerCheck.id = `${item.number}_${member.number}`;
 					PayerCheck.name = "payerCheck";
 					PayerCheck.classList.add("payer-check");
-					PayerCheck.checked = (nowValues[PayerCheck.id] == false || target[PayerCheck.id] == 0) ? false : true;
+					PayerCheck.checked = (nowValues[PayerCheck.id] == false || target?.[PayerCheck.id] == 0) ? false : true;
 
 					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
