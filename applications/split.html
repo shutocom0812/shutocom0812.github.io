@@ -288,9 +288,8 @@
 			const MemberLists = document.getElementsByName("memberList");	//メンバー選択肢欄を更新
 			MemberLists.forEach(element => {
 				const nowValue = element.value;
-				while (element.firstChild) {
-					element.firstChild.remove();
-				}
+				while (element.firstChild) element.firstChild.remove();
+
 				element[0] = new Option("立替者", "", true, true);
 				element[0].disabled = true;
 				element[0].hidden = true;
@@ -326,7 +325,7 @@
 			ItemPrice.name = "itemPrice";
 			ItemPrice.classList.add("price");
 			ItemPrice.step = 1;
-			ItemPrice.min = 0;
+			ItemPrice.min = 1;
 			ItemPrice.placeholder = "金額";
 			ItemPrice.required = true;
 
