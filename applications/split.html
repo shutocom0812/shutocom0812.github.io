@@ -349,7 +349,7 @@
 			ItemPrePayer.name = "memberList";
 			ItemPrePayer.classList.add("select-list");
 			ItemPrePayer.required = true;
-			ItemPrePayer[0] = new Option("立替者", "", true, true);	//立替者のデフォルト設定
+			ItemPrePayer[0] = new Option("立替者", "");	//立替者のデフォルト設定
 			ItemPrePayer[0].disabled = true;
 			ItemPrePayer[0].hidden = true;
 			members.forEach(member => ItemPrePayer.appendChild(new Option(member.name, member.number)));
@@ -511,7 +511,7 @@
 				navigator.clipboard.writeText(`${resultText}\n${sendURL}`);
 				alert("テキストをコピーしました。");
 			} else {
-				alert("共有できませんでした。");
+				alert(`テキストをコピーして下さい。\n${resultText}\n${sendURL}`);
 			}
 		}
 
