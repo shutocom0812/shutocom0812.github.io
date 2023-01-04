@@ -274,7 +274,7 @@
 			num1++;
 		}
 
-		function editMember(){	//メンバー欄の編集
+		function editMember(){	//メンバー欄の編集・費目欄の更新
 			members = [];	//配列初期化
 			for (let i=0; i<num1; i++) {
 				if (document.getElementById(`member${i}Name`)?.value) {
@@ -295,9 +295,7 @@
 				element[0].hidden = true;
 				members.forEach(member => {
 					element.appendChild(new Option(member.name, member.number));
-					if (member.number == nowValue) {
-						element.value = member.number;
-					}
+					if (member.number == nowValue) element.value = member.number;
 				});
 			});
 			editItem();
@@ -325,7 +323,7 @@
 			ItemPrice.name = "itemPrice";
 			ItemPrice.classList.add("price");
 			ItemPrice.step = 1;
-			ItemPrice.min = 1;
+			ItemPrice.min = 0;
 			ItemPrice.placeholder = "金額";
 			ItemPrice.required = true;
 
@@ -400,12 +398,12 @@
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.number}_${member.number}`;
 					PayerCheck.name = "payerCheck";
-					PayerCheck.classList.add("check-box");
+					PayerCheck.classList.add("payer-check");
 					PayerCheck.checked = (nowValues[PayerCheck.id] === false) ? false : true;
 
 					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
-					PayerLabel.classList.add("check-label");
+					PayerLabel.classList.add("payer-label");
 
 					PayerCell.appendChild(PayerCheck);
 					PayerCell.appendChild(PayerLabel);
@@ -435,7 +433,7 @@
 				members.forEach(postPayer => results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] === 1) ? bite : 0);
 			});
 
-			const ResultList = document.getElementById("resultList");	//結果欄の追加
+			const ResultList = document.getElementById("resultList");	//結果欄の初期化・追加
 			while (ResultList.firstChild) ResultList.firstChild.remove();
 
 			members.forEach(postPayer => {
@@ -449,10 +447,11 @@
 						ResultUl.appendChild(ResultLi2);
 					}
 				});
-				ResultLi.appendChild(ResultUl);
-				ResultList.appendChild(ResultLi);
-
-				ResultUl.hasChildNodes() || ResultLi.remove();
+				
+				if (ResultUl.hasChildNodes()) {
+					ResultLi.appendChild(ResultUl);
+					ResultList.appendChild(ResultLi);
+				}
 			});
 		}
 		addMember();
