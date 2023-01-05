@@ -271,7 +271,7 @@
 			MemberName.classList.add("name");
 			MemberName.placeholder = "名前";
 			MemberName.required = true;
-			MemberName.value = (nowName) ? nowName : "";
+			MemberName.value = nowName ? nowName : "";
 
 			const MemberRmv = document.createElement("button");	//削除ボタン
 			MemberRmv.type = "button";
@@ -477,13 +477,13 @@
 			params.append("digit", document.forms.splitForm.digit.value);
 			params.append("math", document.forms.splitForm.math.value);
 
-			params.append("members", members.map(member => `${member.number}+${member.name}`).join(","));
-			params.append("items", items.map(item => `${item.number}+${item.name}+${item.price}+${item.prePayer}`).join(","));
+			params.append("members", members.map(member => `${member.number}*${member.name}`).join(","));
+			params.append("items", items.map(item => `${item.number}*${item.name}*${item.price}*${item.prePayer}`).join(","));
 
 			let choiceParam = new String();
 			for (item of Object.keys(choices)) {
 				for (member of Object.keys(choices[item])) {
-						choiceParam += `${item}_${member}+${choices[item][member]},`;
+						choiceParam += `${item}_${member}*${choices[item][member]},`;
 				}
 			}
 			params.append("choices", choiceParam);
@@ -522,20 +522,20 @@
 			let paramChoices = {};
 			params.members.split(",").forEach(key => {
 				paramMembers.push({
-					"number": key.split("+")[0],
-					"name": key.split("+")[1]
+					"number": key.split("*")[0],
+					"name": key.split("*")[1]
 				});
 			});
 			params.items.split(",").forEach(key => {
 				paramItems.push({
-					"number": key.split("+")[0],
-					"name": key.split("+")[1],
-					"price": key.split("+")[2],
-					"prePayer": key.split("+")[3],
+					"number": key.split("*")[0],
+					"name": key.split("*")[1],
+					"price": key.split("*")[2],
+					"prePayer": key.split("*")[3],
 				});
 			});
 			params.choices.split(",").forEach(key => {
-				paramChoices[key.split("+")[0]] = Number(key.split("+")[1]);
+				paramChoices[key.split("*")[0]] = Number(key.split("*")[1]);
 			});
 
 			document.forms.splitForm.digit.value = params.digit;
