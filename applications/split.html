@@ -335,7 +335,7 @@
 			ItemRow.appendChild(ItemRmv);
 			document.getElementById("itemForm").appendChild(ItemRow);
 
-			num2++;
+			num2++;	//変数を進める
 		}
 
 		function addPayer() {
@@ -353,7 +353,7 @@
 			items.forEach(item => {	//テーブルの中身を作成
 				const PayerRow = PayerTable.insertRow();
 				const PayerItem = document.createElement("th");
-				PayerItem.innerText = item.name;
+				PayerItem.id = `${item.number}Payers`;
 				PayerRow.appendChild(PayerItem);
 				members.forEach(member => {
 					const PayerCheck = document.createElement("input");
@@ -381,7 +381,7 @@
 				if (document.getElementById(`member${i}Name`)?.value) {
 					members.push({
 						"number": `member${i}`,
-						"name": document.getElementById(`member${i}Name`).value
+						"name": document.getElementById(`member${i}Name`).value.replace(/-|_/g, "ー")
 					});
 				}
 			}
@@ -407,7 +407,7 @@
 				if (document.getElementById(`item${i}Row`)) {
 					items.push({
 						"number": `item${i}`,
-						"name": document.getElementById(`item${i}Name`).value || `費目${i + 1}`,
+						"name": document.getElementById(`item${i}Name`).value.replace(/-|_/g, "ー") || `費目${i + 1}`,
 						"price": document.getElementById(`item${i}Price`).value || 0,
 						"prePayer": document.getElementById(`item${i}PrePayer`).value
 					});
@@ -434,6 +434,7 @@
 				let headCount = Object.values(choices[item.number]).reduce((sum, i) => sum + i, 0);	//頭数
 				let bite = item.price / headCount;	//一口あたり
 				members.forEach(postPayer => results[postPayer.number][item.prePayer] += (choices[item.number][postPayer.number] == 1) ? bite : 0);
+				document.getElementById(`${item.number}Payers`).innerHTML = `${item.name}<br>(${Math.round(bite * 10) / 10}円)`;
 			});
 
 			const ResultList = document.getElementById("resultList");	//結果欄の初期化・追加
