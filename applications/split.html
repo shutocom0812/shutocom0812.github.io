@@ -252,11 +252,11 @@
 		let choices = new Object();	//支払者
 		let results = new Object(); //結果
 
-		function delRow(target) {	//列の削除
+		export function delRow(target) {	//列の削除
 			document.getElementById(`${target.id}Row`).remove();
 		}
 
-		function calc(target){	//端数処理
+		export function calc(target){	//端数処理
 			const digit = document.forms.splitForm.digit.value;
 			const times = target / digit;
 			let result = 0;
@@ -274,7 +274,7 @@
 			return result * digit;
 		}
 
-		function addMember(nowNumber, nowName) {	//メンバー欄の追加
+		export function addMember(nowNumber, nowName) {	//メンバー欄の追加
 			const MemberRow = document.createElement("div");	//行
 			MemberRow.id = nowNumber ? `${nowNumber}Row` : `member${num1}Row`;
 			MemberRow.classList.add("row");
@@ -302,7 +302,7 @@
 			num1++;	//変数を進める
 		}
 
-		function addItem(nowNumber, nowName, nowPrice, nowPrePayer) {	//費目欄の追加
+		export function addItem(nowNumber, nowName, nowPrice, nowPrePayer) {	//費目欄の追加
 			const ItemRow = document.createElement("div");	//行
 			ItemRow.id = nowNumber ? `${nowNumber}Row` : `item${num2}Row`;
 			ItemRow.classList.add("row");
@@ -358,7 +358,7 @@
 			num2++;	//変数を進める
 		}
 
-		function addPayer() {
+		export function addPayer() {
 			const PayerTable = document.getElementById("payerTable");	//支払者編集用のテーブルを取得
 			while (PayerTable.firstChild) PayerTable.firstChild.remove();
 
@@ -395,7 +395,7 @@
 			editPayer();
 		}
 
-		function editMember() {	//メンバー欄の編集・費目欄の更新
+		export function editMember() {	//メンバー欄の編集・費目欄の更新
 			members = [];	//配列初期化
 			for (let i=0; i<num1; i++) {
 				if (document.getElementById(`member${i}Name`)?.value) {
@@ -421,7 +421,7 @@
 			editItem();
 		}
 
-		function editItem() {	//費目欄の編集・支払者欄の更新
+		export function editItem() {	//費目欄の編集・支払者欄の更新
 			items = [];	//配列初期化
 			for (let i=0; i<num2; i++){
 				if (document.getElementById(`item${i}Row`)) {
@@ -436,7 +436,7 @@
 			addPayer();
 		}
 
-		function editPayer() {	//支払者欄の編集・結果欄の更新
+		export function editPayer() {	//支払者欄の編集・結果欄の更新
 			const PayerTable = document.getElementById("payerTable");
 
 			results = {};
@@ -479,7 +479,7 @@
 			});
 		}
 
-		function shareResult() {
+		export function shareResult() {
 			const params = new URLSearchParams();
 			params.append("num1", num1);
 			params.append("num2", num2);
