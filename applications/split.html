@@ -499,8 +499,6 @@
 			if (navigator.share) {
 				navigator.share(shareData);
 			} else {
-				runModal();
-
 				const CopyText = document.createElement("textarea");
 				CopyText.id = "copyText";
 				CopyText.classList.add("copy-text");
@@ -520,10 +518,7 @@
 					}
 				});
 
-				const ModalWindow = document.getElementById("modalWindow");
-				while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
-				ModalWindow.appendChild(CopyText);
-				ModalWindow.appendChild(CopyButton);
+				runModal(CopyText, CopyButton);
 			}
 		}
 
