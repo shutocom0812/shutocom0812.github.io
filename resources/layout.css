@@ -124,7 +124,7 @@ body{
 /*TOAST*/
 .toast{
 	position: fixed;
-	bottom: 10px;
+	bottom: 1vh;
 	padding: var(--gap) calc(var(--gap) * 3);
 	border-radius: var(--radius);
 	background: rgba(255, 255, 255, 0.6);
