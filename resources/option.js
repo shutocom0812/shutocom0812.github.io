@@ -12,8 +12,13 @@ function createModal() {
 	ModalBack.appendChild(ModalWindow);
 	document.body.appendChild(ModalBack);
 }
-function runModal() {
+function runModal(target) {
 	document.getElementById("modalBack").classList.remove("close");
+	const ModalWindow = document.getElementById("modalWindow");
+	while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
+	for (let i=0;i<arguments.length; i++) {
+		ModalWindow.appendChild(arguments[i]);
+	}
 }
 
 function createToast() {
