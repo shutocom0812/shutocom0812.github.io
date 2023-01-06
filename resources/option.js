@@ -1,5 +1,5 @@
 //MODAL WINDOW
-function createModal() {
+export function createModal() {
 	const ModalBack = document.createElement("div");
 	ModalBack.id = "modalBack";
 	ModalBack.classList.add("modal-back", "close");
@@ -13,7 +13,7 @@ function createModal() {
 	ModalBack.appendChild(ModalWindow);
 	document.body.appendChild(ModalBack);
 }
-function runModal(target) {
+export function runModal(target) {
 	document.getElementById("modalBack").classList.remove("close");
 	const ModalWindow = document.getElementById("modalWindow");
 	while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
@@ -23,14 +23,14 @@ function runModal(target) {
 }
 
 //TOAST MESSAGE
-function createToast() {
+export function createToast() {
 	const Toast = document.createElement("span");
 	Toast.id = "toast";
 	Toast.classList.add("toast", "close");
 	document.body.appendChild(Toast);
 }
 
-function runToast(target) {
+export function runToast(target) {
 	const Toast = document.getElementById("toast");
 	Toast.innerText = target;
 	Toast.classList.remove("close");
