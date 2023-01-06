@@ -511,9 +511,9 @@
 				CopyButton.id = "clipButton";
 				CopyButton.classList.add("copy-button");
 				CopyButton.innerText = "コピー";
-				CopyButton.addEventListener("click", function copyClip() {
+				CopyButton.addEventListener("click", async function copyClip() {
 					try {
-						navigator.clipboard.writeText(sendURL);
+						await navigator.clipboard.writeText(sendURL);
 						runToast("コピーしました");
 					} catch (error) {
 						runToast("コピーできませんでした");
