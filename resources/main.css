@@ -41,7 +41,7 @@ body{
 
 /*COMPONENTS*/
 ::selection{
-	color: var(--color2);
+	color: var(--color3);
 	background-color: var(--color1);
 }
 /*PALAGRAPH*/
