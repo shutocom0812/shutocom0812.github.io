@@ -132,5 +132,5 @@ body{
 	z-index: 3;
 }
 .close{
-	visibility: hidden;
+	display: none;
 }
