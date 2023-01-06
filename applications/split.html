@@ -159,7 +159,8 @@
 				background: var(--color3);
 			}
 		</style>
-		<script src="/resources/theme.js" defer></script>
+		<script src="/resources/theme.js" async></script>
+		<script src="/resources/option.js" async></script>
 	</head>
 	<body>
 		<header class="header">
@@ -479,11 +480,32 @@
 
 			if (navigator.share) {
 				navigator.share(shareData);
-			} else if (navigator.clipboard) {
-				navigator.clipboard.writeText(sendURL);
-				alert("テキストをコピーしました。");
 			} else {
-				alert("非対応のブラウザです。");
+				runModal();
+
+				const CopyText = document.createElement("textarea");
+				CopyText.id = "copyText";
+				CopyText.classList.add("copy-text");
+				CopyText.innerText = sendURL;
+				CopyText.addEventListener("focus", function() {this.select()});
+
+				const CopyButton = document.createElement("button");
+				CopyButton.id = "clipButton";
+				CopyButton.classList.add("copy-button");
+				CopyButton.innerText = "コピー";
+				CopyButton.addEventListener("click", function copyClip() {
+					try {
+						navigator.clipboard.writeText(sendURL);
+						runToast("コピーしました");
+					} catch (error) {
+						runToast("コピーできませんでした");
+					}
+				});
+
+				const ModalWindow = document.getElementById("modalWindow");
+				while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
+				ModalWindow.appendChild(CopyText);
+				ModalWindow.appendChild(CopyButton);
 			}
 		}
 
@@ -503,7 +525,7 @@
 					"number": `item${key.split("-")[0]}`,
 					"name": key.split("-")[1],
 					"price": Number(key.split("-")[2]),
-					"prePayer": `member${key.split("-")[3]}`
+					"prePayer": (key.split("-")[3]) ? `member${key.split("-")[3]}` : ""
 				});
 			});
 
