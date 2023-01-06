@@ -16,7 +16,7 @@ function runModal(target) {
 	document.getElementById("modalBack").classList.remove("close");
 	const ModalWindow = document.getElementById("modalWindow");
 	while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
-	for (let i=0;i<arguments.length; i++) {
+	for (let i=0; i<arguments.length; i++) {
 		ModalWindow.appendChild(arguments[i]);
 	}
 }
