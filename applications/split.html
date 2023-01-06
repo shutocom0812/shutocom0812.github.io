@@ -533,17 +533,19 @@
 			document.forms.splitForm.digit.value = params.digit;
 			document.forms.splitForm.math.value = params.math;
 			params.members.split("_").forEach(key => {
+				const element = key.split("-");
 				members.push({
-					"number": `member${key.split("-")[0]}`,
-					"name": key.split("-")[1]
+					"number": `member${element[0]}`,
+					"name": element[1]
 				});
 			});
 			params.items.split("_").forEach(key => {
+				const element = key.split("-");
 				items.push({
-					"number": `item${key.split("-")[0]}`,
-					"name": key.split("-")[1],
-					"price": Number(key.split("-")[2]),
-					"prePayer": (key.split("-")[3]) ? `member${key.split("-")[3]}` : ""
+					"number": `item${element[0]}`,
+					"name": element[1],
+					"price": Number(element[2]),
+					"prePayer": element[3] ? `member${element[3]}` : ""
 				});
 			});
 
