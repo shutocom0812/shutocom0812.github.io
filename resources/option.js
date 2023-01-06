@@ -1,3 +1,4 @@
+//MODAL WINDOW
 function createModal() {
 	const ModalBack = document.createElement("div");
 	ModalBack.id = "modalBack";
@@ -21,6 +22,7 @@ function runModal(target) {
 	}
 }
 
+//TOAST MESSAGE
 function createToast() {
 	const Toast = document.createElement("span");
 	Toast.id = "toast";
@@ -37,6 +39,3 @@ function runToast(target) {
 		Toast.classList.add("close");
 	}, 2000);
 }
-
-createModal();
-createToast();
