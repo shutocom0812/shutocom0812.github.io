@@ -24,7 +24,6 @@ fieldset{
 }
 @media screen and (min-width: 700px) {
 	:root{
-		--height: 30px;
 		--gap: 0.5vw;
 	}
 }
