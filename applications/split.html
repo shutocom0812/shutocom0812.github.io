@@ -135,6 +135,7 @@
 			.result-math{
 				border-bottom: 3px dotted var(--color1);
 				border-radius: 0;
+				text-align: center;
 			}
 			.result-digit, .radio-label{
 				height: var(--height);
@@ -177,7 +178,7 @@
 			}
 		</style>
 		<script src="/resources/theme.js" async></script>
-		<script src="/resources/option.js"></script>
+		<script src="/resources/option.js" type="module"></script>
 	</head>
 	<body>
 		<header class="header">
@@ -477,6 +478,50 @@
 			});
 		}
 
+		if (window.location.search) {
+			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+
+			document.forms.splitForm.digit.value = params.digit;
+			document.forms.splitForm.math.value = params.math;
+			params.members.split("_").forEach(key => {
+				const element = key.split("-");
+				members.push({
+					"number": `member${element[0]}`,
+					"name": element[1]
+				});
+			});
+			params.items.split("_").forEach(key => {
+				const element = key.split("-");
+				items.push({
+					"number": `item${element[0]}`,
+					"name": element[1],
+					"price": Number(element[2]),
+					"prePayer": element[3] ? `member${element[3]}` : ""
+				});
+			});
+
+			let paramChoices = new Array();
+			params.choices.split("_").forEach(key => paramChoices.push(Array.from(key)));
+
+			items.forEach((item, indexI) => {
+				let choice = new Object();
+				members.forEach((member, indexM) => choice[member.number] = paramChoices[indexI][indexM]);
+				choices[item.number] = choice;
+			});
+
+			members.forEach(member => addMember(member.number, member.name));
+			items.forEach(item => addItem(item.number, item.name, item.price, item.prePayer));
+			num1 = params.num1;
+			num2 = params.num2;
+			addPayer();
+		} else {
+			addMember();
+			addItem();
+		}
+	</script>
+	<script type="module">
+		import {createModal, runModal, createToast, runToast} from "/resources/option.js";
+		
 		function shareResult() {
 			const params = new URLSearchParams();
 			params.append("num1", num1);
@@ -520,47 +565,7 @@
 				runModal(CopyText, CopyButton);
 			}
 		}
-
-		if (window.location.search) {
-			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-
-			document.forms.splitForm.digit.value = params.digit;
-			document.forms.splitForm.math.value = params.math;
-			params.members.split("_").forEach(key => {
-				const element = key.split("-");
-				members.push({
-					"number": `member${element[0]}`,
-					"name": element[1]
-				});
-			});
-			params.items.split("_").forEach(key => {
-				const element = key.split("-");
-				items.push({
-					"number": `item${element[0]}`,
-					"name": element[1],
-					"price": Number(element[2]),
-					"prePayer": element[3] ? `member${element[3]}` : ""
-				});
-			});
-
-			let paramChoices = new Array();
-			params.choices.split("_").forEach(key => paramChoices.push(Array.from(key)));
-
-			items.forEach((item, indexI) => {
-				let choice = new Object();
-				members.forEach((member, indexM) => choice[member.number] = paramChoices[indexI][indexM]);
-				choices[item.number] = choice;
-			});
-
-			members.forEach(member => addMember(member.number, member.name));
-			items.forEach(item => addItem(item.number, item.name, item.price, item.prePayer));
-			num1 = params.num1;
-			num2 = params.num2;
-			addPayer();
-		} else {
-			addMember();
-			addItem();
-		}
+		
 		createModal();
 		createToast();
 	</script>
