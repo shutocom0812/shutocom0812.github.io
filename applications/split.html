@@ -319,8 +319,8 @@
 		}
 
 		function setChoices() {
-			const checkBoxes = document.getElementsByName("payerCheck");
-			for (const element of checkBoxes) {
+			const checks = document.getElementsByName("payerCheck");
+			for (const element of checks) {
 				const ids = element.id.split("_");	//ids[0]は費目ID、ids[1]はメンバーID
 				const nowItem = items.find(item => item.id == ids[0]);
 				nowItem.choices.set(ids[1], element.checked ? 1 : 0);	//trueのとき1、falseのとき0を格納
@@ -342,7 +342,7 @@
 
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
-			MemberName.id = nowId ? `${nowId}Name` : `member${num1}Name`;
+			MemberName.id = nowId ? `${nowId}Name` : `member${num1}Name`;MemberName.get
 			MemberName.name = "memberName";
 			MemberName.classList.add("name");
 			MemberName.placeholder = "名前";
@@ -353,12 +353,12 @@
 			MemberRmv.type = "button";
 			MemberRmv.id = nowId ? nowId : `member${num1}`;
 			MemberRmv.classList.add("rmv");
-			MemberRmv.addEventListener("click", function(){this.parentNode.remove();}, false);
+			MemberRmv.addEventListener("click", function(){this.parentElement.remove();}, false);
 
 			MemberRow.append(MemberName, MemberRmv);
 			document.getElementById("memberForm").append(MemberRow);
 
-			num1++;	//変数を進める
+			num1++;
 		}
 
 		function addItem(nowId, nowName, nowPrice, nowPrePayer) {	//費目の追加
@@ -386,10 +386,10 @@
 			ItemPrice.placeholder = "金額";
 			ItemPrice.required = true;
 			ItemPrice.value = nowPrice ? nowPrice : "";
-			
-			const Span = document.createElement("span");
-			Span.innerText = "円";
-			
+
+			const ItemLabel = document.createElement("span");
+			ItemLabel.innerText = "円";
+
 			const ItemPrePayer = document.createElement("select");	//立替者欄
 			ItemPrePayer.id = nowId ? `${nowId}PrePayer` : `item${num2}PrePayer`;
 			ItemPrePayer.name = "memberList";
@@ -402,9 +402,9 @@
 			ItemRmv.type = "button";
 			ItemRmv.id = nowId ? nowId : `item${num2}`;
 			ItemRmv.classList.add("rmv");
-			ItemRmv.addEventListener("click", function(){this.parentNode.remove();}, false);
+			ItemRmv.addEventListener("click", function(){this.parentElement.remove();}, false);
 
-			ItemRow.append(ItemName, ItemPrice, Span, ItemPrePayer, ItemRmv);
+			ItemRow.append(ItemName, ItemPrice, ItemLabel, ItemPrePayer, ItemRmv);
 			document.getElementById("itemForm").append(ItemRow);
 
 			num2++;
@@ -424,7 +424,7 @@
 				const nowValue = element.value;
 				while (element.firstChild) element.firstChild.remove();
 				setMemberList(element);
-				element.value = members.some(member => member.id === nowValue) ? nowValue : "";	//現在の値と一致するメンバーがいるときは値を返す
+				element.value = members.some(member => member.id === nowValue) ? nowValue : "";
 			}
 			editItem();
 		}
@@ -473,7 +473,8 @@
 					PayerLabel.htmlFor = PayerCheck.id;
 					PayerLabel.classList.add("payer-label");
 
-					PayerRow.insertCell().append(PayerCheck, PayerLabel);
+					const PayerCell = PayerRow.insertCell();
+					PayerCell.append(PayerCheck, PayerLabel);
 				});
 			});
 			editPayer();
@@ -486,7 +487,7 @@
 
 			items.forEach(item => {
 				let bite = 0;
-				const price = item.price;
+				let price = item.price;
 				bite = price / item.getPayers("number");
 				members.forEach(postPayer => {
 					if (item.choices.get(postPayer.id)) postPayer.addSum(item.prePayer_id, bite);
@@ -498,26 +499,19 @@
 			while (ResultList.firstChild) ResultList.firstChild.remove();
 
 			members.forEach(postPayer => {
-				const ResultUl = document.createElement("ul");
+				let ResultLi = document.createElement("li");
+				ResultLi.innerHTML = `<strong>${postPayer.name}</strong>さんは`;
+				let ResultUl = document.createElement("ul");
 				members.forEach(prePayer => {
 					if (prePayer != postPayer && calc(postPayer.sumFor(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
-						const PrePayerName = document.createElement("strong");
-						PrePayerName.innerText = prePayer.Name;
-						const Sum = document.createElement("strong");
-						Sum.innerText = calc(postPayer.sumFor(prePayer.id));
-
-						const ResultLi2 = document.createElement("li");
-						ResultLi2.append(PrePayerName, "さんに", Sum, "円");
+						let ResultLi2 = document.createElement("li");
+						ResultLi2.innerHTML = `<strong>${prePayer.name}</strong>さんに<strong>${calc(postPayer.sumFor(prePayer.id))}円</strong>支払ってください。`
 						ResultUl.append(ResultLi2);
 					}
 				});
 
 				if (ResultUl.hasChildNodes()) {	//中身がある場合のみ追加
-					const ResultLi = document.createElement("li");
-					const PostPayerName = document.createElement("strong");
-					PostPayerName.innerText = postPayer.name;
-
-					ResultLi.append(PostPayerName, "さんは、", ResultUl, "支払ってください。");
+					ResultLi.append(ResultUl);
 					ResultList.append(ResultLi);
 				}
 			});
