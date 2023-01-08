@@ -12,7 +12,7 @@ const themes = [
 
 function themeSet(now) {
 	themes[now].forEach((color, index) => {
-		document.querySelector(":root").setProperty(`--color${index + 1}`, color);
+		document.querySelector(":root").style.setProperty(`--color${index + 1}`, color);
 	});
 }
 
