@@ -514,7 +514,7 @@
 					PayerCheck.id = `${item.id}_${member.id}`;
 					PayerCheck.name = "payerCheck";
 					PayerCheck.classList.add("payer-check");
-					PayerCheck.checked = (item.getPayer(member.id) === 0) ? false : true;	//現在の値が0のときのみfalse、値がないときはtrue
+					PayerCheck.checked = (item.getPayer(member.id) == 0) ? false : true;	//現在の値が0のときのみfalse、値がないときはtrue
 	
 					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
@@ -628,7 +628,7 @@
 			params.getAll("item").forEach(element => {
 				const value = element.split("_");
 				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]: number, [1]: name, [2]: price, [3]: prePayer_number
-				const payer = String(value[4]).split("");	//[4]: payers.join("")
+				const payer = value[4].split("");	//[4]: payers.join("")
 				members.forEach((member, index) => newItem.setPayer(member.id, Number(payer[index])));
 				items.push(newItem);
 			});
