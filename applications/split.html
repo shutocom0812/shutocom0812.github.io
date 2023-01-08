@@ -322,8 +322,9 @@
 			const checks = document.getElementsByName("payerCheck");
 			for (const element of checks) {
 				const ids = element.id.split("_");	//ids[0]は費目ID、ids[1]はメンバーID
-				const nowItem = items.find(item => item.id == ids[0]);
-				nowItem.choices.set(ids[1], element.checked ? 1 : 0);	//trueのとき1、falseのとき0を格納
+				const nowItem = items.find(item => item.id === ids[0]);
+				const nowMember = members.find(member => member.id === ids[1]);
+				if (nowItem && nowMember) nowItem.choices.set(nowMember.id, element.checked ? 1 : 0);	//trueのとき1、falseのとき0を格納
 			}
 		}
 
@@ -342,7 +343,7 @@
 
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
-			MemberName.id = nowId ? `${nowId}Name` : `member${num1}Name`;MemberName.get
+			MemberName.id = nowId ? `${nowId}Name` : `member${num1}Name`;
 			MemberName.name = "memberName";
 			MemberName.classList.add("name");
 			MemberName.placeholder = "名前";
