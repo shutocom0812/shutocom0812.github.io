@@ -245,7 +245,8 @@
 	</body>
 	<script type="module">
 		import {createModal, runModal, createToast, runToast} from "/resources/option.js";
-	
+
+		const Form = document.forms.splitForm;
 		let num1 = 0;	//メンバー管理番号用変数
 		let num2 = 0;	//費目管理番号用変数
 		let members = new Array();	//メンバー
@@ -258,10 +259,10 @@
 		}
 
 		function calc(target){	//端数処理
-			const digit = document.forms.splitForm.digit.value;
+			const digit = Form.digit.value;
 			const times = target / digit;
 			let result = 0;
-			switch (document.forms.splitForm.math.value) {
+			switch (Form.math.value) {
 				case "floor":
 					result = Math.floor(times);
 					break;
@@ -484,8 +485,8 @@
 			const params = new URLSearchParams();
 			params.append("num1", num1);
 			params.append("num2", num2);
-			params.append("digit", document.forms.splitForm.digit.value);
-			params.append("math", document.forms.splitForm.math.value);
+			params.append("digit", Form.digit.value);
+			params.append("math", Form.math.value);
 			params.append("members", members.map(member => `${member.number.replace("member", "")}-${member.name}`).join("_"));
 			params.append("items", items.map(item => `${item.number.replace("item", "")}-${item.name}-${item.price}-${item.prePayer.replace("member", "")}`).join("_"));
 			params.append("choices", Object.values(choices).map(element => Object.values(element).join("")).join("_"));
@@ -527,8 +528,8 @@
 		if (window.location.search) {
 			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
 
-			document.forms.splitForm.digit.value = params.digit;
-			document.forms.splitForm.math.value = params.math;
+			dForm.digit.value = params.digit;
+			Form.math.value = params.math;
 			params.members.split("_").forEach(key => {
 				const element = key.split("-");
 				members.push({
