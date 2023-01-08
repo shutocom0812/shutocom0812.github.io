@@ -100,7 +100,7 @@
 			margin-bottom: var(--gap);
 		}
 	</style>
-	<script src="/resources/theme.js" defer></script>
+	<script src="/resources/theme.js" type="module"></script>
 </head>
 <body>
 	<header class="header">
@@ -278,9 +278,10 @@
 			<p>by <a href="https://twitter.com/shutocom0812">@shutocom0812</a></p>
 		</nav>
 	</footer>
-	<script>
+	<nav id="navOption"></nav>
+	<script type="module">
+		const Form = document.forms.flexForm;
 		function flexChange() {
-			const Form = document.forms.flexForm;
 			const Container = document.getElementById("flexContainer");
 
 			const directionValue = Form.direction.value;
@@ -295,9 +296,11 @@
 			Container.style.alignItems = alignItemsValue;
 			Container.style.alignContent = alignContentValue;
 
-			document.flexForm.alignContentForm.disabled = (wrapValue === "nowrap") ? true : false;
+			Form.alignContentForm.disabled = (wrapValue === "nowrap") ? true : false;
 
 		}
+		Form.addEventListener("submit", event => {event.preventDefault();}, false);
+		Form.addEventListener("change", () => {flexChange();}, false);
 		flexChange();
 	</script>
 </body>
