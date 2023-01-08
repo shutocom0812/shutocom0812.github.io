@@ -85,13 +85,13 @@ body{
 	align-items: center;
 	visibility: hidden;
 }
-#navOption>*{
-	position: fixed;
+#navOption *{
 	visibility: visible;
 }
 
 /*THEME*/
 .theme-button{
+	position: fixed;
 	display: flex;
 	top: 10px;
 	right: 10px;
@@ -108,6 +108,7 @@ body{
 }
 /*MODAL*/
 .modal-back{
+	position: fixed;
 	display: flex;
 	width: 100vw;
 	height: 100vh;
@@ -133,6 +134,7 @@ body{
 
 /*TOAST*/
 .toast{
+	position: fixed;
 	bottom: 5vh;
 	padding: var(--gap) calc(var(--gap) * 3);
 	border-radius: var(--radius);
