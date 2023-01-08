@@ -242,6 +242,7 @@
 				<span>by <a href="https://twitter.com/shutocom0812">@shutocom0812</a></span>
 			</nav>
 		</footer>
+		<nav id="navOption"></nav>
 	</body>
 	<script type="module">
 		import {createModal, runModal, createToast, runToast} from "/resources/option.js";
@@ -400,7 +401,7 @@
 		function editMember() {	//メンバー欄の編集・費目欄の更新
 			members = [];	//配列初期化
 			for (let i=0; i<num1; i++) {
-				if (document.getElementById(`member${i}Name`)?.value) {
+				if (document.getElementById(`member${i}Row`)) {
 					members.push({
 						"number": `member${i}`,
 						"name": document.getElementById(`member${i}Name`).value.replace(/-|_/g, "ー")
