@@ -10,16 +10,15 @@ function createModal() {
 	ModalWindow.classList.add("modal-window");
 	ModalWindow.addEventListener("click", function(){event.stopPropagation();});
 
-	ModalBack.appendChild(ModalWindow);
-	document.getElementById("navOption").appendChild(ModalBack);
+	ModalBack.append(ModalWindow);
+	document.getElementById("navOption").append(ModalBack);
 }
-function runModal() {
-	document.getElementById("modalBack").classList.remove("close");
+function runModal(...element) {
+	const ModalBack = document.getElementById("modalBack");
 	const ModalWindow = document.getElementById("modalWindow");
 	while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
-	for (let i=0; i<arguments.length; i++) {
-		ModalWindow.appendChild(arguments[i]);
-	}
+	for (const argument of arguments) ModalWindow.append(argument);
+	ModalBack.classList.remove("close");
 }
 
 //TOAST MESSAGE
@@ -27,7 +26,7 @@ function createToast() {
 	const Toast = document.createElement("span");
 	Toast.id = "toast";
 	Toast.classList.add("toast", "close");
-	document.getElementById("navOption").appendChild(Toast);
+	document.getElementById("navOption").append(Toast);
 }
 function runToast(target) {
 	const Toast = document.getElementById("toast");
