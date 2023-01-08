@@ -1,305 +1,351 @@
 <html lang="ja">
-	<head>
-		<title>立替精算機 | だむめも</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<meta name="color-scheme" content="light dark">
-		<link rel="stylesheet" href="/resources/main.css" />
-		<link rel="stylesheet" href="/resources/layout.css" />
-		<style>
-			/*CALCULATOR*/
-			/*MEMBER, ITEM*/
-			.row{
-				display: flex;
-				padding: var(--gap);
-				align-items: center;
-				justify-content: space-between;
-			}
-			.row *:not(:last-child){
-				margin-right: var(--gap);
-			}
-			/*INPUT DESIGN*/
-			.name{
-				min-width: 5em;
-				height: var(--height);
-				flex-grow: 3;
-			}
-			.price{
-				min-width: 4em;
-				max-width: 6em;
-				height: var(--height);
-				flex-grow: 1;
-			}
-			.select-list{
-				width: 8em;
-				height: var(--height);
-				flex-grow: 1;
-			}
-			/*BUTTONS WRAPPER*/
-			.buttons{
-				display: flex;
-				padding: var(--gap);
-				align-items: center;
-				justify-content: space-between;
-			}
-			/*BUTTON DESIGN*/
-			.rmv, .add{
-				display: block;
-				position: relative;
-				width: var(--height);
-				height: var(--height);
-				flex-grow: 0;
-				flex-shrink: 0;
-			}
-			.rmv:hover,.add:hover{
-				background: var(--color3);
-				border-color: var(--color3);
-			}
-			.rmv::before, .add::before, 
-			.rmv::after, .add::after{
-				content: "";
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 3px;
-				height: 80%;
-				background: var(--color1);
-				border-radius: var(--radius);
-			}
-			.rmv::before{
-				transform:  translate(-50%,-50%) rotate(45deg);
-			}
-			.rmv::after{
-				transform: translate(-50%,-50%) rotate(-45deg);
-			}
-			.add::before{
-				transform: translate(-50%,-50%) rotate(180deg);
-			}
-			.add::after{
-				transform: translate(-50%,-50%) rotate(90deg);
-			}
-			.rmv:hover::before, .add:hover::before, 
-			.rmv:hover::after, .add:hover::after, 
-			.rmv:focus::before, .add:focus::before, 
-			.rmv:focus::after, .add:focus::after{
-				background: var(--color2);
-			}
-			.submit{
-				height: var(--height);
-				padding: 0 8px;
-				background: var(--color1);
-				color: var(--color2);
-				text-align: center;
-			}
-			.submit:hover, .submit:focus{
-				background: var(--color3);
-				color: var(--color1);
-				border-color: var(--color3);
-			}
-			/*PAYER*/
-			.payer-field p{
-				padding: 0 var(--gap);
-				text-indent: 0;
-				text-align: justify;
-			}
-			.payer-div{
-				width: 100%;
-				padding: var(--gap);
-				border-radius: var(--radius);
-				overflow: hidden;
-			}
-			.payer-table{
-				display: block;
-				border-spacing: 0 2px;
-				overflow-x: auto;
-			}
-			.payer-table th, .payer-table td{
-				padding: 4px;
-				text-align: center;
-				border-right: 2px solid var(--color2);
-			}
-			.payer-table th{
-				min-width:5em;
-				max-width:8em;
-				background: var(--color1);
-				color: var(--color2);
-				word-break: break-all;
-			}
-			.payer-table th:first-child{
-				position: sticky;
-				left: 0;
-				top: 0;
-				min-width: 7em;
-				z-index: 1;
-			}
-			/*RESULT*/
-			.result-math{
-				border-bottom: 3px dotted var(--color1);
-				border-radius: 0;
-				text-align: center;
-			}
-			.result-digit, .radio-label{
-				height: var(--height);
-			}
-			.result-list{
-				padding: var(--gap);
-			}
-			.result-list, .result-list ul{
-				padding-left: 12px;
-				list-style-type: none;
-			}
-			/*SHARE*/
-			.share{
-				display: block;
-				margin: 0 auto;
-				padding: var(--gap) calc(var(--gap) * 3);
-				background: var(--color2);
-				color: var(--color1);
-			}
-			.share:hover, .share:focus{
-				background: var(--color3);
-			}
-			.copy-text{
-				all: unset;
-				width: 90%;
-				height: 10rem;
-				padding: calc( var(--gap) * 2);
-				color: var(--color1);
-				background: transparent;
-				border: 3px solid var(--color1);
-				border-radius: var(--radius);
-			}
-			.copy-button{
-				margin-top: var(--gap);
-				color: var(--color1);
-			}
-			.copy-button:hover, .copy-button:focus{
-				background: var(--color3);
-				border-color: var(--color3);
-			}
-		</style>
-		<script src="/resources/theme.js" type="module"></script>
-		<script src="/resources/option.js" type="module"></script>
-	</head>
-	<body>
-		<header class="header">
-			<h2 class="blog-title"><a href="/" class="title-link">だむめも</a></h2>
-			<nav id="headerNav" class="header-nav"></nav>
-		</header>
-		<main class="main">
-			<article class="article">
-				<h1 class="main-title">立替精算機</h1>
-				<form id="splitForm" class="split-form" name="splitForm">
-					<fieldset id="memberField" class="member-field" name="memberField">
-						<legend>メンバー</legend>
-						<div id="memberForm" class="member-form"></div>
-						<div class="buttons">
-							<button type="button" class="add" name="memberAdd"></button>
-							<button type="button" class="submit" name="memberSubmit">決定</button>
-						</div>
+<head>
+	<title>立替精算機 | だむめも</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta name="color-scheme" content="light dark">
+	<link rel="stylesheet" href="/resources/main.css" />
+	<link rel="stylesheet" href="/resources/layout.css" />
+	<style>
+		/*CALCULATOR*/
+		/*MEMBER, ITEM*/
+		.row {
+			display: flex;
+			padding: var(--gap);
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.row *:not(:last-child) {
+			margin-right: var(--gap);
+		}
+
+		/*INPUT DESIGN*/
+		.name {
+			min-width: 5em;
+			height: var(--height);
+			flex-grow: 3;
+		}
+
+		.price {
+			min-width: 4em;
+			max-width: 6em;
+			height: var(--height);
+			flex-grow: 1;
+		}
+
+		.select-list {
+			width: 8em;
+			height: var(--height);
+			flex-grow: 1;
+		}
+
+		/*BUTTONS WRAPPER*/
+		.buttons {
+			display: flex;
+			padding: var(--gap);
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		/*BUTTON DESIGN*/
+		.rmv,
+		.add {
+			display: block;
+			position: relative;
+			width: var(--height);
+			height: var(--height);
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+
+		.rmv:hover,
+		.add:hover {
+			background: var(--color3);
+			border-color: var(--color3);
+		}
+
+		.rmv::before,
+		.add::before,
+		.rmv::after,
+		.add::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 3px;
+			height: 80%;
+			background: var(--color1);
+			border-radius: var(--radius);
+		}
+
+		.rmv::before {
+			transform: translate(-50%, -50%) rotate(45deg);
+		}
+
+		.rmv::after {
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+
+		.add::before {
+			transform: translate(-50%, -50%) rotate(180deg);
+		}
+
+		.add::after {
+			transform: translate(-50%, -50%) rotate(90deg);
+		}
+
+		.rmv:hover::before,
+		.add:hover::before,
+		.rmv:hover::after,
+		.add:hover::after,
+		.rmv:focus::before,
+		.add:focus::before,
+		.rmv:focus::after,
+		.add:focus::after {
+			background: var(--color2);
+		}
+
+		.submit {
+			height: var(--height);
+			padding: 0 8px;
+			background: var(--color1);
+			color: var(--color2);
+			text-align: center;
+		}
+
+		.submit:hover,
+		.submit:focus {
+			background: var(--color3);
+			color: var(--color1);
+			border-color: var(--color3);
+		}
+
+		/*PAYER*/
+		.payer-field p {
+			padding: 0 var(--gap);
+			text-indent: 0;
+			text-align: justify;
+		}
+
+		.payer-div {
+			width: 100%;
+			padding: var(--gap);
+			border-radius: var(--radius);
+			overflow: hidden;
+		}
+
+		.payer-table {
+			display: block;
+			border-spacing: 0 2px;
+			overflow-x: auto;
+		}
+
+		.payer-table th,
+		.payer-table td {
+			padding: 4px;
+			text-align: center;
+			border-right: 2px solid var(--color2);
+		}
+
+		.payer-table th {
+			min-width: 5em;
+			max-width: 8em;
+			background: var(--color1);
+			color: var(--color2);
+			word-break: break-all;
+		}
+
+		.payer-table th:first-child {
+			position: sticky;
+			left: 0;
+			top: 0;
+			min-width: 7em;
+			z-index: 1;
+		}
+
+		/*RESULT*/
+		.result-math {
+			border-bottom: 3px dotted var(--color1);
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.result-digit,
+		.radio-label {
+			height: var(--height);
+		}
+
+		.result-list {
+			padding: var(--gap);
+		}
+
+		.result-list,
+		.result-list ul {
+			padding-left: 12px;
+			list-style-type: none;
+		}
+
+		/*SHARE*/
+		.share {
+			display: block;
+			margin: 0 auto;
+			padding: var(--gap) calc(var(--gap) * 3);
+			background: var(--color2);
+			color: var(--color1);
+		}
+
+		.share:hover,
+		.share:focus {
+			background: var(--color3);
+		}
+
+		.copy-text {
+			all: unset;
+			width: 90%;
+			height: 10rem;
+			padding: calc(var(--gap) * 2);
+			color: var(--color1);
+			background: transparent;
+			border: 3px solid var(--color1);
+			border-radius: var(--radius);
+		}
+
+		.copy-button {
+			margin-top: var(--gap);
+			color: var(--color1);
+		}
+
+		.copy-button:hover,
+		.copy-button:focus {
+			background: var(--color3);
+			border-color: var(--color3);
+		}
+	</style>
+	<script src="/resources/theme.js" type="module"></script>
+	<script src="/resources/option.js" type="module"></script>
+</head>
+<body>
+	<header class="header">
+		<h2 class="blog-title"><a href="/" class="title-link">だむめも</a></h2>
+		<nav id="headerNav" class="header-nav"></nav>
+	</header>
+	<main class="main">
+		<article class="article">
+			<h1 class="main-title">立替精算機</h1>
+			<form id="splitForm" class="split-form" name="splitForm">
+				<fieldset id="memberField" class="member-field" name="memberField">
+					<legend>メンバー</legend>
+					<div id="memberForm" class="member-form"></div>
+					<div class="buttons">
+						<button type="button" class="add" name="memberAdd"></button>
+						<button type="button" class="submit" name="memberSubmit">決定</button>
+					</div>
+				</fieldset>
+				<fieldset id="itemField" class="item-field" name="itemField">
+					<legend>立替費目</legend>
+					<div id="itemForm"></div>
+					<div class="buttons">
+						<button type="button" class="add" name="itemAdd"></button>
+						<button type="button" class="submit" name="itemSubmit">決定</button>
+					</div>
+				</fieldset>
+				<fieldset id="payerField" class="payer-field" name="payerField">
+					<legend>支払者</legend>
+					<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
+					<div id="payerDiv" class="payer-div">
+						<table id="payerTable" class="payer-table"></table>
+					</div>
+				</fieldset>
+				<fieldset id="resultField" class="result-field" name="resultField">
+					<legend>結果</legend>
+					<fieldset id="resultMath" class="result-math" name="resultMath">
+						<select name="digit" class="result-digit">
+							<option value="1" selected>1円</option>
+							<option value="10">10円</option>
+							<option value="100">100円</option>
+							<option value="1000">1000円</option>
+						</select>
+						<span>未満</span>
+						<input type="radio" id="mathCeil" name="math" value="ceil" checked>
+						<label for="mathCeil" class="radio-label">切上げ</label>
+						<input type="radio" id="mathRound" name="math" value="round">
+						<label for="mathRound" class="radio-label">四捨五入</label>
+						<input type="radio" id="mathFloor" name="math" value="floor">
+						<label for="mathFloor" class="radio-label">切捨て</label>
 					</fieldset>
-					<fieldset id="itemField" class="item-field" name="itemField">
-						<legend>立替費目</legend>
-						<div id="itemForm"></div>
-						<div class="buttons">
-							<button type="button" class="add" name="itemAdd"></button>
-							<button type="button" class="submit" name="itemSubmit">決定</button>
-						</div>
-					</fieldset>
-					<fieldset id="payerField" class="payer-field" name="payerField">
-						<legend>支払者</legend>
-						<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
-						<div id="payerDiv" class="payer-div">
-							<table id="payerTable" class="payer-table"></table>
-						</div>
-					</fieldset>
-					<fieldset id="resultField" class="result-field" name="resultField">
-						<legend>結果</legend>
-						<fieldset id="resultMath" class="result-math" name="resultMath">
-							<select name="digit" class="result-digit">
-								<option value="1" selected>1円</option>
-								<option value="10">10円</option>
-								<option value="100">100円</option>
-								<option value="1000">1000円</option>
-							</select>
-							<span>未満</span>
-							<input type="radio" id="mathCeil" name="math" value="ceil" checked>
-							<label for="mathCeil" class="radio-label">切上げ</label>
-							<input type="radio" id="mathRound" name="math" value="round">
-							<label for="mathRound" class="radio-label">四捨五入</label>
-							<input type="radio" id="mathFloor" name="math" value="floor">
-							<label for="mathFloor" class="radio-label">切捨て</label>
-						</fieldset>
-						<ul id="resultList" class="result-list"></ul>
-					</fieldset>
-				</form>
-				<button id="share" name="share" class="share">結果を共有する</button>
-			</article>
-			<aside class="sidebar">
-			</aside>
-		</main>
-		<footer class="footer">
-			<nav id="footerNav" class="footer-nav">
-				<span>by <a href="https://twitter.com/shutocom0812">@shutocom0812</a></span>
-			</nav>
-		</footer>
-		<nav id="navOption"></nav>
-	</body>
+					<ul id="resultList" class="result-list"></ul>
+				</fieldset>
+			</form>
+			<button id="share" name="share" class="share">結果を共有する</button>
+		</article>
+		<aside class="sidebar">
+		</aside>
+	</main>
+	<footer class="footer">
+		<nav id="footerNav" class="footer-nav">
+			<span>by <a href="https://twitter.com/shutocom0812">@shutocom0812</a></span>
+		</nav>
+	</footer>
+	<nav id="navOption"></nav>
 	<script type="module">
-		import {createModal, runModal, createToast, runToast} from "/resources/option.js";
-
+		import { createModal, runModal, createToast, runToast } from "/resources/option.js";
+	
 		//VARIABLE & CLASS
-
+	
 		const Form = document.forms.splitForm;
 		let num1 = 0;
 		let num2 = 0;
 		let members = new Array();
 		let items = new Array();
-
+	
 		class Member {
 			constructor(number, name) {	//Number, String
 				this.number = number;
 				this.id = `member${number}`;
 				this.name = name.replace(/_/g, "-");
-				this.sum = new Map();
+				this.#sum = new Map();
 			}
-			addSum(member_id, newAmount) {
+			setSum(member_id, newAmount) {
 				const nowAmount = this.sum.get(member_id) || 0;
-				this.sum.set(member_id, Number(nowAmount) + Number(newAmount));
+				this.#sum.set(member_id, Number(nowAmount) + Number(newAmount));
 			}
-			sumFor(member_id) {
-				return this.sum.get(member_id) || 0;
+			getSum(member_id) {
+				return this.#sum.get(member_id) || 0;
+			}
+			clearSum() {
+				this.#sum.clear();
 			}
 		}
-
+	
 		class Item {
-			constructor(number, name, price, prePayer){	//Number, String, Number, Number
+			constructor(number, name, price, prePayer) {	//Number, String, Number, Number
 				this.number = number;
 				this.id = `item${number}`;
 				this.name = name.replace(/_/g, "-");
 				this.price = Number(price);
-				this.prePayer = prePayer || "";
+				this.prePayer_number = prePayer || "";
 				this.prePayer_id = prePayer ? `member${prePayer}` : "";
-				this.choices = new Map();
+				this.#choices = new Map();
 			}
-			getPayers(target) {
-				const payers = Array.from(this.choices.values());
-				let result;
-				switch (target) {
-					case "number":
-						result = payers.reduce((sum, i) => sum = sum + i, 0);
-						break;
-					case "join":
-						result = payers.join("");
-						break;
-					default:
-						result = "error";
-				}
-				return result;
+			setPayer(member_id, choice) {
+				this.#choices.set(member_id, choice)
+			}
+			getPayer(member_id) {
+				return this.#choices.get(member_id);
+			}
+			clearPayers() {
+				this.#choices.clear();
+			}
+			getPayersNumber() {
+				return Array.from(this.#choices.values()).reduce((sum, i) => sum = sum + i, 0);
+			}
+			getPayersJoin() {
+				return Array.from(this.#choices.values()).join("");
 			}
 		}
-
+	
 		//FUNCTIONS
-
+	
 		function calc(target) {	//端数処理
 			const digit = Form.digit.value;
 			const times = target / digit;
@@ -317,30 +363,30 @@
 			}
 			return result * digit;
 		}
-
+	
 		function setChoices() {
+			items.forEach(item => item.clearPayers());
 			const checks = document.getElementsByName("payerCheck");
 			for (const element of checks) {
-				const ids = element.id.split("_");	//ids[0]は費目ID、ids[1]はメンバーID
-				const nowItem = items.find(item => item.id === ids[0]);
-				const nowMember = members.find(member => member.id === ids[1]);
-				if (nowItem && nowMember) nowItem.choices.set(nowMember.id, element.checked ? 1 : 0);	//trueのとき1、falseのとき0を格納
+				const nowItem = items.find(item => item.id === element.id.split("_")[0]);
+				const nowMember = members.find(member => member.id === element.id.split("_")[1]);
+				if (nowItem && nowMember) nowItem.setPayer(nowMember.id, element.checked ? 1 : 0);
 			}
 		}
-
+	
 		function setMemberList(select) {	//HTMLSelectElement
 			select[0] = new Option("立替者", "");
 			select[0].disabled = true;
 			select[0].hidden = true;
 			members.forEach(member => select.append(new Option(member.name, member.id)));
 		}
-
+	
 		function addMember(nowId, nowName) {	//メンバーの追加
 			const MemberRow = document.createElement("div");	//行
-			MemberRow.id = nowId ? `${nowId}Row` : `member${num1}Row`;	//引数があるときは利用、そうでない場合は変数から新規作成。
+			MemberRow.id = nowId ? `${nowId}Row` : `member${num1}Row`;
 			MemberRow.name = "memberRow";
 			MemberRow.classList.add("row");
-
+	
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
 			MemberName.id = nowId ? `${nowId}Name` : `member${num1}Name`;
@@ -349,25 +395,25 @@
 			MemberName.placeholder = "名前";
 			MemberName.required = true;
 			MemberName.value = nowName ? nowName : "";
-
+	
 			const MemberRmv = document.createElement("button");	//削除ボタン
 			MemberRmv.type = "button";
 			MemberRmv.id = nowId ? nowId : `member${num1}`;
 			MemberRmv.classList.add("rmv");
-			MemberRmv.addEventListener("click", function(){this.parentElement.remove();}, false);
-
+			MemberRmv.addEventListener("click", function () { this.parentElement.remove(); }, false);
+	
 			MemberRow.append(MemberName, MemberRmv);
 			document.getElementById("memberForm").append(MemberRow);
-
+	
 			num1++;
 		}
-
+	
 		function addItem(nowId, nowName, nowPrice, nowPrePayer) {	//費目の追加
 			const ItemRow = document.createElement("div");	//行
 			ItemRow.id = nowId ? `${nowId}Row` : `item${num2}Row`;
 			ItemRow.name = "itemRow";
 			ItemRow.classList.add("row");
-
+	
 			const ItemName = document.createElement("input");	//名前欄
 			ItemName.type = "text";
 			ItemName.id = nowId ? `${nowId}Name` : `item${num2}Name`;
@@ -376,7 +422,7 @@
 			ItemName.placeholder = "費目名";
 			ItemName.required = true;
 			ItemName.value = nowName ? nowName : "";
-
+	
 			const ItemPrice = document.createElement("input");	//金額欄
 			ItemPrice.type = "number";
 			ItemPrice.id = nowId ? `${nowId}Price` : `item${num2}Price`;
@@ -387,10 +433,10 @@
 			ItemPrice.placeholder = "金額";
 			ItemPrice.required = true;
 			ItemPrice.value = nowPrice ? nowPrice : "";
-
+	
 			const ItemLabel = document.createElement("span");
 			ItemLabel.innerText = "円";
-
+	
 			const ItemPrePayer = document.createElement("select");	//立替者欄
 			ItemPrePayer.id = nowId ? `${nowId}PrePayer` : `item${num2}PrePayer`;
 			ItemPrePayer.name = "memberList";
@@ -398,28 +444,28 @@
 			ItemPrePayer.required = true;
 			setMemberList(ItemPrePayer);
 			ItemPrePayer.value = nowPrePayer ? nowPrePayer : "";
-
+	
 			const ItemRmv = document.createElement("button");	//削除ボタン
 			ItemRmv.type = "button";
 			ItemRmv.id = nowId ? nowId : `item${num2}`;
 			ItemRmv.classList.add("rmv");
-			ItemRmv.addEventListener("click", function(){this.parentElement.remove();}, false);
-
+			ItemRmv.addEventListener("click", function () { this.parentElement.remove(); }, false);
+	
 			ItemRow.append(ItemName, ItemPrice, ItemLabel, ItemPrePayer, ItemRmv);
 			document.getElementById("itemForm").append(ItemRow);
-
+	
 			num2++;
 		}
-
+	
 		function editMember() {
 			members = [];
-			for (let i=0; i<num1; i++) {
+			for (let i = 0; i < num1; i++) {
 				if (document.getElementById(`member${i}Row`)) {
 					const name = document.getElementById(`member${i}Name`).value || `メンバー${i + 1}`;
 					members.push(new Member(i, name));
 				}
 			}
-
+	
 			const MemberLists = document.getElementsByName("memberList");	//メンバーリストを更新
 			for (const element of MemberLists) {
 				const nowValue = element.value;
@@ -429,10 +475,10 @@
 			}
 			editItem();
 		}
-
+	
 		function editItem() {
 			items = [];
-			for (let i=0; i<num2; i++) {
+			for (let i = 0; i < num2; i++) {
 				if (document.getElementById(`item${i}Row`)) {
 					const name = document.getElementById(`item${i}Name`).value || `費目${i + 1}`;
 					const price = document.getElementById(`item${i}Price`).value || 0;
@@ -442,13 +488,13 @@
 			}
 			addPayer();
 		}
-
+	
 		function addPayer() {	//支払者欄の追加
-			setChoices();	//現在のチェックボックスの値を格納
-
-			const PayerTable = document.getElementById("payerTable");	//親テーブルを取得し初期化
+			setChoices();	//現在の値を格納
+	
+			const PayerTable = document.getElementById("payerTable");	//親要素を取得し初期化
 			while (PayerTable.firstChild) PayerTable.firstChild.remove();
-
+	
 			const PayerRow1 = PayerTable.insertRow();	//タイトル行
 			PayerRow1.append(document.createElement("th"));
 			members.forEach(member => {
@@ -456,68 +502,73 @@
 				PayerName.innerText = member.name;
 				PayerRow1.append(PayerName);
 			});
-
+	
 			items.forEach(item => {	//費目ごとに行を作成
 				const PayerRow = PayerTable.insertRow();
 				const PayerItem = document.createElement("th");
 				PayerItem.id = `${item.id}Payers`;
 				PayerRow.append(PayerItem);
 				members.forEach(member => {
-					const PayerCheck = document.createElement("input");	//チェックボックスの本体(hidden)
+					const PayerCheck = document.createElement("input");
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.id}_${member.id}`;
 					PayerCheck.name = "payerCheck";
 					PayerCheck.classList.add("payer-check");
-					PayerCheck.checked = (item.choices.get(member.id) === 0) ? false : true;	//現在の値が0のときのみfalse、値がないときはtrue
-
-					const PayerLabel = document.createElement("label");	//チェックボックスのlabel
+					PayerCheck.checked = (item.getPayer(member.id) === 0) ? false : true;	//現在の値が0のときのみfalse、値がないときはtrue
+	
+					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
 					PayerLabel.classList.add("payer-label");
-
+	
 					const PayerCell = PayerRow.insertCell();
 					PayerCell.append(PayerCheck, PayerLabel);
 				});
 			});
 			editPayer();
 		}
-
+	
 		function editPayer() {
-			items.forEach(item => item.choices.clear());	//初期化
-			members.forEach(member => member.sum.clear());
-			setChoices();	//現在の値を取得
-
+			members.forEach(member => member.clearSum());
+			setChoices();	//現在の値を格納
+	
 			items.forEach(item => {
-				let bite = 0;
-				let price = item.price;
-				bite = price / item.getPayers("number");
+				const bite = item.price / item.getPayersNumber();
 				members.forEach(postPayer => {
-					if (item.choices.get(postPayer.id)) postPayer.addSum(item.prePayer_id, bite);
+					if (item.getPayer(postPayer.id)) postPayer.setSum(item.prePayer_id, bite);
 				});
 				document.getElementById(`${item.id}Payers`).innerHTML = `${item.name}<br>(${Math.round(bite * 10) / 10}円)`;
 			});
-
-			const ResultList = document.getElementById("resultList");	//親リストを取得し初期化
+	
+			const ResultList = document.getElementById("resultList");	//親要素を取得し初期化
 			while (ResultList.firstChild) ResultList.firstChild.remove();
-
+	
 			members.forEach(postPayer => {
-				let ResultLi = document.createElement("li");
-				ResultLi.innerHTML = `<strong>${postPayer.name}</strong>さんは`;
-				let ResultUl = document.createElement("ul");
+
+				const ResultUl = document.createElement("ul");
 				members.forEach(prePayer => {
-					if (prePayer != postPayer && calc(postPayer.sumFor(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
-						let ResultLi2 = document.createElement("li");
-						ResultLi2.innerHTML = `<strong>${prePayer.name}</strong>さんに<strong>${calc(postPayer.sumFor(prePayer.id))}円</strong>支払ってください。`
+					if (prePayer != postPayer && calc(postPayer.getSum(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
+						const PrePayerName = document.createElement("strong");
+						PrePayerName.innerText = prePayer.name;
+						const Sum = document.createElement("strong");
+						Sum.innerText = calc(postPayer.getSum(prePayer.id));
+
+						const ResultLi2 = document.createElement("li");
+						ResultLi2.append(PrePayerName, "さんに", Sum, "円");
 						ResultUl.append(ResultLi2);
 					}
 				});
-
+	
 				if (ResultUl.hasChildNodes()) {	//中身がある場合のみ追加
-					ResultLi.append(ResultUl);
+					const ResultLi = document.createElement("li");
+					const PostPayerName = document.createElement("strong");
+					PostPayerName.innerText = postPayer.name;
+	
+					ResultLi.append(PostPayerName, "さんは", ResultUl, "支払ってください");
 					ResultList.append(ResultLi);
 				}
 			});
 		}
-
+	
 		function shareResult() {
 			const params = new URLSearchParams();
 			params.append("num1", num1);
@@ -525,20 +576,20 @@
 			params.append("digit", Form.digit.value);
 			params.append("math", Form.math.value);
 			members.forEach(member => {
-				const values = `${member.number}_${member.name}`;
-				params.append("member", values);
+				const values = [member.number, member.name];
+				params.append("member", values.join("_"));
 			});
 			items.forEach(item => {
-				const values = `${item.number}_${item.name}_${item.price}_${item.prePayer}_${item.getPayers("join")}`;
-				params.append("item", values);
+				const values = [item.number, item.name, item.price, item.prePayer_number, item.getPayersJoin()];
+				params.append("item", values.join("_"));
 			});
-
+	
 			const shareURL = `${location.protocol}//${location.hostname}${location.pathname}?${params}`;
 			const shareData = {
 				title: "立替計算機",
 				url: shareURL
 			}
-
+	
 			if (navigator.share) {
 				navigator.share(shareData);
 			} else {
@@ -547,8 +598,8 @@
 				CopyText.classList.add("copy-text");
 				CopyText.value = shareURL;
 				CopyText.readOnly = true;
-				CopyText.addEventListener("focus", function () {this.select()});	//focusすると全選択
-
+				CopyText.addEventListener("focus", function () { this.select() }, false);	//focusすると全選択
+	
 				const CopyButton = document.createElement("button");	//コピーボタン
 				CopyButton.id = "copyButton";
 				CopyButton.classList.add("copy-button");
@@ -560,53 +611,54 @@
 					} catch (error) {
 						runToast("コピーできませんでした。");
 					}
-				});
+				}, false);
 				runModal(CopyText, CopyButton);
 			}
 		}
-
+	
 		//RUN
 		if (location.search) {
-			const param = new URLSearchParams(location.search);
-
-			param.getAll("member").forEach(element => {
+			const params = new URLSearchParams(location.search);
+	
+			params.getAll("member").forEach(element => {
 				const value = element.split("_");
 				const newMember = new Member(value[0], value[1]);	//[0]: number, [1]: name
 				members.push(newMember);
 			});
-			param.getAll("item").forEach(element => {
+			params.getAll("item").forEach(element => {
 				const value = element.split("_");
-				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]: number, [1]: name, [2]: price, [3]: prePayer
-				const choice = String(value[4]).split("");	//[4]: choices.join("")
-				members.forEach((member, index) => newItem.choices.set(member.id, Number(choice[index])));
+				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]: number, [1]: name, [2]: price, [3]: prePayer_number
+				const payer = String(value[4]).split("");	//[4]: payers.join("")
+				members.forEach((member, index) => newItem.setPayers(member.id, Number(payer[index])));
 				items.push(newItem);
 			});
-
+	
 			members.forEach(member => addMember(member.id, member.name));
 			items.forEach(item => addItem(item.id, item.name, item.price, item.prePayer_id));
-			num1 = param.get("num1");
-			num2 = param.get("num2");
-			Form.digit.value = param.get("digit");
-			Form.math.value = param.get("math");
+			num1 = params.get("num1");
+			num2 = params.get("num2");
+			Form.digit.value = params.get("digit");
+			Form.math.value = params.get("math");
 			addPayer();
 		} else {
 			addMember();
 			addItem();
 		}
-
+	
 		//EVENT LISTNERS
-		Form.addEventListener("submit", event => {event.preventDefault();});
-
-		Form.memberAdd.addEventListener("click", () => {addMember();}, false);
-		Form.memberSubmit.addEventListener("click", () => {editMember();}, false);
-		Form.itemAdd.addEventListener("click", () =>{addItem();}, false);
-		Form.itemSubmit.addEventListener("click", () => {editItem();}, false);
-		Form.payerField.addEventListener("change", () => {editPayer();}, false);
-		Form.resultMath.addEventListener("change", () => {editPayer();}, false);
-		document.getElementById("share").addEventListener("click", () => {shareResult();}, false);
-
+		Form.addEventListener("submit", event => { event.preventDefault(); });
+	
+		Form.memberAdd.addEventListener("click", () => { addMember(); }, false);
+		Form.memberSubmit.addEventListener("click", () => { editMember(); }, false);
+		Form.itemAdd.addEventListener("click", () => { addItem(); }, false);
+		Form.itemSubmit.addEventListener("click", () => { editItem(); }, false);
+		Form.payerField.addEventListener("change", () => { editPayer(); }, false);
+		Form.resultMath.addEventListener("change", () => { editPayer(); }, false);
+		document.getElementById("share").addEventListener("click", () => { shareResult(); }, false);
+	
 		//OPTION
 		createModal();
 		createToast();
 	</script>
+</body>
 </html>
