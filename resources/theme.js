@@ -26,7 +26,6 @@ function themeFirst() {
 	}
 
 	const Button = document.createElement("button");
-	Button.tyoe = "button";
 	Button.id = "themeButton";
 	Button.name = "theme";
 	Button.classList.add("theme-button");
