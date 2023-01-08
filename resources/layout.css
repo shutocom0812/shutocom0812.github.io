@@ -84,6 +84,7 @@ body{
 	flex-direction: column;
 	align-items: center;
 	visibility: hidden;
+	z-index: 10;
 }
 #navOption *{
 	visibility: visible;
