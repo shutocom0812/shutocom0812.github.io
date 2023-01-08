@@ -188,24 +188,24 @@
 		<main class="main">
 			<article class="article">
 				<h1 class="main-title">立替精算機</h1>
-				<form id="splitForm" class="split-form" name="splitForm" onsubmit="event.preventDefault();">
-					<fieldset class="member-field" name="memberField">
+				<form id="splitForm" class="split-form" name="splitForm">
+					<fieldset id="memberField" class="member-field" name="memberField">
 						<legend>メンバー</legend>
 						<div id="memberForm" class="member-form"></div>
 						<div class="buttons">
-							<button type="button" class="add" name="memberAdd" onclick="addMember();"></button>
-							<button type="button" class="submit" name="memberSubmit" onclick="editMember();">決定</button>
+							<button type="button" class="add" name="memberAdd"></button>
+							<button type="button" class="submit" name="memberSubmit">決定</button>
 						</div>
 					</fieldset>
-					<fieldset class="item-field" name="itemField">
+					<fieldset id="itemField" class="item-field" name="itemField">
 						<legend>立替費目</legend>
 						<div id="itemForm"></div>
 						<div class="buttons">
-							<button type="button" class="add" name="itemAdd" onclick="addItem();"></button>
-							<button type="button" class="submit" name="itemSubmit" onclick="editItem();">決定</button>
+							<button type="button" class="add" name="itemAdd"></button>
+							<button type="button" class="submit" name="itemSubmit">決定</button>
 						</div>
 					</fieldset>
-					<fieldset class="payer-field" name="payerField" onchange="editPayer();">
+					<fieldset id="payerField" class="payer-field" name="payerField">
 						<legend>支払者</legend>
 						<p>それぞれの費目について、割り勘に参加しない人のチェックを外してください。</p>
 						<div id="payerDiv" class="payer-div">
@@ -214,7 +214,7 @@
 					</fieldset>
 					<fieldset id="resultField" class="result-field" name="resultField">
 						<legend>結果</legend>
-						<fieldset id="resultMath" class="result-math" onchange="editPayer();">
+						<fieldset id="resultMath" class="result-math" name="resultMath">
 							<select name="digit" class="result-digit">
 								<option value="1" selected>1円</option>
 								<option value="10">10円</option>
@@ -232,7 +232,7 @@
 						<ul id="resultList" class="result-list"></ul>
 					</fieldset>
 				</form>
-				<button id="share" name="share" class="share" onclick="shareResult();">結果を共有する</button>
+				<button id="share" name="share" class="share">結果を共有する</button>
 			</article>
 			<aside class="sidebar">
 			</aside>
@@ -243,7 +243,9 @@
 			</nav>
 		</footer>
 	</body>
-	<script>
+	<script type="module">
+		import {createModal, runModal, createToast, runToast} from "/resources/option.js";
+	
 		let num1 = 0;	//メンバー管理番号用変数
 		let num2 = 0;	//費目管理番号用変数
 		let members = new Array();	//メンバー
@@ -478,50 +480,6 @@
 			});
 		}
 
-		if (window.location.search) {
-			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-
-			document.forms.splitForm.digit.value = params.digit;
-			document.forms.splitForm.math.value = params.math;
-			params.members.split("_").forEach(key => {
-				const element = key.split("-");
-				members.push({
-					"number": `member${element[0]}`,
-					"name": element[1]
-				});
-			});
-			params.items.split("_").forEach(key => {
-				const element = key.split("-");
-				items.push({
-					"number": `item${element[0]}`,
-					"name": element[1],
-					"price": Number(element[2]),
-					"prePayer": element[3] ? `member${element[3]}` : ""
-				});
-			});
-
-			let paramChoices = new Array();
-			params.choices.split("_").forEach(key => paramChoices.push(Array.from(key)));
-
-			items.forEach((item, indexI) => {
-				let choice = new Object();
-				members.forEach((member, indexM) => choice[member.number] = paramChoices[indexI][indexM]);
-				choices[item.number] = choice;
-			});
-
-			members.forEach(member => addMember(member.number, member.name));
-			items.forEach(item => addItem(item.number, item.name, item.price, item.prePayer));
-			num1 = params.num1;
-			num2 = params.num2;
-			addPayer();
-		} else {
-			addMember();
-			addItem();
-		}
-	</script>
-	<script type="module">
-		import {createModal, runModal, createToast, runToast} from "/resources/option.js";
-		
 		function shareResult() {
 			const params = new URLSearchParams();
 			params.append("num1", num1);
@@ -565,7 +523,58 @@
 				runModal(CopyText, CopyButton);
 			}
 		}
+
+		if (window.location.search) {
+			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+
+			document.forms.splitForm.digit.value = params.digit;
+			document.forms.splitForm.math.value = params.math;
+			params.members.split("_").forEach(key => {
+				const element = key.split("-");
+				members.push({
+					"number": `member${element[0]}`,
+					"name": element[1]
+				});
+			});
+			params.items.split("_").forEach(key => {
+				const element = key.split("-");
+				items.push({
+					"number": `item${element[0]}`,
+					"name": element[1],
+					"price": Number(element[2]),
+					"prePayer": element[3] ? `member${element[3]}` : ""
+				});
+			});
+
+			let paramChoices = new Array();
+			params.choices.split("_").forEach(key => paramChoices.push(Array.from(key)));
+
+			items.forEach((item, indexI) => {
+				let choice = new Object();
+				members.forEach((member, indexM) => choice[member.number] = paramChoices[indexI][indexM]);
+				choices[item.number] = choice;
+			});
+
+			members.forEach(member => addMember(member.number, member.name));
+			items.forEach(item => addItem(item.number, item.name, item.price, item.prePayer));
+			num1 = params.num1;
+			num2 = params.num2;
+			addPayer();
+		} else {
+			addMember();
+			addItem();
+		}
 		
+		Form.addEventListener("submit", event => {event.preventDefault();});
+
+		Form.memberAdd.addEventListener("click", () => {addMember();}, false);
+		Form.memberSubmit.addEventListener("click", () => {editMember();}, false);
+		Form.itemAdd.addEventListener("click", () =>{addItem();}, false);
+		Form.itemSubmit.addEventListener("click", () => {editItem();}, false);
+		Form.payerField.addEventListener("change", () => {editPayer();}, false);
+		Form.resultMath.addEventListener("change", () => {editPayer();}, false);
+		document.getElementById("share").addEventListener("click", () => {shareResult();}, false);
+
 		createModal();
 		createToast();
 	</script>
