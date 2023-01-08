@@ -27,7 +27,7 @@ function createToast() {
 	const Toast = document.createElement("span");
 	Toast.id = "toast";
 	Toast.classList.add("toast", "close");
-	document.body.appendChild(Toast);
+	document.getElementById("navOption").appendChild(Toast);
 }
 function runToast(target) {
 	const Toast = document.getElementById("toast");
