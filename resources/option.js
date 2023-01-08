@@ -14,11 +14,11 @@ function createModal() {
 	document.getElementById("navOption").append(ModalBack);
 }
 function runModal(...element) {
-	const ModalBack = document.getElementById("modalBack");
 	const ModalWindow = document.getElementById("modalWindow");
 	while (ModalWindow.firstChild) ModalWindow.firstChild.remove();
-	for (const argument of arguments) ModalWindow.append(argument);
-	ModalBack.classList.remove("close");
+	ModalWindow.append(...element);
+
+	document.getElementById("modalBack").classList.remove("close");
 }
 
 //TOAST MESSAGE
