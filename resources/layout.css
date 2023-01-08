@@ -34,7 +34,6 @@ body{
 	padding: var(--gap);
 	flex-flow: row wrap;
 	flex-grow: 1;
-	z-index: 1;
 }
 .article, .sidebar{
 	width: 100%;
@@ -82,21 +81,18 @@ body{
 /*NAVI-OPTION*/
 #navOption{
 	display: flex;
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
 	flex-direction: column;
 	align-items: center;
 	visibility: hidden;
 }
-#navOption *{
+#navOption>*{
+	position: fixed;
 	visibility: visible;
 }
 
 /*THEME*/
 .theme-button{
 	display: flex;
-	position: fixed;
 	top: 10px;
 	right: 10px;
 	width: 30px;
@@ -113,7 +109,6 @@ body{
 /*MODAL*/
 .modal-back{
 	display: flex;
-	position: fixed;
 	width: 100vw;
 	height: 100vh;
 	inset: 0;
@@ -138,8 +133,7 @@ body{
 
 /*TOAST*/
 .toast{
-	position: fixed;
-	bottom: 1vh;
+	bottom: 5vh;
 	padding: var(--gap) calc(var(--gap) * 3);
 	border-radius: var(--radius);
 	background: rgba(255, 255, 255, 0.6);
