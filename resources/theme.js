@@ -1,4 +1,4 @@
-const Root = document.querySelector(":root");
+let themeIndex = 0;
 const themes = [
 	["#021e1e", "#e4dad9", "#e1a600"],	//Tokyo-Light
 	["#e4dad9", "#021e1e", "#e1a600"],	//Tokyo-Dark
@@ -9,15 +9,20 @@ const themes = [
 	["#1086e3", "#edfafd", "#3ddad7"],	//Amami-Light
 	["#edfafd", "#1086e3", "#3ddad7"]	//Amami-Dark
 ];
-let themeIndex = 0;
+
+function themeSet(now) {
+	themes[now].forEach((color, index) => {
+		document.querySelector(":root").setProperty(`--color${index + 1}`, color);
+	});
+}
 
 function themeFirst() {
-	const nowValue = Number(localStorage.getItem("theme"));
-	if (nowValue != null && nowValue < themes.length) {
-		themes[nowValue].forEach((color, index) => Root.style.setProperty(`--color${index + 1}`, color));
-		themeIndex = nowValue;
+	const now = Number(localStorage.getItem("theme"));
+	if (now != null && now < themes.length) {
+		themeSet(now);
+		themeIndex = now;
 	} else {
-		themes[0].forEach((color, index) => Root.style.setProperty(`--color${index + 1}`, color));
+		themeSet(0);
 	}
 
 	const Button = document.createElement("button");
@@ -27,12 +32,12 @@ function themeFirst() {
 	Button.classList.add("theme-button");
 	Button.tabIndex = -1;
 	Button.addEventListener("click", () => {themeChange();}, false);
-	document.getElementById("navOption").appendChild(Button);
+	document.getElementById("navOption").append(Button);
 }
 
 function themeChange() {
 	themeIndex = (themeIndex >= themes.length - 1) ? 0 : themeIndex + 1;
-	themes[themeIndex].forEach((color, index) => Root.style.setProperty(`--color${index + 1}`, color));
+	themeSet(themeIndex);
 	localStorage.setItem("theme", themeIndex);
 }
 
