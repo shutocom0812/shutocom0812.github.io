@@ -488,11 +488,17 @@
 			params.append("num2", num2);
 			params.append("digit", Form.digit.value);
 			params.append("math", Form.math.value);
-			params.append("members", members.map(member => `${member.number.replace("member", "")}-${member.name}`).join("_"));
-			params.append("items", items.map(item => `${item.number.replace("item", "")}-${item.name}-${item.price}-${item.prePayer.replace("member", "")}`).join("_"));
+			members.forEach(member => {
+				const values = `${member.number.replace("member", ""}_${member.name}`;
+				params.append("member", values);
+			});
+			items.forEach(item => {
+				const values = `${item.number.replace("item", ""}_${item.name}_${item.price}_${item.prePayer.replace("member", "")}`;
+				params.append("item", values);
+			});
 			params.append("choices", Object.values(choices).map(element => Object.values(element).join("")).join("_"));
 
-			const shareURL = `https://${window.location.hostname}${window.location.pathname}?${params}`;
+			const shareURL = `4{location.protocol}//${location.hostname}${location.pathname}?${params}`;
 
 			const shareData = {
 				title: "立替精算機",
@@ -526,20 +532,18 @@
 			}
 		}
 
-		if (window.location.search) {
-			const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+		if (location.search) {
+			const params = new URLSearchParams(window.location.search);
 
-			dForm.digit.value = params.digit;
-			Form.math.value = params.math;
-			params.members.split("_").forEach(key => {
-				const element = key.split("-");
+			params.getAll("member").forEach(key => {
+				const element = key.split("_");
 				members.push({
 					"number": `member${element[0]}`,
 					"name": element[1]
 				});
 			});
-			params.items.split("_").forEach(key => {
-				const element = key.split("-");
+			params.getAll("item").forEach(key => {
+				const element = key.split("_");
 				items.push({
 					"number": `item${element[0]}`,
 					"name": element[1],
@@ -559,9 +563,12 @@
 
 			members.forEach(member => addMember(member.number, member.name));
 			items.forEach(item => addItem(item.number, item.name, item.price, item.prePayer));
-			num1 = params.num1;
-			num2 = params.num2;
 			addPayer();
+
+			Form.digit.value = params.get("digit");
+			Form.math.value = params.get("math");
+			num1 = params.get("num1");
+			num2 = params.get("num2");
 		} else {
 			addMember();
 			addItem();
