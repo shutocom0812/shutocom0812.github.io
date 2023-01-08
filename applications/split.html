@@ -404,7 +404,7 @@
 				if (document.getElementById(`member${i}Row`)) {
 					members.push({
 						"number": `member${i}`,
-						"name": document.getElementById(`member${i}Name`).value.replace(/-|_/g, "ー")
+						"name": document.getElementById(`member${i}Name`).value.replace(/_/g, "ー") || `メンバー${i + 1}`
 					});
 				}
 			}
@@ -430,7 +430,7 @@
 				if (document.getElementById(`item${i}Row`)) {
 					items.push({
 						"number": `item${i}`,
-						"name": document.getElementById(`item${i}Name`).value.replace(/-|_/g, "ー") || `費目${i + 1}`,
+						"name": document.getElementById(`item${i}Name`).value.replace(/_/g, "ー") || `費目${i + 1}`,
 						"price": document.getElementById(`item${i}Price`).value || 0,
 						"prePayer": document.getElementById(`item${i}PrePayer`).value
 					});
