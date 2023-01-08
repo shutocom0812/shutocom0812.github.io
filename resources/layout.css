@@ -81,7 +81,9 @@ body{
 /*NAVI-OPTION*/
 #navOption{
 	display: flex;
-	height: 0;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
 	flex-direction: column;
 	align-items: center;
 }
@@ -128,6 +130,7 @@ body{
 	word-break: break-all;
 	border-radius: var(--radius);
 }
+
 /*TOAST*/
 .toast{
 	position: fixed;
