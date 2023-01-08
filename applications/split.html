@@ -303,17 +303,17 @@
 				this.number = number;
 				this.id = `member${number}`;
 				this.name = name.replace(/_/g, "-");
-				this.#sum = new Map();
+				this.sum = new Map();
 			}
 			setSum(member_id, newAmount) {
 				const nowAmount = this.sum.get(member_id) || 0;
-				this.#sum.set(member_id, Number(nowAmount) + Number(newAmount));
+				this.sum.set(member_id, Number(nowAmount) + Number(newAmount));
 			}
 			getSum(member_id) {
-				return this.#sum.get(member_id) || 0;
+				return this.sum.get(member_id) || 0;
 			}
 			clearSum() {
-				this.#sum.clear();
+				this.sum.clear();
 			}
 		}
 	
@@ -325,22 +325,22 @@
 				this.price = Number(price);
 				this.prePayer_number = prePayer || "";
 				this.prePayer_id = prePayer ? `member${prePayer}` : "";
-				this.#choices = new Map();
+				this.choices = new Map();
 			}
 			setPayer(member_id, choice) {
-				this.#choices.set(member_id, choice)
+				this.choices.set(member_id, choice)
 			}
 			getPayer(member_id) {
-				return this.#choices.get(member_id);
+				return this.choices.get(member_id);
 			}
 			clearPayers() {
-				this.#choices.clear();
+				this.choices.clear();
 			}
 			getPayersNumber() {
-				return Array.from(this.#choices.values()).reduce((sum, i) => sum = sum + i, 0);
+				return Array.from(this.choices.values()).reduce((sum, i) => sum = sum + i, 0);
 			}
 			getPayersJoin() {
-				return Array.from(this.#choices.values()).join("");
+				return Array.from(this.choices.values()).join("");
 			}
 		}
 	
