@@ -387,6 +387,9 @@
 			ItemPrice.required = true;
 			ItemPrice.value = nowPrice ? nowPrice : "";
 			
+			const Span = document.createElement("span");
+			Span.innerText = "円";
+			
 			const ItemPrePayer = document.createElement("select");	//立替者欄
 			ItemPrePayer.id = nowId ? `${nowId}PrePayer` : `item${num2}PrePayer`;
 			ItemPrePayer.name = "memberList";
@@ -401,7 +404,7 @@
 			ItemRmv.classList.add("rmv");
 			ItemRmv.addEventListener("click", function(){this.parentNode.remove();}, false);
 
-			ItemRow.append(ItemName, ItemPrice, "円", ItemPrePayer, ItemRmv);
+			ItemRow.append(ItemName, ItemPrice, Span, ItemPrePayer, ItemRmv);
 			document.getElementById("itemForm").append(ItemRow);
 
 			num2++;
@@ -498,7 +501,7 @@
 				const ResultUl = document.createElement("ul");
 				members.forEach(prePayer => {
 					if (prePayer != postPayer && calc(postPayer.sumFor(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
-						const PrePayerName = document.createElemet("strong");
+						const PrePayerName = document.createElement("strong");
 						PrePayerName.innerText = prePayer.Name;
 						const Sum = document.createElement("strong");
 						Sum.innerText = calc(postPayer.sumFor(prePayer.id));
