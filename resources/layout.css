@@ -81,6 +81,9 @@ body{
 /*NAVI-OPTION*/
 #navOption{
 	display: flex;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
 	flex-direction: column;
 	align-items: center;
 	visibility: hidden;
