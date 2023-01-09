@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 	<title>立替精算機 | だむめも</title>
+	<meta name="discription" content="立て替えた代金を精算しよう">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta name="color-scheme" content="light dark">
 	<link rel="stylesheet" href="/resources/main.css" />
@@ -378,8 +380,7 @@
 		function addMember(nowId, nowName) {	//メンバーの追加
 			const MemberRow = document.createElement("div");	//行
 			MemberRow.id = nowId ? `${nowId}Row` : `member${num1}Row`;
-			MemberRow.name = "memberRow";
-			MemberRow.classList.add("row");
+			MemberRow.classList.add("member-row", "row");
 	
 			const MemberName = document.createElement("input");	//名前欄
 			MemberName.type = "text";
@@ -405,8 +406,7 @@
 		function addItem(nowId, nowName, nowPrice, nowPrePayer) {	//費目の追加
 			const ItemRow = document.createElement("div");	//行
 			ItemRow.id = nowId ? `${nowId}Row` : `item${num2}Row`;
-			ItemRow.name = "itemRow";
-			ItemRow.classList.add("row");
+			ItemRow.classList.add("item-row", "row");
 	
 			const ItemName = document.createElement("input");	//名前欄
 			ItemName.type = "text";
