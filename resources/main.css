@@ -30,7 +30,7 @@ fieldset{
 
 /*MAIN*/
 html{
-	font: bold min(3vw, 14px) / 2 sans;
+	font: bold min(4vw, 14px) / 2 sans;
 	color: var(--color1);
 }
 body{
