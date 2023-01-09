@@ -543,8 +543,8 @@
 			while (ResultList.firstChild) ResultList.firstChild.remove();
 	
 			members.forEach(postPayer => {
-
 				const ResultUl = document.createElement("ul");
+				ResultLi.classList.add("post-payers");
 				members.forEach(prePayer => {
 					if (prePayer != postPayer && calc(postPayer.getSum(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
 						const PrePayerName = document.createElement("strong");
@@ -553,6 +553,7 @@
 						Sum.innerText = calc(postPayer.getSum(prePayer.id));
 
 						const ResultLi2 = document.createElement("li");
+						ResultLi2.classList.add("post-payer");
 						ResultLi2.append(PrePayerName, "さんに", Sum, "円");
 						ResultUl.append(ResultLi2);
 					}
@@ -562,8 +563,11 @@
 					const ResultLi = document.createElement("li");
 					const PostPayerName = document.createElement("strong");
 					PostPayerName.innerText = postPayer.name;
+					const PrePayerLabel = document.createElement("li");
+					PrePayerLabel.innerText = "支払ってください";
+					PrePayerLabel.classList.add("pre-payer-label");
 	
-					ResultLi.append(PostPayerName, "さんは", ResultUl, "支払ってください");
+					ResultLi.append(PostPayerName, "さんは、", ResultUl, PrePayerLabel);
 					ResultList.append(ResultLi);
 				}
 			});
@@ -629,11 +633,11 @@
 				const value = element.split("_");
 				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]: number, [1]: name, [2]: price, [3]: prePayer_number
 				const payer = value[4].split("");	//[4]: payers.join("")
-console.log("type: ", typeof value[4], ", payer: ", payer);
 				members.forEach((member, index) => newItem.setPayer(member.id, Number(payer[index])));
 				items.push(newItem);
 			});
-	
+			console.log(items, members);
+			
 			members.forEach(member => addMember(member.id, member.name));
 			items.forEach(item => addItem(item.id, item.name, item.price, item.prePayer_id));
 			num1 = params.get("num1");
