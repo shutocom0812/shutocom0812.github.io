@@ -300,7 +300,7 @@
 	
 		class Member {
 			constructor(number, name) {	//Number, String
-				this.number = number;
+				this.number = Number(number);
 				this.id = `member${number}`;
 				this.name = name.replace(/_/g, "-");
 				this.sum = new Map();
@@ -319,12 +319,12 @@
 	
 		class Item {
 			constructor(number, name, price, prePayer) {	//Number, String, Number, Number
-				this.number = number;
+				this.number = Number(number);
 				this.id = `item${number}`;
 				this.name = name.replace(/_/g, "-");
 				this.price = Number(price);
-				this.prePayer_number = prePayer || "";
-				this.prePayer_id = prePayer ? `member${prePayer}` : "";
+				this.prePayer_number = Number(prePayer) || new Number();
+				this.prePayer_id = prePayer ? `member${prePayer}` : new String();
 				this.choices = new Map();
 			}
 			setPayer(member_id, choice) {
@@ -365,7 +365,6 @@
 		}
 	
 		function setChoices() {
-			items.forEach(item => item.clearPayers());
 			const checks = document.getElementsByName("payerCheck");
 			for (const element of checks) {
 				const nowItem = items.find(item => item.id === element.id.split("_")[0]);
@@ -529,6 +528,7 @@
 	
 		function editPayer() {
 			members.forEach(member => member.clearSum());
+			items.forEach(item => item.clearPayers());
 			setChoices();	//現在の値を格納
 	
 			items.forEach(item => {
