@@ -629,7 +629,7 @@
 				const value = element.split("_");
 				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]: number, [1]: name, [2]: price, [3]: prePayer_number
 				const payer = value[4].split("");	//[4]: payers.join("")
-console.log("type: " + typeof value[4] + ", payer: " + payer);
+console.log("type: ", typeof value[4], ", payer: ", payer);
 				members.forEach((member, index) => newItem.setPayer(member.id, Number(payer[index])));
 				items.push(newItem);
 			});
