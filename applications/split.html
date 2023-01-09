@@ -171,13 +171,11 @@
 		.post-payer-name {
 			grid-column: 1 / -1;
 			justify-self: start;
-			width: max-content;
 		}
 		.post-payer-name::after{
 			content: "さんは、";
 			position: absolute;
 			left: calc(100% + (var(--gap) * 2));
-			width: max-content;
 		}
 		.pre-payer-name {
 			grid-column: 2 / 3;
@@ -319,8 +317,8 @@
 				this.id = `item${number}`;
 				this.name = name.replace(/_/g, "-");
 				this.price = Number(price);
-				this.prePayer_number = Number(prePayer) || new Number();
-				this.prePayer_id = prePayer ? `member${prePayer}` : new String();
+				this.prePayer_number = prePayer ? Number(prePayer) : "";
+				this.prePayer_id = prePayer ? `member${prePayer}` : "";
 				this.choices = new Map();
 			}
 			setPayer(member_id, choice) {
