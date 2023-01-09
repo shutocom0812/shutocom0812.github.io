@@ -544,7 +544,7 @@
 	
 			members.forEach(postPayer => {
 				const ResultUl = document.createElement("ul");
-				ResultLi.classList.add("post-payers");
+				ResultUl.classList.add("post-payers");
 				members.forEach(prePayer => {
 					if (prePayer != postPayer && calc(postPayer.getSum(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
 						const PrePayerName = document.createElement("strong");
