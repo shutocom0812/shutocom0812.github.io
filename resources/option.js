@@ -8,7 +8,7 @@ function createModal() {
 	const ModalWindow = document.createElement("div");
 	ModalWindow.id = "modalWindow";
 	ModalWindow.classList.add("modal-window");
-	ModalWindow.addEventListener("click", function(){event.stopPropagation();});
+	ModalWindow.addEventListener("click", event => {event.stopPropagation();});
 
 	ModalBack.append(ModalWindow);
 	document.getElementById("navOption").append(ModalBack);
