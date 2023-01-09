@@ -151,7 +151,7 @@
 		.result-grid {
 			display: grid;
 			padding: var(--gap);
-			grid-template-columns: 1fr max-content auto max-content auto 1fr;
+			grid-template-columns: 1fr auto auto auto auto 1fr;
 			grid-template-rows: repeat(auto-fill, 3rem);
 			gap: var(--gap);
 			align-items: center;
@@ -176,6 +176,7 @@
 			content: "さんは、";
 			position: absolute;
 			left: calc(100% + (var(--gap) * 2));
+			width: max-content;
 		}
 		.pre-payer-name {
 			grid-column: 2 / 3;
