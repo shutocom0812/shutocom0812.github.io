@@ -14,7 +14,6 @@
 			align-items: center;
 			justify-content: space-between;
 		}
-
 		.row *:not(:last-child) {
 			margin-right: var(--gap);
 		}
@@ -25,14 +24,12 @@
 			height: var(--height);
 			flex-grow: 3;
 		}
-
 		.price {
 			min-width: 4em;
 			max-width: 6em;
 			height: var(--height);
 			flex-grow: 1;
 		}
-
 		.select-list {
 			width: 8em;
 			height: var(--height);
@@ -57,17 +54,13 @@
 			flex-grow: 0;
 			flex-shrink: 0;
 		}
-
 		.rmv:hover,
 		.add:hover {
 			background: var(--color3);
 			border-color: var(--color3);
 		}
-
-		.rmv::before,
-		.add::before,
-		.rmv::after,
-		.add::after {
+		.rmv::before, .rmv::after,
+		.add::before, .add::after {
 			content: "";
 			position: absolute;
 			top: 50%;
@@ -77,34 +70,24 @@
 			background: var(--color1);
 			border-radius: var(--radius);
 		}
-
 		.rmv::before {
 			transform: translate(-50%, -50%) rotate(45deg);
 		}
-
 		.rmv::after {
 			transform: translate(-50%, -50%) rotate(-45deg);
 		}
-
 		.add::before {
 			transform: translate(-50%, -50%) rotate(180deg);
 		}
-
 		.add::after {
 			transform: translate(-50%, -50%) rotate(90deg);
 		}
-
-		.rmv:hover::before,
-		.add:hover::before,
-		.rmv:hover::after,
-		.add:hover::after,
-		.rmv:focus::before,
-		.add:focus::before,
-		.rmv:focus::after,
-		.add:focus::after {
+		.rmv:hover::before, .rmv:hover::after,
+		.rmv:focus::before, .add:hover::before,
+		.rmv:focus::after, .add:hover::after,
+		.add:focus::before, .add:focus::after {
 			background: var(--color2);
 		}
-
 		.submit {
 			height: var(--height);
 			padding: 0 8px;
@@ -112,9 +95,7 @@
 			color: var(--color2);
 			text-align: center;
 		}
-
-		.submit:hover,
-		.submit:focus {
+		.submit:hover, .submit:focus {
 			background: var(--color3);
 			color: var(--color1);
 			border-color: var(--color3);
@@ -126,27 +107,23 @@
 			text-indent: 0;
 			text-align: justify;
 		}
-
 		.payer-div {
 			width: 100%;
 			padding: var(--gap);
 			border-radius: var(--radius);
 			overflow: hidden;
 		}
-
 		.payer-table {
 			display: block;
 			border-spacing: 0 2px;
 			overflow-x: auto;
 		}
-
 		.payer-table th,
 		.payer-table td {
 			padding: 4px;
 			text-align: center;
 			border-right: 2px solid var(--color2);
 		}
-
 		.payer-table th {
 			min-width: 5em;
 			max-width: 8em;
@@ -154,7 +131,6 @@
 			color: var(--color2);
 			word-break: break-all;
 		}
-
 		.payer-table th:first-child {
 			position: sticky;
 			left: 0;
@@ -169,20 +145,46 @@
 			border-radius: 0;
 			text-align: center;
 		}
-
-		.result-digit,
-		.radio-label {
+		.result-digit, .radio-label {
 			height: var(--height);
 		}
-
-		.result-list {
+		.result-grid {
+			display: grid;
 			padding: var(--gap);
+			grid-template-columns: 1fr max-content auto max-content auto 1fr;
+			grid-template-rows: repeat(auto-fill, 3rem);
+			gap: var(--gap);
+			align-items: center;
+			justify-content: center;
 		}
+		.result-grid strong {
+			display: flex;
+			position: relative;
+			height: var(--height);
+			padding: 0 calc(var(--gap) * 3);
+			align-items: center;
+			justify-content: center;
+			border: 3px solid var(--color1);
+			border-radius: var(--radius);
 
-		.result-list,
-		.result-list ul {
-			padding-left: 12px;
-			list-style-type: none;
+		}
+		.post-payer-name {
+			grid-column: 1 / -1;
+			justify-self: start;
+			width: max-content;
+		}
+		.post-payer-name::after{
+			content: "さんは、";
+			position: absolute;
+			left: calc(100% + (var(--gap) * 2));
+			width: max-content;
+		}
+		.pre-payer-name {
+			grid-column: 2 / 3;
+		}
+		.post-payer-last {
+			grid-column: 1 / -1;
+			justify-self: end;
 		}
 
 		/*SHARE*/
@@ -193,12 +195,9 @@
 			background: var(--color2);
 			color: var(--color1);
 		}
-
-		.share:hover,
-		.share:focus {
+		.share:hover, .share:focus {
 			background: var(--color3);
 		}
-
 		.copy-text {
 			all: unset;
 			width: 90%;
@@ -209,14 +208,11 @@
 			border: 3px solid var(--color1);
 			border-radius: var(--radius);
 		}
-
 		.copy-button {
 			margin-top: var(--gap);
 			color: var(--color1);
 		}
-
-		.copy-button:hover,
-		.copy-button:focus {
+		.copy-button:hover, .copy-button:focus {
 			background: var(--color3);
 			border-color: var(--color3);
 		}
@@ -273,7 +269,7 @@
 						<input type="radio" id="mathFloor" name="math" value="floor">
 						<label for="mathFloor" class="radio-label">切捨て</label>
 					</fieldset>
-					<ul id="resultList" class="result-list"></ul>
+					<div id="resultGrid" class="result-grid"></div>
 				</fieldset>
 			</form>
 			<button id="share" name="share" class="share">結果を共有する</button>
@@ -539,36 +535,36 @@
 				document.getElementById(`${item.id}Payers`).innerHTML = `${item.name}<br>(${Math.round(bite * 10) / 10}円)`;
 			});
 	
-			const ResultList = document.getElementById("resultList");	//親要素を取得し初期化
-			while (ResultList.firstChild) ResultList.firstChild.remove();
+			const ResultGrid = document.getElementById("resultGrid");	//親要素を取得し初期化
+			while (ResultGrid.firstChild) ResultGrid.firstChild.remove();
 	
 			members.forEach(postPayer => {
-				const ResultUl = document.createElement("ul");
-				ResultUl.classList.add("post-payers");
+				const Flagment = new DocumentFragment();
+
 				members.forEach(prePayer => {
-					if (prePayer != postPayer && calc(postPayer.getSum(prePayer.id)) != 0) {	//支払者≠立替者かつ支払額が0円でないとき
+					if (prePayer != postPayer && calc(postPayer.getSum(prePayer.id)) != 0) {	//支払者と立替者が一致せず、かつ支払額が0円でないとき
 						const PrePayerName = document.createElement("strong");
 						PrePayerName.innerText = prePayer.name;
+						PrePayerName.classList.add("pre-payer-name");
+
 						const Sum = document.createElement("strong");
 						Sum.innerText = calc(postPayer.getSum(prePayer.id));
+						Sum.classList.add("sum");
 
-						const ResultLi2 = document.createElement("li");
-						ResultLi2.classList.add("post-payer");
-						ResultLi2.append(PrePayerName, "さんに", Sum, "円");
-						ResultUl.append(ResultLi2);
+						Flagment.append(PrePayerName, "さんに", Sum, "円");
 					}
 				});
 	
-				if (ResultUl.hasChildNodes()) {	//中身がある場合のみ追加
-					const ResultLi = document.createElement("li");
+				if (Flagment.hasChildNodes()) {	//中身がある場合のみ追加
 					const PostPayerName = document.createElement("strong");
 					PostPayerName.innerText = postPayer.name;
-					const PrePayerLabel = document.createElement("li");
-					PrePayerLabel.innerText = "支払ってください";
-					PrePayerLabel.classList.add("pre-payer-label");
+					PostPayerName.classList.add("post-payer-name");
+
+					const PostPayerLabel = document.createElement("span");
+					PostPayerLabel.innerText = "支払ってください。";
+					PostPayerLabel.classList.add("post-payer-last", "result-span");
 	
-					ResultLi.append(PostPayerName, "さんは、", ResultUl, PrePayerLabel);
-					ResultList.append(ResultLi);
+					ResultGrid.append(PostPayerName, Flagment, PostPayerLabel);
 				}
 			});
 		}
