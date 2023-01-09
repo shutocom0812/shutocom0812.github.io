@@ -137,7 +137,7 @@ input[type="radio"] + label{
 	padding: 0 3px;
 	color: var(--color1);
 	align-items: center;
-	border: 3px double var(--color1);
+	border: 5px double var(--color1);
 	border-radius: var(--radius);
 }
 input[type="radio"]:hover + label, 
@@ -148,7 +148,7 @@ input[type="radio"]:focus + label{
 input[type="radio"]:checked + label{
 	background-color: var(--color1);
 	color: var(--color2);
-	border: 3px solid var(--color1);
+	border-color: var(--color1);
 }
 input[type="radio"]:disabled + label{
 	border-color: var(--gray);
@@ -251,10 +251,4 @@ select:disabled{
 	z-index: 1;
 	align-items: center;
 	justify-content: center;
-}
-
-/*ORIDINAL*/
-strong{
-	font-size: 1.2em;
-	text-decoration: var(--color3) underline wavy;
 }
