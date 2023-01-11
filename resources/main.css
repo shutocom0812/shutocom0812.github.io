@@ -34,7 +34,6 @@ html{
 	color: var(--color1);
 }
 body{
-	min-height: 100vh;
 	background: var(--color1);
 }
 
