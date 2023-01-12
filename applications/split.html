@@ -9,18 +9,19 @@
 	<link rel="stylesheet" href="/resources/layout.css" />
 	<style>
 		/*CALCULATOR*/
+		fieldset{
+			padding: calc(var(--gap) * 3);
+		}
 		/*MEMBER, ITEM*/
 		.row {
 			display: flex;
-			padding: var(--gap);
+			padding: var(--gap) 0;
 			align-items: center;
 			justify-content: space-between;
 		}
 		.row *:not(:last-child) {
 			margin-right: var(--gap);
 		}
-
-		/*INPUT DESIGN*/
 		.name {
 			min-width: 5em;
 			height: var(--height);
@@ -37,16 +38,12 @@
 			height: var(--height);
 			flex-grow: 1;
 		}
-
-		/*BUTTONS WRAPPER*/
 		.buttons {
 			display: flex;
 			padding: var(--gap);
 			align-items: center;
 			justify-content: space-between;
 		}
-
-		/*BUTTON DESIGN*/
 		.rmv,
 		.add {
 			display: block;
@@ -105,19 +102,17 @@
 
 		/*PAYER*/
 		.payer-field p {
-			padding: 0 var(--gap);
 			text-indent: 0;
 			text-align: justify;
 		}
 		.payer-div {
 			width: 100%;
-			padding: var(--gap);
-			border-radius: var(--radius);
 			overflow: hidden;
 		}
 		.payer-table {
 			display: block;
 			border-spacing: 0 2px;
+			border-radius: var(--radius);
 			overflow-x: auto;
 		}
 		.payer-table th,
@@ -153,7 +148,7 @@
 		.result-grid {
 			display: grid;
 			padding: var(--gap);
-			grid-template-columns: 1fr auto auto auto auto 1fr;
+			grid-template-columns: 1fr auto 3rem max-content 1rem 1fr;
 			grid-template-rows: repeat(auto-fill, 3rem);
 			gap: var(--gap);
 			align-items: center;
@@ -162,12 +157,11 @@
 		.result-grid strong {
 			display: flex;
 			height: var(--height);
-			padding: 0 calc(var(--gap) * 3);
+			padding: 0 calc(var(--gap) * 2);
 			align-items: center;
 			justify-content: center;
 			border: 3px solid var(--color1);
 			border-radius: var(--radius);
-
 		}
 		.post-payer-name {
 			position: relative;
@@ -177,7 +171,7 @@
 		.post-payer-name::after{
 			content: "さんは、";
 			position: absolute;
-			left: calc(100% + (var(--gap) * 2));
+			left: calc(100% + 3px + (var(--gap) * 2));
 			width: max-content;
 		}
 		.pre-payer-name {
