@@ -142,7 +142,6 @@
 		.result-math {
 			border-bottom: 3px dotted var(--color1);
 			border-radius: 0;
-			padding: 0 var(--gap) var(--gap);
 			text-align: center;
 		}
 		.result-digit, .radio-label {
@@ -252,7 +251,7 @@
 				</fieldset>
 				<fieldset id="resultField" class="result-field" name="resultField">
 					<legend>結果</legend>
-					<div id="resultMath" class="result-math">
+					<fieldset id="resultMath" class="result-math" name="resultMath">
 						<select name="digit" class="result-digit">
 							<option value="1" selected>1円</option>
 							<option value="10">10円</option>
@@ -266,7 +265,7 @@
 						<label for="mathRound" class="radio-label">四捨五入</label>
 						<input type="radio" id="mathFloor" name="math" value="floor">
 						<label for="mathFloor" class="radio-label">切捨て</label>
-					</div>
+					</fieldset>
 					<div id="resultGrid" class="result-grid"></div>
 				</fieldset>
 			</form>
