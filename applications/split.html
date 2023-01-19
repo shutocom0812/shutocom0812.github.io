@@ -562,7 +562,7 @@
 			});
 		}
 
-		function shareResult() {
+		async function shareResult() {
 			const params = new URLSearchParams();
 			params.append("num1", num1);
 			params.append("num2", num2);
@@ -583,9 +583,9 @@
 				url: shareURL
 			}
 
-			if (navigator.share) {
-				navigator.share(shareData);
-			} else {
+			try {
+				await navigator.share(shareData);
+			} catch (e) {
 				const CopyText = document.createElement("textarea");	//コピーするURLを表示
 				CopyText.id = "copyText";
 				CopyText.classList.add("copy-text");
@@ -613,15 +613,15 @@
 		if (location.search) {
 			const params = new URLSearchParams(location.search);
 
-			params.getAll("member").forEach(element => {
-				const value = element.split("_");
-				const newMember = new Member(value[0], value[1]);	//[0]: number, [1]: name
+			params.getAll("member").forEach(param => {
+				const value = param.split("_");
+				const newMember = new Member(value[0], value[1]);	//[0]number [1]name
 				members.push(newMember);
 			});
-			params.getAll("item").forEach(element => {
-				const value = element.split("_");
-				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]: number, [1]: name, [2]: price, [3]: prePayer_number
-				const payer = value[4].split("");	//[4]: payers.join("")
+			params.getAll("item").forEach(param => {
+				const value = param.split("_");
+				const newItem = new Item(value[0], value[1], value[2], value[3]);	//[0]number [1]name [2]price [3]prePayer_number
+				const payer = value[4].split("");	//[4]payers.join("")
 				members.forEach((member, index) => newItem.setPayer(member.id, Number(payer[index])));
 				items.push(newItem);
 			});
