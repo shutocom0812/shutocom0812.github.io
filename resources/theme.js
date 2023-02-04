@@ -10,13 +10,7 @@ const themes = [
 	["#edfafd", "#1086e3", "#3ddad7"]	//Amami-Dark
 ];
 
-function themeSet(now) {
-	themes[now].forEach((color, index) => {
-		document.querySelector(":root").style.setProperty(`--color${index + 1}`, color);
-	});
-}
-
-function themeFirst() {
+function theme() {
 	const now = Number(localStorage.getItem("theme"));
 	if (now != null && now < themes.length) {
 		themeSet(now);
@@ -30,8 +24,14 @@ function themeFirst() {
 	Button.name = "theme";
 	Button.classList.add("theme-button");
 	Button.tabIndex = -1;
-	Button.addEventListener("click", () => {themeChange();}, false);
+	Button.addEventListener("click", themeChange);
 	document.getElementById("navOption").append(Button);
+}
+
+function themeSet(now) {
+	themes[now].forEach((color, index) => {
+		document.querySelector(":root").style.setProperty(`--color${index + 1}`, color);
+	});
 }
 
 function themeChange() {
@@ -40,4 +40,4 @@ function themeChange() {
 	localStorage.setItem("theme", themeIndex);
 }
 
-themeFirst();
+theme();
