@@ -3,7 +3,7 @@ function createModal() {
 	const ModalBack = document.createElement("div");
 	ModalBack.id = "modalBack";
 	ModalBack.classList.add("modal-back", "close");
-	ModalBack.addEventListener("click", function() {this.classList.add("close");});
+	ModalBack.addEventListener("click", event => {event.target.classList.add("close");});
 
 	const ModalWindow = document.createElement("div");
 	ModalWindow.id = "modalWindow";
