@@ -301,8 +301,8 @@
 			Form.alignContentForm.disabled = (wrapValue === "nowrap") ? true : false;
 
 		}
-		Form.addEventListener("submit", event => {event.preventDefault();}, false);
-		Form.addEventListener("change", () => {flexChange();}, false);
+		Form.addEventListener("submit", event => {event.preventDefault();});
+		Form.addEventListener("change", flexChange);
 		flexChange();
 	</script>
 </body>
