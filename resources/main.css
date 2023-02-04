@@ -195,6 +195,16 @@ input[type="checkbox"]:checked + label::after {
 	transform: translate(-6px, 5px) rotateZ(-45deg);
 	transform-origin: 2px 2px;
 }
+input[type="range"]{
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+	background: var(--gray);
+	height: 4px;
+	border-radius: var(--radius);
+	outline: 0;
+	accent-color: var(--color3);
+}
 /*BUTTON*/
 button{
 	padding: var(--gap);
