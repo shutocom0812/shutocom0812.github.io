@@ -389,7 +389,7 @@
 			MemberRmv.type = "button";
 			MemberRmv.id = nowId ? nowId : `member${num1}`;
 			MemberRmv.classList.add("rmv");
-			MemberRmv.addEventListener("click", function () { this.parentElement.remove(); }, false);
+			MemberRmv.addEventListener("click", event => {event.target.parentElement.remove();});
 
 			MemberRow.append(MemberName, MemberRmv);
 			document.getElementById("memberForm").append(MemberRow);
@@ -437,7 +437,7 @@
 			ItemRmv.type = "button";
 			ItemRmv.id = nowId ? nowId : `item${num2}`;
 			ItemRmv.classList.add("rmv");
-			ItemRmv.addEventListener("click", function () { this.parentElement.remove(); }, false);
+			ItemRmv.addEventListener("click", event => {event.target.parentElement.remove();});
 
 			ItemRow.append(ItemName, ItemPrice, ItemLabel, ItemPrePayer, ItemRmv);
 			document.getElementById("itemForm").append(ItemRow);
@@ -591,7 +591,7 @@
 				CopyText.classList.add("copy-text");
 				CopyText.value = shareURL;
 				CopyText.readOnly = true;
-				CopyText.addEventListener("focus", function () { this.select() }, false);	//focusすると全選択
+				CopyText.addEventListener("focus", event => {event.target.select();});	//focusすると全選択
 
 				const CopyButton = document.createElement("button");	//コピーボタン
 				CopyButton.id = "copyButton";
@@ -604,7 +604,7 @@
 					} catch (error) {
 						runToast("コピーできませんでした。");
 					}
-				}, false);
+				});
 				runModal(CopyText, CopyButton);
 			}
 		}
@@ -639,15 +639,15 @@
 		}
 
 		//EVENT LISTNERS
-		Form.addEventListener("submit", event => { event.preventDefault(); });
+		Form.addEventListener("submit", event => {event.preventDefault();});
 
-		Form.memberAdd.addEventListener("click", () => { addMember(); }, false);
-		Form.memberSubmit.addEventListener("click", () => { editMember(); }, false);
-		Form.itemAdd.addEventListener("click", () => { addItem(); }, false);
-		Form.itemSubmit.addEventListener("click", () => { editItem(); }, false);
-		Form.payerField.addEventListener("change", () => { editPayer(); }, false);
-		Form.resultMath.addEventListener("change", () => { editPayer(); }, false);
-		document.getElementById("share").addEventListener("click", () => { shareResult(); }, false);
+		Form.memberAdd.addEventListener("click", addMember);
+		Form.memberSubmit.addEventListener("click", editMember);
+		Form.itemAdd.addEventListener("click", addItem);
+		Form.itemSubmit.addEventListener("click", editItem);
+		Form.payerField.addEventListener("change", editPayer);
+		Form.resultMath.addEventListener("change", editPayer);
+		document.getElementById("share").addEventListener("click", shareResult);
 
 		//OPTION
 		createModal();
