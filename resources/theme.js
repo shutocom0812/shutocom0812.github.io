@@ -11,20 +11,20 @@ const themes = [
 ];
 
 function theme() {
-	const now = Number(localStorage.getItem("theme"));
-	if (now != null && now < themes.length) {
-		themeSet(now);
-		themeIndex = now;
+	const nowIndex = Number(localStorage.getItem("theme"));
+	if (nowIndex && nowIndex < themes.length) {
+		themeSet(nowIndex);
+		themeIndex = nowIndex;
 	} else {
 		themeSet(0);
 	}
 
 	const Button = document.createElement("button");
 	Button.id = "themeButton";
-	Button.name = "theme";
 	Button.classList.add("theme-button");
 	Button.tabIndex = -1;
 	Button.addEventListener("click", themeChange);
+
 	document.getElementById("navOption").append(Button);
 }
 
@@ -35,7 +35,7 @@ function themeSet(now) {
 }
 
 function themeChange() {
-	themeIndex = (themeIndex >= themes.length - 1) ? 0 : themeIndex + 1;
+	themeIndex = (themeIndex < themes.length - 1) ? themeIndex + 1 : 0;
 	themeSet(themeIndex);
 	localStorage.setItem("theme", themeIndex);
 }
