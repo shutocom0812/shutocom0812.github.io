@@ -3,12 +3,12 @@ function createModal() {
 	const ModalBack = document.createElement("div");
 	ModalBack.id = "modalBack";
 	ModalBack.classList.add("modal-back", "close");
-	ModalBack.addEventListener("click", event => {event.target.classList.add("close");});
+	ModalBack.addEventListener("click", event => event.target.classList.add("close"));
 
 	const ModalWindow = document.createElement("div");
 	ModalWindow.id = "modalWindow";
 	ModalWindow.classList.add("modal-window");
-	ModalWindow.addEventListener("click", event => {event.stopPropagation();});
+	ModalWindow.addEventListener("click", event => event.stopPropagation());
 
 	ModalBack.append(ModalWindow);
 	document.getElementById("navOption").append(ModalBack);
