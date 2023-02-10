@@ -339,20 +339,13 @@
 		//FUNCTIONS	
 		function calc(target) {	//端数処理
 			const digit = Form.digit.value;
-			const times = target / digit;
-			let result = 0;
 			switch (Form.math.value) {
-				case "floor":
-					result = Math.floor(times);
+				case "floor": return Math.floor(target / digit) * digit;
 					break;
-				case "round":
-					result = Math.round(times);
+				case "round": return Math.round(target / digit) * digit;
 					break;
-				case "ceil":
-				default:
-					result = Math.ceil(times);
+				case "ceil" : return Math.ceil(target / digit) * digit;
 			}
-			return result * digit;
 		}
 
 		function setChoices() {
@@ -389,7 +382,7 @@
 			MemberRmv.type = "button";
 			MemberRmv.id = nowId ? nowId : `member${num1}`;
 			MemberRmv.classList.add("rmv");
-			MemberRmv.addEventListener("click", event => {event.target.parentElement.remove();});
+			MemberRmv.addEventListener("click", event => event.target.parentElement.remove());
 
 			MemberRow.append(MemberName, MemberRmv);
 			document.getElementById("memberForm").append(MemberRow);
@@ -422,9 +415,6 @@
 			ItemPrice.required = true;
 			ItemPrice.value = nowPrice ? nowPrice : "";
 
-			const ItemLabel = document.createElement("span");
-			ItemLabel.innerText = "円";
-
 			const ItemPrePayer = document.createElement("select");	//立替者欄
 			ItemPrePayer.id = nowId ? `${nowId}PrePayer` : `item${num2}PrePayer`;
 			ItemPrePayer.name = "memberList";
@@ -437,9 +427,9 @@
 			ItemRmv.type = "button";
 			ItemRmv.id = nowId ? nowId : `item${num2}`;
 			ItemRmv.classList.add("rmv");
-			ItemRmv.addEventListener("click", event => {event.target.parentElement.remove();});
+			ItemRmv.addEventListener("click", event => event.target.parentElement.remove());
 
-			ItemRow.append(ItemName, ItemPrice, ItemLabel, ItemPrePayer, ItemRmv);
+			ItemRow.append(ItemName, ItemPrice, "円", ItemPrePayer, ItemRmv);
 			document.getElementById("itemForm").append(ItemRow);
 
 			num2++;
@@ -591,7 +581,7 @@
 				CopyText.classList.add("copy-text");
 				CopyText.value = shareURL;
 				CopyText.readOnly = true;
-				CopyText.addEventListener("focus", event => {event.target.select();});	//focusすると全選択
+				CopyText.addEventListener("focus", event => event.target.select());	//focusすると全選択
 
 				const CopyButton = document.createElement("button");	//コピーボタン
 				CopyButton.id = "copyButton";
@@ -639,15 +629,15 @@
 		}
 
 		//EVENT LISTNERS
-		Form.addEventListener("submit", event => {event.preventDefault();});
+		Form.addEventListener("submit", event => event.preventDefault());
 
 		Form.memberAdd.addEventListener("click", () => {addMember();});
-		Form.memberSubmit.addEventListener("click", () => {editMember();});
+		Form.memberSubmit.addEventListener("click", editMember);
 		Form.itemAdd.addEventListener("click", () => {addItem();});
-		Form.itemSubmit.addEventListener("click", () => {editItem();});
-		Form.payerField.addEventListener("change", () => {editPayer();});
-		Form.resultMath.addEventListener("change", () => {editPayer();});
-		document.getElementById("share").addEventListener("click", () => {shareResult();});
+		Form.itemSubmit.addEventListener("click", editItem);
+		Form.payerField.addEventListener("change", editPayer);
+		Form.resultMath.addEventListener("change", editPayer);
+		document.getElementById("share").addEventListener("click", shareResult);
 
 		//OPTION
 		createModal();
