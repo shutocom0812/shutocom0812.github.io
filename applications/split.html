@@ -353,7 +353,7 @@
 		function addMember() {	//メンバー欄の追加
 			const nowMember = members[num1];
 
-			const MemberRow = document.createElement("fieldset");
+			const MemberRow = document.createElement("div");
 			MemberRow.id = nowMember ? nowMember.id : `member${num1}`;
 			MemberRow.classList.add("member-row", "row");
 
@@ -378,7 +378,7 @@
 		function addItem() {	//費目欄の追加
 			const nowItem = items[num2];
 
-			const ItemRow = document.createElement("fieldset");
+			const ItemRow = document.createElement("div");
 			ItemRow.id = nowItem ? nowItem.id : `item${num2}`;
 			ItemRow.classList.add("item-row", "row");
 
