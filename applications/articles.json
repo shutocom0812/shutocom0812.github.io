@@ -1,12 +1,12 @@
 [
 	{
 		"title": "立替精算機",
-		"link": "/split.html",
+		"link": "split.html",
 		"desc": "立替えた代金を精算しよう。"
 	},
 	{
 		"title": "Flex Box",
-		"link": "/flex.html",
+		"link": "flex.html",
 		"desc": "CSS Flex Boxのシミュレータ。"
 	}
 ]
