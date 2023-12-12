@@ -469,7 +469,7 @@
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.id}_${member.id}`;
 					PayerCheck.classList.add("payer-check");
-					PayerCheck.checked = (item.choices.get(member.id) == 0) ? false : true;	//現在の値が0のときのみfalse
+					PayerCheck.checked = !(item.choices.get(member.id) === 0);	//現在の値が0のときのみfalse
 
 					const PayerLabel = document.createElement("label");
 					PayerLabel.htmlFor = PayerCheck.id;
