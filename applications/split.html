@@ -284,14 +284,14 @@
 		import { createModal, runModal, createToast, runToast } from "/resources/option.js";
 
 		//VARIABLE
-		let num1 = 0;
-		let num2 = 0;
-		let members = new Array();
-		let items = new Array();
+		let num1 = 0; //メンバーID作るための変数
+		let num2 = 0; //費目ID作るための変数
+		let members = new Array(); //メンバー格納する配列
+		let items = new Array(); //費目格納する配列
 
 		//CONSTANT
-		const Form = document.forms.splitForm;
-		const calc = (target) => {	//端数処理
+		const Form = document.forms.splitForm; //端数処理の方法取得する
+		const calc = (target) => {	//端数処理する関数
 			const digit = Form.digit.value;
 			switch (Form.math.value) {
 				case "floor": return Math.floor(target / digit) * digit;
@@ -303,33 +303,33 @@
 		}
 
 		//CLASS
-		class Member {
-			constructor(number, name) {	//Number, String
-				this.number = Number(number);
-				this.id = `member${number}`;
-				this.name = name.replace(/_/g, "-") || `メンバー${Number(number) + 1}`;
-				this.sum = new Map();	//{member_id: Number(金額)}
+		class Member { //メンバーのクラス
+			constructor(number, name) {	//引数 変数（Number）, 名前（String）
+				this.number = Number(number); //メンバーIDのもとになる数字
+				this.id = `member${number}`; //メンバーID
+				this.name = name.replace(/_/g, "-") || `メンバー${Number(number) + 1}`; //名前 なかったら「メンバー1」とかにする
+				this.sum = new Map();	//各メンバーに対する支払額 {member_id: Number(金額)}
 			}
-			setSum(member_id, newSum) {
-				const nowSum = this.sum.get(member_id) || 0;
-				this.sum.set(member_id, Number(nowSum) + Number(newSum));
+			setSum(member_id, newSum) { //sum金額の更新 引数は誰（に対して）何円（支払額を追加する）
+				const nowSum = this.sum.get(member_id) || 0; //追加するメンバーに今入ってる金額 なかったら0
+				this.sum.set(member_id, Number(nowSum) + Number(newSum)); //元の金額に新しい額を加算する
 			}
 		}
 
 		class Item {
-			constructor(number, name, price, prePayer) {	//Number, String, Number, Number
-				this.number = Number(number);
-				this.id = `item${number}`;
-				this.name = name.replace(/_/g, "-") || `費目${Number(number) + 1}`;
-				this.price = Number(price);
-				this.prePayer_number = prePayer ? Number(prePayer) : "";
-				this.prePayer_id = prePayer ? `member${prePayer}` : "";
-				this.choices = new Map();	//{member_id: 1/0}
+			constructor(number, name, price, prePayer) {	//引数 変数（Number）, 名前（String）, 金額（Number）, 立替者（Number）
+				this.number = Number(number); //費目IDのもとになる数字
+				this.id = `item${number}`; //費目ID
+				this.name = name.replace(/_/g, "-") || `費目${Number(number) + 1}`; //名前
+				this.price = Number(price); //金額
+				this.prePayer_number = prePayer ? Number(prePayer) : ""; //立替者のIDの数字
+				this.prePayer_id = prePayer ? `member${prePayer}` : ""; //立替者のID
+				this.choices = new Map();	//支払いに誰が参加するか？ {member_id: 1/0}
 			}
-			getPayersNumber() {
+			getPayersNumber() { //何人で割り勘するか
 				return Array.from(this.choices.values()).reduce((sum, val) => sum += val, 0);
 			}
-			getPayersJoin() {
+			getPayersJoin() { //支払い参加者を2進で取得（共有リンク作成用）
 				return Array.from(this.choices.values()).join("");
 			}
 		}
@@ -338,58 +338,58 @@
 		function setMemberList(Select) {	//立替者リストの作成(HTMLSelectElement)
 			Select[0] = new Option("立替者", "");
 			Select[0].disabled = true;
-			members.forEach(member => Select.append(new Option(member.name, member.id)));
+			members.forEach(member => Select.append(new Option(member.name, member.id))); //メンバーの数だけ選択肢追加
 		}
 
 		function setChoices() {	//支払者欄の結果を取得
-			for (const element of document.getElementsByClassName("payer-check")) {
-				const ids = element.id.split("_");
-				const nowItem = items.find(item => item.id === ids[0]);
-				const nowMember = members.find(member => member.id === ids[1]);
-				if (nowItem && nowMember) nowItem.choices.set(nowMember.id, element.checked ? 1 : 0);
+			for (const element of document.getElementsByClassName("payer-check")) { //チェックボックス取得、その数だけ繰り返す
+				const ids = element.id.split("_"); //IDを前半と後半で分ける
+				const nowItem = items.find(item => item.id === ids[0]); //前半のIDから一致する費目を検索
+				const nowMember = members.find(member => member.id === ids[1]); //後半のIDから一致するメンバーを検索
+				if (nowItem && nowMember) nowItem.choices.set(nowMember.id, element.checked ? 1 : 0); //どっちも見つかったらBooleanを取得、費目のChoicesに1/0で格納する
 			}
 		}
 
 		function addMember() {	//メンバー欄の追加
-			const nowMember = members[num1];
+			const nowMember = members[num1]; //作成済みのメンバーを代入／ない場合は空白で返る
 
-			const MemberRow = document.createElement("div");
-			MemberRow.id = nowMember ? nowMember.id : `member${num1}`;
+			const MemberRow = document.createElement("div"); //行作成
+			MemberRow.id = nowMember ? nowMember.id : `member${num1}`; //idはメンバーIDと一致
 			MemberRow.classList.add("member-row", "row");
 
-			const MemberName = document.createElement("input");
+			const MemberName = document.createElement("input"); //名前欄
 			MemberName.type = "text";
 			MemberName.classList.add("member-name", "name");
 			MemberName.placeholder = "名前";
 			MemberName.required = true;
 			MemberName.value = nowMember ? nowMember.name : "";
 
-			const MemberRmv = document.createElement("button");
+			const MemberRmv = document.createElement("button"); //削除ボタン
 			MemberRmv.type = "button";
 			MemberRmv.classList.add("member-rmv", "rmv");
 			MemberRmv.addEventListener("click", event => event.target.parentElement.remove());
 
-			MemberRow.append(MemberName, MemberRmv);
+			MemberRow.append(MemberName, MemberRmv); //フォームに追加する
 			document.getElementById("memberEdit").append(MemberRow);
 
-			num1++;
+			num1++; //変数進める
 		}
 
 		function addItem() {	//費目欄の追加
-			const nowItem = items[num2];
+			const nowItem = items[num2]; //作成済みの費目を代入／ない場合は空白で返る
 
-			const ItemRow = document.createElement("div");
-			ItemRow.id = nowItem ? nowItem.id : `item${num2}`;
+			const ItemRow = document.createElement("div"); //行追加
+			ItemRow.id = nowItem ? nowItem.id : `item${num2}`; //idは費目IDと一致
 			ItemRow.classList.add("item-row", "row");
 
-			const ItemName = document.createElement("input");
+			const ItemName = document.createElement("input"); //名前欄
 			ItemName.type = "text";
 			ItemName.classList.add("item-name", "name");
 			ItemName.placeholder = "費目名";
 			ItemName.required = true;
 			ItemName.value = nowItem ? nowItem.name : "";
 
-			const ItemPrice = document.createElement("input");
+			const ItemPrice = document.createElement("input"); //金額欄
 			ItemPrice.type = "number";
 			ItemPrice.classList.add("item-price", "price");
 			ItemPrice.step = 1;
@@ -398,74 +398,74 @@
 			ItemPrice.required = true;
 			ItemPrice.value = nowItem ? nowItem.price : "";
 
-			const ItemPrePayer = document.createElement("select");
+			const ItemPrePayer = document.createElement("select"); //立替者欄
 			ItemPrePayer.classList.add("item-pre-payer", "member-list");
 			setMemberList(ItemPrePayer);
 			ItemPrePayer.required = true;
 			ItemPrePayer.value = nowItem ? nowItem.prePayer_id : "";
 
-			const ItemRmv = document.createElement("button");
+			const ItemRmv = document.createElement("button"); //削除ボタン
 			ItemRmv.type = "button";
 			ItemRmv.classList.add("item-rmv", "rmv");
 			ItemRmv.addEventListener("click", event => event.target.parentElement.remove());
 
-			ItemRow.append(ItemName, ItemPrice, "円", ItemPrePayer, ItemRmv);
+			ItemRow.append(ItemName, ItemPrice, "円", ItemPrePayer, ItemRmv); //フォームに追加する
 			document.getElementById("itemEdit").append(ItemRow);
 
-			num2++;
+			num2++; //変数進める
 		}
 
 		function editMember() {	//メンバー欄の更新
-			members = [];
-			for (const element of document.getElementsByClassName("member-row")) {
-				const number = element.id.replace("member", "");
+			members = []; //メンバー配列初期化
+			for (const element of document.getElementsByClassName("member-row")) { //作った行の数だけ繰り返す
+				const number = element.id.replace("member", ""); //行のIDを取得
 				const name = element.children[0].value;
-				members.push(new Member(number, name));
+				members.push(new Member(number, name)); //配列に新規メンバー格納
 			}
 
 			for (const element of document.getElementsByClassName("member-list")) {	//立替者リストを更新
-				const now = element.value;
-				while (element.firstChild) element.firstChild.remove();
-				setMemberList(element);
-				element.value = members.some(member => member.id === now) ? now : "";
+				const now = element.value; //今の値を待避
+				while (element.firstChild) element.firstChild.remove(); //子要素初期化
+				setMemberList(element); //リスト作成
+				element.value = members.some(member => member.id === now) ? now : ""; //待避していた値をセット
 			}
-			editItem();
+			editItem(); //費目欄更新しておく
 		}
 
 		function editItem() {	//費目欄の更新
-			items = [];
-			for (const element of document.getElementsByClassName("item-row")) {
-				const number = element.id.replace("item", "");
+			items = []; //費目配列初期化
+			for (const element of document.getElementsByClassName("item-row")) { //作った行の数だけ繰り返す
+				const number = element.id.replace("item", ""); //行のidを取得
 				const name = element.children[0].value;
 				const price = element.children[1].value;
 				const prePayer = element.children[2].value.replace("member", "");
-				items.push(new Item(number, name, price, prePayer));
+				items.push(new Item(number, name, price, prePayer)); //配列に新規費目格納
 			}
-			addPayer();
+			addPayer(); //支払者欄更新しておく
 		}
 
 		function addPayer() {	//支払者欄の追加
-			setChoices();
-			const PayerWrapper = document.getElementById("payerDiv");
+			setChoices(); //現在の値を取得
+			const PayerWrapper = document.getElementById("payerDiv"); //テーブル要素作成
 			const PayerTable = document.getElementById("payerTable");
-			while (PayerTable.firstChild) PayerTable.firstChild.remove();
+			while (PayerTable.firstChild) PayerTable.firstChild.remove(); //テーブルを初期化
 
-			const PayerRow1 = PayerTable.insertRow();
+			const PayerRow1 = PayerTable.insertRow(); //タイトル行
 			PayerRow1.append(document.createElement("th"));
-			members.forEach(member => {
+			members.forEach(member => { //メンバーの数だけマスを増やす
 				const PayerName = document.createElement("th");
 				PayerName.innerText = member.name;
 				PayerRow1.append(PayerName);
 			});
 
-			items.forEach(item => {
+			items.forEach(item => { //費目の数だけ行を追加
 				const PayerRow = PayerTable.insertRow();
 				const PayerItem = document.createElement("th");
 				PayerItem.id = `${item.id}Payers`;
 				PayerRow.append(PayerItem);
 				
-				members.forEach(member => {
-					const PayerCheck = document.createElement("input");
+				members.forEach(member => { //費目の数だけマスを追加
+					const PayerCheck = document.createElement("input"); //チェックボックス
 					PayerCheck.type = "checkbox";
 					PayerCheck.id = `${item.id}_${member.id}`;
 					PayerCheck.classList.add("payer-check");
@@ -481,33 +481,33 @@
 			});
 
 			document.getElementById("scrollAlert").style.display = (PayerWrapper.clientWidth < PayerTable.clientWidth) ? "block" : "none";
-			editPayer();
+			editPayer(); //列がはみ出す場合のアラート
 		}
 
 		function editPayer() {	//支払者欄の更新・結果欄の更新
 			//支払者欄の更新
-			members.forEach(member => member.sum.clear());
-			items.forEach(item => item.choices.clear());
-			setChoices();
+			members.forEach(member => member.sum.clear()); //メンバーのsum初期化
+			items.forEach(item => item.choices.clear()); //費目のchoices初期化
+			setChoices(); //現在のチェックボックスの値を取得
 
-			items.forEach(item => {
-				const bite = item.price / item.getPayersNumber();
-				for (const [postPayer_id, choice] of item.choices) {
-					const postPayer = members.find(member => member.id === postPayer_id);
-					if (choice === 1) postPayer.setSum(item.prePayer_id, bite);
+			items.forEach(item => { //費目の数だけに繰り返す
+				const bite = item.price / item.getPayersNumber(); //一人あたり
+				for (const [postPayer_id, choice] of item.choices) { //割り勘参加者の数だけ繰り返す
+					const postPayer = members.find(member => member.id === postPayer_id); //sumで立替者検索
+					if (choice === 1) postPayer.setSum(item.prePayer_id, bite); //1なら加算
 				}
-				document.getElementById(`${item.id}Payers`).innerHTML = `${item.name}<br>(${Math.round(bite * 10) / 10}円)`;
+				document.getElementById(`${item.id}Payers`).innerHTML = `${item.name}<br>(${Math.round(bite * 10) / 10}円)`; //一人あたり金額表示
 			});
 
 			//結果欄の更新
-			const ResultGrid = document.getElementById("resultGrid");
-			while (ResultGrid.firstChild) ResultGrid.firstChild.remove();
+			const ResultGrid = document.getElementById("resultGrid"); //結果フォーム取得
+			while (ResultGrid.firstChild) ResultGrid.firstChild.remove(); //初期化
 
-			members.forEach(postPayer => {
+			members.forEach(postPayer => { //メンバーの数だけ繰り返す
 				const Flagment = new DocumentFragment();
-				for (const [prePayer_id, sum] of postPayer.sum) {
-					const prePayer = members.find(member => member.id === prePayer_id);
-					if (prePayer && prePayer != postPayer && calc(sum)) {
+				for (const [prePayer_id, sum] of postPayer.sum) {//Sumの中身の数だけ繰り返す
+					const prePayer = members.find(member => member.id === prePayer_id); //支払が必要な相手に
+					if (prePayer && prePayer != postPayer && calc(sum)) { //支払相手が存在 かつ 支払い相手が自分ではない かつ 金額が0円でない
 						const PrePayerName = document.createElement("strong");
 						PrePayerName.innerText = prePayer.name;
 						PrePayerName.classList.add("pre-payer-name");
